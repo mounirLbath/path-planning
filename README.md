@@ -1,2 +1,1 @@
-# path-planning
-Path Planning Algorithm - CS project
+# Path Planning Algorithm - CS project
