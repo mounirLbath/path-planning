@@ -1,7 +1,12 @@
 
 from environment import *
+from pso import *
 
 if __name__ == "__main__":
     problem = load_problem("./scenarios/scenario1.txt")
-    display_environment(problem, path=[problem.start1, problem.goal1])
+    
+    g = particle_swarm_optimization(problem)
+    # for p in g.points:
+    #     print(p)
+    # display_environment(problem, path=g)
 

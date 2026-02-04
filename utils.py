@@ -1,4 +1,4 @@
-from environment import Point, Rectangle
+from geometry import Point, Rectangle
 
 
 def distance(a: Point, b: Point) -> float:
@@ -39,12 +39,5 @@ def segment_intersects_rect(a: Point, b: Point, r: Rectangle) -> bool:
 def segment_collision(a: Point, b: Point, obstacles: list[Rectangle]) -> bool:
     for obs in obstacles:
         if segment_intersects_rect(a, b, obs):
-            return True
-    return False
-
-def path_collision(path: list[Point], obstacles: list[Rectangle]) -> bool:
-    """Returns true if path collides with an obstacle"""
-    for i in range(len(path)-1):
-        if segment_collision(path[i], path[i+1], obstacles):
             return True
     return False
