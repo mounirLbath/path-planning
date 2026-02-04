@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -12,6 +10,16 @@ class Point:
     def __init__(self, x: float, y: float) -> None:
         self.x = x
         self.y = y
+
+    # Define basic vector operations
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other):
+        return Point(self.x - other.x, self.y - other.y)
+
+    def __mul__(self, scalar: float):
+        return Point(self.x * scalar, self.y * scalar)
 
 
 class Rectangle:
@@ -28,6 +36,17 @@ class Rectangle:
 
     def is_within_bounds(self, xmax: float, ymax: float) -> bool:
         return self.x >= 0 and self.y >= 0 and self.x + self.width <= xmax and self.y + self.height <= ymax
+
+    def edges(self):
+        corner = Point(self.x, self.y)
+        width_vec = Point(self.width, 0)
+        height_vec = Point(0, self.height)
+        return [
+            (corner, corner + width_vec),
+            (corner + width_vec, corner + width_vec + height_vec),
+            (corner + width_vec + height_vec, corner + height_vec),
+            (corner + height_vec, corner),
+        ]
 
 
 class Problem:
@@ -129,5 +148,6 @@ def display_environment(problem: Problem, path: list[Point] = []):
 
 if __name__ == "__main__":
     # Example usage
+
     problem = load_problem("./scenarios/scenario0.txt")
     display_environment(problem, path=[problem.start1, problem.goal1])
