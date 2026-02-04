@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle as MplRectangle
 
@@ -20,6 +18,9 @@ class Point:
 
     def __mul__(self, scalar: float):
         return Point(self.x * scalar, self.y * scalar)
+    
+    def is_within_bounds(self, xmax: float, ymax: float) -> bool:
+        return 0 <= self.x <= xmax and 0 <= self.y <= ymax
 
 
 class Rectangle:
@@ -38,14 +39,16 @@ class Rectangle:
         return self.x >= 0 and self.y >= 0 and self.x + self.width <= xmax and self.y + self.height <= ymax
 
     def edges(self):
-        corner = Point(self.x, self.y)
-        width_vec = Point(self.width, 0)
-        height_vec = Point(0, self.height)
+        bottomLeft = Point(self.x, self.y)
+        bottomRight = Point(self.x+self.width, self.y)
+        topLeft = Point(self.x, self.y+self.height)
+        topRight = Point(self.x+self.width, self.y+self.height)
+
         return [
-            (corner, corner + width_vec),
-            (corner + width_vec, corner + width_vec + height_vec),
-            (corner + width_vec + height_vec, corner + height_vec),
-            (corner + height_vec, corner),
+            (bottomLeft, bottomRight),
+            (bottomRight, topRight),
+            (topRight, topLeft),
+            (topLeft, bottomLeft),
         ]
 
 
@@ -80,13 +83,14 @@ def load_problem(file_path: str) -> Problem:
     followed by zero or more obstacles as quadruples (xo, yo, width, height).
     """
     tokens: list[float] = []
-    # Only a basic validity check; we assume the file is not maliciously crafted (e.g., we would accept the file to be on one line).
-    for line in Path(file_path).read_text(encoding="utf-8").splitlines():
-        for part in line.split():
-            try:
-                tokens.append(float(part))
-            except ValueError:
-                raise ValueError(f"Non-numeric value in scenario file: {part}")
+    # read the file
+    with open(file_path) as f:
+        for line in f:
+            for part in line.split():
+                try:
+                    tokens.append(float(part))
+                except ValueError:
+                    raise ValueError(f"Non-numeric value in scenario file: {part}")
 
     # Basic validity: need at least the 11 header values and obstacles in groups of four.
     if len(tokens) < 11:
@@ -103,10 +107,16 @@ def load_problem(file_path: str) -> Problem:
 
     start1, goal1 = Point(s1x, s1y), Point(g1x, g1y)
     start2, goal2 = Point(s2x, s2y), Point(g2x, g2y)
+    if not(start1.is_within_bounds(xmax, ymax) and goal1.is_within_bounds(xmax, ymax)\
+           and start2.is_within_bounds(xmax, ymax) and goal2.is_within_bounds(xmax, ymax) ):
+        raise ValueError(f"Point out of bounds.")
 
     obstacles: list[Rectangle] = []
     for i in range(0, len(obstacle_tokens), 4):
-        obstacles.append(Rectangle(*obstacle_tokens[i : i + 4]))
+        ob = Rectangle(*obstacle_tokens[i : i + 4])
+        if not ob.is_within_bounds(xmax, ymax):
+            raise ValueError(f"Obstacle {i//4} is out of bound.")
+        obstacles.append(ob)
 
     return Problem(
         xmax=xmax,
@@ -144,10 +154,3 @@ def display_environment(problem: Problem, path: list[Point] = []):
 
     ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), borderaxespad=0)
     plt.show()
-
-
-if __name__ == "__main__":
-    # Example usage
-
-    problem = load_problem("./scenarios/scenario0.txt")
-    display_environment(problem, path=[problem.start1, problem.goal1])
