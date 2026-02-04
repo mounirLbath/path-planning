@@ -10,6 +10,8 @@ def dot(a: Point, b: Point) -> float:
 
 
 def segment_intersects_rect(a: Point, b: Point, r: Rectangle) -> bool:
+    if a == b:
+        raise ValueError("Checking intersection for a segment of length 0")
     # quick reject by bounding boxes
     if max(a.x, b.x) < r.x or min(a.x, b.x) > r.x + r.width:
         return False
@@ -30,7 +32,7 @@ def segment_intersects_rect(a: Point, b: Point, r: Rectangle) -> bool:
     for e1, e2 in r.edges():
         # We do the full check now that we have no colinearity: a and b are opposite sides of edge e1e2 and e1 and e2 are opposite sides of ab
         normal_r = Point(e2.y - e1.y, e1.x - e2.x)
-        if dot(normal, e1 - a) * dot(normal, e2 - a) < 0 and dot(normal_r, a - e1) * dot(normal_r, b - e1) < 0:
+        if dot(normal, e1 - a) * dot(normal, e2 - a) <= 0 and dot(normal_r, a - e1) * dot(normal_r, b - e1) <= 0:
             return True
 
     return False
