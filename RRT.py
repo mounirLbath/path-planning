@@ -43,7 +43,34 @@ def reconstruct_path(nodes: list[Node], index: int) -> list[Point]:
     return path
 
 
-def rrt(problem: Problem, delta_s: float, delta_r: float, max_iters: int) -> list[Point] | None:
+def rewire_nodes(
+    nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int
+) -> list[int]:
+    rewired_nodes = []
+    rewire_from_point = nodes[rewire_from].point
+    for i in (-1, 0, 1):
+        for j in (-1, 0, 1):
+            for index in grid_y_x[int(rewire_from_point.y // delta_r) + i][int(rewire_from_point.x // delta_r) + j]:
+                node = nodes[index]
+                if index == rewire_from:
+                    continue
+                if not segment_collision(rewire_from_point, node.point, problem.obstacles):
+                    new_cost = nodes[rewire_from].cost + distance(rewire_from_point, node.point)
+                    if new_cost < node.cost:
+                        node.cost = new_cost
+                        node.parent = rewire_from
+                        rewired_nodes.append(index)
+    return rewired_nodes
+
+
+def rrt(
+    problem: Problem,
+    delta_s: float,
+    delta_r: float,
+    max_iters: int,
+    recursive_rewire: bool = False,
+    optimize_after_goal: bool = False,
+) -> list[Point] | None:
     if delta_r < delta_s:
         raise ValueError("delta_r must be greater than or equal to delta_s")
     if delta_r > min(problem.xmax, problem.ymax):
@@ -59,6 +86,7 @@ def rrt(problem: Problem, delta_s: float, delta_r: float, max_iters: int) -> lis
 
     # Initialize nodes and grid for speeding up nearest neighbor search
     nodes: list[Node] = [Node(problem.start1, -1, 0.0)]
+    goal = None
 
     grid_y_x: list[list[list[int]]] = [
         [[] for i in range(int(problem.xmax / delta_r) + 1)] for j in range(int(problem.ymax / delta_r) + 1)
@@ -95,23 +123,24 @@ def rrt(problem: Problem, delta_s: float, delta_r: float, max_iters: int) -> lis
         i_new = len(nodes) - 1
 
         # rewiring nodes close enough to v_new similarly
-        for i in (-1, 0, 1):
-            for j in (-1, 0, 1):
-                for index in grid_y_x[int(v_new.y // delta_r) + i][int(v_new.x // delta_r) + j]:
-                    node = nodes[index]
-                    if index == i_new:
-                        continue
-                    if not segment_collision(v_new, node.point, problem.obstacles):
-                        new_cost = nodes[i_new].cost + distance(v_new, node.point)
-                        if new_cost < node.cost:
-                            node.cost = new_cost
-                            node.parent = i_new
+        rewire_from = i_new
+        rewired_nodes = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from)
+
+        # Custom addition: rewire recursively if asked
+        while recursive_rewire and len(rewired_nodes) > 0:
+            rewire_from = rewired_nodes.pop()
+            rewired_nodes.extend(rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from))
 
         # goal check
         if not segment_collision(v_new, problem.goal1, problem.obstacles):
             nodes.append(Node(problem.goal1, i_new, best_cost + distance(v_new, problem.goal1)))
             # display_tree(problem, nodes)
-            return reconstruct_path(nodes, len(nodes) - 1)
+            goal = len(nodes) - 1
+            if not optimize_after_goal:
+                break
+
+    if goal is not None:
+        return reconstruct_path(nodes, goal)
 
     return None
 
@@ -119,31 +148,49 @@ def rrt(problem: Problem, delta_s: float, delta_r: float, max_iters: int) -> lis
 def display_tree(problem: Problem, nodes: list[Node]) -> None:
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots()
-    for obs in problem.obstacles:
-        rect = plt.Rectangle((obs.x, obs.y), obs.width, obs.height, color="gray")
-        ax.add_patch(rect)
+    _, ax = plt.subplots()
+    ax.set_xlim(0, problem.xmax)
+    ax.set_ylim(0, problem.ymax)
+    ax.set_aspect("equal")
 
+    # Obstacles
+    for obs in problem.obstacles:
+        ax.add_patch(plt.Rectangle((obs.x, obs.y), obs.width, obs.height, color="black"))
+
+    # Start and goal points for 1st robot
+    ax.plot(problem.start1.x, problem.start1.y, "ro", label="start", markersize=10, clip_on=False, zorder=3)
+    ax.plot(problem.goal1.x, problem.goal1.y, "r*", label="goal", markersize=10, clip_on=False, zorder=3)
+
+    # Start and goal points for 2nd robot
+    ax.plot(problem.start2.x, problem.start2.y, "go", label="start2", markersize=10, clip_on=False, zorder=3)
+    ax.plot(problem.goal2.x, problem.goal2.y, "g*", label="goal2", markersize=10, clip_on=False, zorder=3)
+
+    # Tree
     for node in nodes:
         if node.parent != -1:
             parent_node = nodes[node.parent]
-            plt.plot(
-                [node.point.x, parent_node.point.x], [node.point.y, parent_node.point.y], color="blue", linewidth=0.5
+            ax.plot(
+                [node.point.x, parent_node.point.x],
+                [node.point.y, parent_node.point.y],
+                "b-",
+                label="tree",
+                linewidth=0.5,
             )
 
-    plt.plot(problem.start1.x, problem.start1.y, "go")  # start point in green
-    plt.plot(problem.goal1.x, problem.goal1.y, "ro")  # goal point in red
-    plt.xlim(0, problem.xmax)
-    plt.ylim(0, problem.ymax)
-    plt.gca().set_aspect("equal", adjustable="box")
+    ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), borderaxespad=0)
     plt.show()
 
 
 # TODO authorize a longer run to continue improving the path; by recursively rewiring
 if __name__ == "__main__":
+    # set random seed
+    random.seed(0)
     prob = load_problem("./scenarios/scenario0.txt")
-    path = rrt(prob, delta_s=3.0, delta_r=200.0, max_iters=5000)
+    path = rrt(prob, delta_s=3.0, delta_r=200.0, max_iters=5000, recursive_rewire=False, optimize_after_goal=False)
     if path is not None:
         display_environment(prob, path)
+        print(
+            f"Path found with {len(path)} points and total length {sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1)):.2f}"
+        )
     else:
         print("No path found")
