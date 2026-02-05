@@ -226,7 +226,7 @@ def rrt(
             nodes.append(Node(problem.goal1, i_new, best_cost + distance(v_new, problem.goal1)))
             nodes[i_new].children.add(len(nodes) - 1)
             goal = len(nodes) - 1
-            print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
+            # print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
             last_optimized_step = goal
             if not optimize_after_goal:
                 break
@@ -241,9 +241,9 @@ def rrt(
 
     if goal is not None:
         # display_tree(problem, nodes)
-        return reconstruct_path(nodes, goal), goal, last_optimized_step
+        return nodes[goal].cost, reconstruct_path(nodes, goal), goal, last_optimized_step
 
-    return None, None, None
+    return None, None, None, None
 
 
 def display_tree(problem: Problem, nodes: list[Node]) -> None:
@@ -289,11 +289,11 @@ if __name__ == "__main__":
     prob = load_problem("./scenarios/scenario4.txt")
     print(f"Environment loaded in {time.time() - timer:.2f} seconds")
     timer = time.time()
-    path, steps_taken, last_optimized_step = rrt(
+    cost, path, steps_taken, last_optimized_step = rrt(
         prob,
         delta_s=50.0,
         delta_r=150.0,
-        max_iters=5000,
+        max_iters=3000,
         recursive_rewire=False,
         optimize_after_goal=True,
         display_tree_end=False,
@@ -303,8 +303,9 @@ if __name__ == "__main__":
         print(f"  {k}: {v:.4f} seconds")
     print("Total accounted time: ", sum(COSTS.values()), " seconds")
     if path is not None:
+        assert cost == sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))
         print(
-            f"Path found with {len(path)} points and total length {sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1)):.2f}"
+            f"Path found with {len(path)} points and total length {cost:.2f}"
             + (
                 f", found in {steps_taken} steps"
                 if last_optimized_step == steps_taken

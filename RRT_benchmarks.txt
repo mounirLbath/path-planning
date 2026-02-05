@@ -1,0 +1,266 @@
+
+Scenario 0, delta_s=15, delta_r=45
+cost=1529.40, time=0.17s, steps_taken=120
+
+Scenario 0, delta_s=15, delta_r=45
+cost=1449.93, time=0.61s, optimized_for=1000
+
+Scenario 0, delta_s=15, delta_r=45
+cost=1444.80, time=1.02s, optimized_for=2000
+
+Scenario 0, delta_s=15, delta_r=75
+cost=1476.73, time=0.07s, steps_taken=97
+
+Scenario 0, delta_s=15, delta_r=75
+cost=1444.55, time=0.54s, optimized_for=1000
+
+Scenario 0, delta_s=15, delta_r=75
+cost=1443.85, time=2.38s, optimized_for=2000
+
+Scenario 0, delta_s=30, delta_r=90
+cost=1566.07, time=0.03s, steps_taken=54
+
+Scenario 0, delta_s=30, delta_r=90
+cost=1444.36, time=0.78s, optimized_for=1000
+
+Scenario 0, delta_s=30, delta_r=90
+cost=1444.56, time=2.90s, optimized_for=2000
+
+Scenario 0, delta_s=30, delta_r=150
+cost=1538.83, time=0.02s, steps_taken=54
+
+Scenario 0, delta_s=30, delta_r=150
+cost=1444.27, time=1.60s, optimized_for=1000
+
+Scenario 0, delta_s=30, delta_r=150
+cost=1444.40, time=6.18s, optimized_for=2000
+
+Scenario 0, delta_s=60, delta_r=180
+cost=1501.51, time=0.00s, steps_taken=24
+
+Scenario 0, delta_s=60, delta_r=180
+cost=1444.76, time=1.85s, optimized_for=1000
+
+Scenario 0, delta_s=60, delta_r=180
+cost=1445.40, time=7.45s, optimized_for=2000
+
+Scenario 0, delta_s=60, delta_r=300
+cost=1460.39, time=0.00s, steps_taken=22
+
+Scenario 0, delta_s=60, delta_r=300
+cost=1445.58, time=3.72s, optimized_for=1000
+
+Scenario 0, delta_s=60, delta_r=300
+cost=1444.29, time=15.44s, optimized_for=2000
+
+Scenario 1, delta_s=15, delta_r=45
+cost=1596.35, time=0.22s, steps_taken=121
+
+Scenario 1, delta_s=15, delta_r=45
+cost=1484.31, time=0.72s, optimized_for=1000
+
+Scenario 1, delta_s=15, delta_r=45
+cost=1453.90, time=1.55s, optimized_for=2000
+
+Scenario 1, delta_s=15, delta_r=75
+cost=1554.23, time=0.23s, steps_taken=191
+
+Scenario 1, delta_s=15, delta_r=75
+cost=1458.47, time=0.95s, optimized_for=1000
+
+Scenario 1, delta_s=15, delta_r=75
+cost=1451.71, time=3.66s, optimized_for=2000
+
+Scenario 1, delta_s=30, delta_r=90
+cost=1601.64, time=0.06s, steps_taken=76
+
+Scenario 1, delta_s=30, delta_r=90
+cost=1457.41, time=1.09s, optimized_for=1000
+
+Scenario 1, delta_s=30, delta_r=90
+cost=1452.30, time=4.56s, optimized_for=2000
+
+Scenario 1, delta_s=30, delta_r=150
+cost=1549.20, time=0.05s, steps_taken=59
+
+Scenario 1, delta_s=30, delta_r=150
+cost=1455.30, time=2.73s, optimized_for=1000
+
+Scenario 1, delta_s=30, delta_r=150
+cost=1452.82, time=11.14s, optimized_for=2000
+
+Scenario 1, delta_s=60, delta_r=180
+cost=1505.67, time=0.01s, steps_taken=28
+
+Scenario 1, delta_s=60, delta_r=180
+cost=1454.07, time=3.77s, optimized_for=1000
+
+Scenario 1, delta_s=60, delta_r=180
+cost=1453.99, time=14.90s, optimized_for=2000
+
+Scenario 1, delta_s=60, delta_r=300
+cost=1544.05, time=0.02s, steps_taken=30
+
+Scenario 1, delta_s=60, delta_r=300
+cost=1456.09, time=7.44s, optimized_for=1000
+
+Scenario 1, delta_s=60, delta_r=300
+cost=1453.06, time=29.25s, optimized_for=2000
+
+Scenario 2, delta_s=15, delta_r=45
+cost=1642.46, time=0.78s, steps_taken=413
+
+Scenario 2, delta_s=15, delta_r=45
+cost=1556.78, time=0.93s, optimized_for=1000
+
+Scenario 2, delta_s=15, delta_r=45
+cost=1514.37, time=2.57s, optimized_for=2000
+
+Scenario 2, delta_s=15, delta_r=75
+cost=1632.54, time=0.28s, steps_taken=274
+
+Scenario 2, delta_s=15, delta_r=75
+cost=1546.94, time=1.27s, optimized_for=1000
+
+Scenario 2, delta_s=15, delta_r=75
+cost=1509.47, time=4.67s, optimized_for=2000
+
+Scenario 2, delta_s=30, delta_r=90
+cost=1985.54, time=0.21s, steps_taken=246
+
+Scenario 2, delta_s=30, delta_r=90
+cost=1525.16, time=1.53s, optimized_for=1000
+
+Scenario 2, delta_s=30, delta_r=90
+cost=1510.80, time=6.05s, optimized_for=2000
+
+Scenario 2, delta_s=30, delta_r=150
+cost=1567.61, time=0.12s, steps_taken=138
+
+Scenario 2, delta_s=30, delta_r=150
+cost=1527.85, time=3.56s, optimized_for=1000
+
+Scenario 2, delta_s=30, delta_r=150
+cost=1518.72, time=14.51s, optimized_for=2000
+
+Scenario 2, delta_s=60, delta_r=180
+cost=1523.73, time=0.07s, steps_taken=78
+
+Scenario 2, delta_s=60, delta_r=180
+cost=1518.21, time=4.91s, optimized_for=1000
+
+Scenario 2, delta_s=60, delta_r=180
+cost=1517.36, time=20.81s, optimized_for=2000
+
+Scenario 2, delta_s=60, delta_r=300
+cost=1595.28, time=0.09s, steps_taken=71
+
+Scenario 2, delta_s=60, delta_r=300
+cost=1512.54, time=11.38s, optimized_for=1000
+
+Scenario 2, delta_s=60, delta_r=300
+cost=1510.24, time=44.62s, optimized_for=2000
+
+Scenario 3, delta_s=15, delta_r=45
+cost=1606.01, time=1.63s, steps_taken=877
+
+Scenario 3, delta_s=15, delta_r=45
+No path found in steps_taken=None, time=1.39s,
+Scenario 3, delta_s=15, delta_r=45
+cost=1549.54, time=2.88s, optimized_for=2000
+
+Scenario 3, delta_s=15, delta_r=75
+cost=1555.26, time=1.27s, steps_taken=845
+
+Scenario 3, delta_s=15, delta_r=75
+cost=1557.77, time=1.69s, optimized_for=1000
+
+Scenario 3, delta_s=15, delta_r=75
+cost=1539.59, time=4.31s, optimized_for=2000
+
+Scenario 3, delta_s=30, delta_r=90
+cost=1572.52, time=1.35s, steps_taken=897
+
+Scenario 3, delta_s=30, delta_r=90
+cost=1544.86, time=1.53s, optimized_for=1000
+
+Scenario 3, delta_s=30, delta_r=90
+cost=1527.93, time=5.49s, optimized_for=2000
+
+Scenario 3, delta_s=30, delta_r=150
+cost=1584.76, time=0.28s, steps_taken=245
+
+Scenario 3, delta_s=30, delta_r=150
+cost=1549.75, time=3.47s, optimized_for=1000
+
+Scenario 3, delta_s=30, delta_r=150
+cost=1539.89, time=12.93s, optimized_for=2000
+
+Scenario 3, delta_s=60, delta_r=180
+cost=1565.42, time=0.70s, steps_taken=364
+
+Scenario 3, delta_s=60, delta_r=180
+cost=1540.87, time=4.47s, optimized_for=1000
+
+Scenario 3, delta_s=60, delta_r=180
+cost=1532.17, time=17.70s, optimized_for=2000
+
+Scenario 3, delta_s=60, delta_r=300
+cost=1563.35, time=1.31s, steps_taken=321
+
+Scenario 3, delta_s=60, delta_r=300
+cost=1541.32, time=11.75s, optimized_for=1000
+
+Scenario 3, delta_s=60, delta_r=300
+cost=1538.91, time=45.40s, optimized_for=2000
+
+Scenario 4, delta_s=15, delta_r=45
+No path found in steps_taken=None, time=2.33s,
+Scenario 4, delta_s=15, delta_r=45
+No path found in steps_taken=None, time=2.15s,
+Scenario 4, delta_s=15, delta_r=45
+cost=2003.32, time=3.16s, optimized_for=2000
+
+Scenario 4, delta_s=15, delta_r=75
+cost=1996.45, time=1.91s, steps_taken=984
+
+Scenario 4, delta_s=15, delta_r=75
+No path found in steps_taken=None, time=2.08s,
+Scenario 4, delta_s=15, delta_r=75
+cost=1996.15, time=4.59s, optimized_for=2000
+
+Scenario 4, delta_s=30, delta_r=90
+cost=2011.25, time=0.84s, steps_taken=645
+
+Scenario 4, delta_s=30, delta_r=90
+cost=1970.86, time=1.54s, optimized_for=1000
+
+Scenario 4, delta_s=30, delta_r=90
+cost=1981.41, time=4.35s, optimized_for=2000
+
+Scenario 4, delta_s=30, delta_r=150
+cost=1981.09, time=1.03s, steps_taken=489
+
+Scenario 4, delta_s=30, delta_r=150
+cost=2016.19, time=3.45s, optimized_for=1000
+
+Scenario 4, delta_s=30, delta_r=150
+cost=1968.84, time=11.14s, optimized_for=2000
+
+Scenario 4, delta_s=60, delta_r=180
+cost=2016.20, time=0.50s, steps_taken=284
+
+Scenario 4, delta_s=60, delta_r=180
+cost=1986.84, time=3.89s, optimized_for=1000
+
+Scenario 4, delta_s=60, delta_r=180
+cost=1960.31, time=15.70s, optimized_for=2000
+
+Scenario 4, delta_s=60, delta_r=300
+cost=2047.74, time=1.28s, steps_taken=311
+
+Scenario 4, delta_s=60, delta_r=300
+cost=2009.12, time=11.45s, optimized_for=1000
+
+Scenario 4, delta_s=60, delta_r=300
+cost=1998.02, time=40.94s, optimized_for=2000
