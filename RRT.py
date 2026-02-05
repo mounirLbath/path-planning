@@ -16,8 +16,6 @@ class Node:
         self.cost = cost
         self.children: set[int] = set()
 
-    # TODO recompute cost each time to be faster instead of propagating when rewiring?
-
 
 def switch_parent(nodes: list["Node"], node_index: int, new_parent: int):
     nodes[nodes[node_index].parent].children.discard(node_index)
@@ -34,12 +32,12 @@ def nodes_around(
     point: Point,
     delta_r: float,
     grid_zone: list[tuple[int, int]] = [(i, j) for i in (-1, 0, 1) for j in (-1, 0, 1)],
-) -> list[int]:
-    indices = []
+):
     for i, j in grid_zone:
-        if 0 <= int(point.y // delta_r) + i < len(grid_y_x) and 0 <= int(point.x // delta_r) + j < len(grid_y_x[0]):
-            indices.extend(grid_y_x[int(point.y // delta_r) + i][int(point.x // delta_r) + j])
-    return indices
+        y_idx = int(point.y // delta_r) + i
+        x_idx = int(point.x // delta_r) + j
+        if 0 <= y_idx < len(grid_y_x) and 0 <= x_idx < len(grid_y_x[0]):
+            yield from grid_y_x[y_idx][x_idx]
 
 
 def nearest_node_index(nodes: list[Node], grid_y_x: list[list[list[int]]], delta_r: float, point: Point) -> int:
@@ -293,10 +291,10 @@ if __name__ == "__main__":
     timer = time.time()
     path, steps_taken, last_optimized_step = rrt(
         prob,
-        delta_s=20.0,
-        delta_r=50.0,
+        delta_s=50.0,
+        delta_r=150.0,
         max_iters=5000,
-        recursive_rewire=True,
+        recursive_rewire=False,
         optimize_after_goal=True,
         display_tree_end=False,
     )
@@ -305,7 +303,6 @@ if __name__ == "__main__":
         print(f"  {k}: {v:.4f} seconds")
     print("Total accounted time: ", sum(COSTS.values()), " seconds")
     if path is not None:
-        display_environment(prob, path)
         print(
             f"Path found with {len(path)} points and total length {sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1)):.2f}"
             + (
@@ -314,6 +311,7 @@ if __name__ == "__main__":
                 else f", last optimized step: {last_optimized_step}"
             )
         )
+        display_environment(prob, path)
     else:
         print("No path found")
 
