@@ -1,0 +1,40 @@
+
+Scenario 0:
+  best_value: delta_s=15, delta_r=75, steps_taken=97, optimized=False, cost=1476.73, time=0.07s, value=14.61
+
+  best_cost: delta_s=15, delta_r=75, steps_taken=2000, optimized=True, cost=1443.85, time=2.38s, value=1.00
+
+  best_time: delta_s=60, delta_r=180, steps_taken=24, optimized=False, cost=1501.51, time=0.00s, value=1.00
+
+
+Scenario 1:
+  best_value: delta_s=15, delta_r=75, steps_taken=1000, optimized=True, cost=1444.55, time=0.54s, value=4.35
+
+  best_cost: delta_s=15, delta_r=75, steps_taken=2000, optimized=True, cost=1451.71, time=3.66s, value=1.00
+
+  best_time: delta_s=60, delta_r=180, steps_taken=28, optimized=False, cost=1505.67, time=0.01s, value=1.00
+
+
+Scenario 2:
+  best_value: delta_s=15, delta_r=45, steps_taken=1000, optimized=True, cost=1484.31, time=0.72s, value=2.03
+
+  best_cost: delta_s=15, delta_r=75, steps_taken=2000, optimized=True, cost=1509.47, time=4.67s, value=1.00
+
+  best_time: delta_s=60, delta_r=180, steps_taken=78, optimized=False, cost=1523.73, time=0.07s, value=1.00
+
+
+Scenario 3:
+  best_value: delta_s=30, delta_r=90, steps_taken=1000, optimized=True, cost=1544.86, time=1.53s, value=2.93
+
+  best_cost: delta_s=30, delta_r=90, steps_taken=2000, optimized=True, cost=1527.93, time=5.49s, value=1.00
+
+  best_time: delta_s=30, delta_r=150, steps_taken=245, optimized=False, cost=1584.76, time=0.28s, value=1.00
+
+
+Scenario 4:
+  best_value: delta_s=30, delta_r=90, steps_taken=2000, optimized=True, cost=1981.41, time=4.35s, value=2.46
+
+  best_cost: delta_s=60, delta_r=180, steps_taken=2000, optimized=True, cost=1960.31, time=15.70s, value=1.00
+
+  best_time: delta_s=60, delta_r=180, steps_taken=284, optimized=False, cost=2016.20, time=0.50s, value=1.00
+
