@@ -229,15 +229,10 @@ def rrt(
             nodes.append(Node(problem.goal1, i_new, best_cost + distance(v_new, problem.goal1)))
             nodes[i_new].children.add(len(nodes) - 1)
             goal = len(nodes) - 1
-            # print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
+            print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
             last_optimized_step = goal
             if not optimize_after_goal:
                 break
-            else:
-                if nodes[goal].cost < distance(problem.start1, problem.goal1) * 1.01:
-                    print(
-                        "WARNING: path is already close to a straight line, optimization after goal may not be effective and will increase runtime"
-                    )
 
     if display_tree_end:
         display_tree(problem, nodes)
@@ -288,15 +283,21 @@ def display_tree(problem: Problem, nodes: list[Node]) -> None:
 if __name__ == "__main__":
     # set random seed
     random.seed(1)
+    from sys import argv
+
+    if len(argv) != 2:
+        scenario_nb = 0
+    else:
+        scenario_nb = int(argv[1])
     timer = time.time()
-    prob = load_problem("./scenarios/scenario0.txt")
+    prob = load_problem(f"./scenarios/scenario{scenario_nb}.txt")
     print(f"Environment loaded in {time.time() - timer:.2f} seconds")
     timer = time.time()
     cost, path, steps_taken, last_optimized_step = rrt(
         prob,
-        delta_s=50.0,
+        delta_s=40.0,
         delta_r=150.0,
-        max_iters=2000,
+        max_iters=1000,
         recursive_rewire=False,
         optimize_after_goal=True,
         display_tree_end=False,
@@ -306,7 +307,7 @@ if __name__ == "__main__":
         print(f"  {k}: {v:.4f} seconds")
     print("Total accounted time: ", sum(COSTS.values()) - COSTS["rewire_cost_update"], " seconds")
     if path is not None:
-        assert cost == sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))
+        assert abs(cost - sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))) < 1e-6
         print(
             f"Path found with {len(path)} points and total length {cost:.2f}"
             + (
@@ -315,7 +316,7 @@ if __name__ == "__main__":
                 else f", last optimized step: {last_optimized_step}"
             )
         )
-        display_environment(prob, path)
+        # display_environment(prob, path)
     else:
         print("No path found")
 
