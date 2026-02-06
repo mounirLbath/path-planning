@@ -30,7 +30,7 @@ def segment_intersects_rect(a: Point, b: Point, r: Rectangle) -> bool:
     for p1, p2 in r.edges(): # p1 and p2 are the 2 ends of the edge
         # We do the full check now that we have no colinearity: a and b are opposite sides of edge p1p2 and p1 and p2 are opposite sides of ab
         normal_r = Point(p2.y - p1.y, p1.x - p2.x)
-        if dot(normal, p1 - a) * dot(normal, p2 - a) < 0 and dot(normal_r, a - p1) * dot(normal_r, b - p1) < 0:
+        if dot(normal, p1 - a) * dot(normal, p2 - a) <= 0 and dot(normal_r, a - p1) * dot(normal_r, b - p1) <= 0:
             return True
 
     return False
@@ -41,3 +41,4 @@ def segment_collision(a: Point, b: Point, obstacles: list[Rectangle]) -> bool:
         if segment_intersects_rect(a, b, obs):
             return True
     return False
+

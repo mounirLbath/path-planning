@@ -19,13 +19,15 @@ class Path:
                 return True
         return segment_collision(self.start, self.points[0], obstacles) or segment_collision(self.end, self.points[-1], obstacles)
     
-    def nb_collision(self, obstacles: list[Rectangle]) -> bool:
-        """Returns the number of obstacles the path collides with"""
-        n = segment_collision(self.start, self.points[0], obstacles) + segment_collision(self.end, self.points[-1], obstacles)
-
-        for i in range(len(self.points)-1):
-            n += segment_collision(self.points[i], self.points[i+1], obstacles)
-    
+    def nb_pair_collision(self, obstacles: list[Rectangle]) -> bool:
+        """Returns the number of pairs (obstacle, segment) that collide (where segment is in the path)"""
+        n = 0
+        for ob in obstacles:
+            if segment_intersects_rect(self.start, self.points[0], ob) or segment_intersects_rect(self.end, self.points[-1], ob):
+                n += 1
+            for i in range(len(self.points)-1):
+                if segment_intersects_rect(self.points[i], self.points[i+1], ob):
+                    n += 1
         return n
 
     def length(self):
