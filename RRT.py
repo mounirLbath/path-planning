@@ -82,6 +82,7 @@ def reconstruct_path(nodes: list[Node], index: int) -> list[Point]:
 def rewire_nodes(
     nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int, goal: int
 ) -> list[int]:
+    global COSTS
     rewired_nodes = []
     rewire_from_point = nodes[rewire_from].point
     updated_goal = False
@@ -96,6 +97,7 @@ def rewire_nodes(
                 rewired_nodes.append(index)
 
                 # update cost of descendants with a DFS
+                timer = time.time()
                 stack = list(nodes[index].children)
                 while stack:
                     child_index = stack.pop()
@@ -109,6 +111,7 @@ def rewire_nodes(
                         # print("Goal rewired with better cost, new cost: ", new_cost)
                     nodes[child_index].cost = new_cost
                     stack.extend(nodes[child_index].children)
+                COSTS["rewire_cost_update"] = COSTS.get("rewire_cost_update", 0) + time.time() - timer
     return rewired_nodes, updated_goal
 
 
@@ -286,14 +289,14 @@ if __name__ == "__main__":
     # set random seed
     random.seed(1)
     timer = time.time()
-    prob = load_problem("./scenarios/scenario4.txt")
+    prob = load_problem("./scenarios/scenario0.txt")
     print(f"Environment loaded in {time.time() - timer:.2f} seconds")
     timer = time.time()
     cost, path, steps_taken, last_optimized_step = rrt(
         prob,
         delta_s=50.0,
         delta_r=150.0,
-        max_iters=3000,
+        max_iters=2000,
         recursive_rewire=False,
         optimize_after_goal=True,
         display_tree_end=False,
@@ -301,7 +304,7 @@ if __name__ == "__main__":
     print(f"RRT completed in {time.time() - timer:.2f} seconds. Decomposition of costs:")
     for k, v in COSTS.items():
         print(f"  {k}: {v:.4f} seconds")
-    print("Total accounted time: ", sum(COSTS.values()), " seconds")
+    print("Total accounted time: ", sum(COSTS.values()) - COSTS["rewire_cost_update"], " seconds")
     if path is not None:
         assert cost == sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))
         print(
