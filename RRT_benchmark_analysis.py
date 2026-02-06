@@ -63,17 +63,18 @@ if __name__ == "__main__":
                 1 - ((time_taken - slow_time) / (best_time - slow_time + 1e-6))
             )
 
+            stats = {
+                "delta_s": delta_s,
+                "delta_r": delta_r,
+                "steps_taken": steps_taken,
+                "optimized": optimized,
+                "cost": cost,
+                "time": time_taken,
+                "value": value,
+            }
+
             if value > scenario_best[scenario_number].get("best_value", {"value": 0})["value"]:
                 scenario_best[scenario_number]["best_value"] = stats
-                stats = {
-                    "delta_s": delta_s,
-                    "delta_r": delta_r,
-                    "steps_taken": steps_taken,
-                    "optimized": optimized,
-                    "cost": cost,
-                    "time": time_taken,
-                    "value": value,
-                }
 
     with open("RRT_best_performances.txt", "w") as f:
         for i, best in enumerate(scenario_best):
