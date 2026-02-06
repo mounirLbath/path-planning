@@ -152,7 +152,7 @@ def load_problem(file_path: str) -> Problem:
     )
 
 
-def display_environment(problem: Problem, path: Path = None):
+def display_environment(problem: Problem, path: Path = None, paths: list[Path] = None):
     _, ax = plt.subplots()
     ax.set_xlim(0, problem.xmax)
     ax.set_ylim(0, problem.ymax)
@@ -171,8 +171,12 @@ def display_environment(problem: Problem, path: Path = None):
     ax.plot(problem.goal2.x, problem.goal2.y, "g*", label="goal2", markersize=10, clip_on=False, zorder=3)
 
     # Path
+    if paths:
+        for pa in paths:
+            ax.plot([pa.start.x,*[p.x for p in pa.points], pa.end.x], [pa.start.y,*[p.y for p in pa.points], pa.end.y], "b-", linewidth=0.5)
+
     if path:
-        ax.plot([path.start.x,*[p.x for p in path.points], path.end.x], [path.start.y,*[p.y for p in path.points], path.end.y], "b-", label="path", linewidth=0.5)
+        ax.plot([path.start.x,*[p.x for p in path.points], path.end.x], [path.start.y,*[p.y for p in path.points], path.end.y], "r-", label="path", linewidth=0.5)
 
     ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), borderaxespad=0)
     plt.show()
