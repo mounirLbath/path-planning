@@ -17,6 +17,11 @@ class Node:
         self.children: set[int] = set()
 
 
+def add_node(tree: list[Node], point: Point, parent: int, cost: float) -> None:
+    tree.append(Node(point, parent, cost))
+    tree[parent].children.add(len(tree) - 1)
+
+
 def sample_random_point(problem: Problem) -> Point:
     return Point(random.uniform(0, problem.xmax), random.uniform(0, problem.ymax))
 
@@ -144,12 +149,11 @@ def path_optimization(problem: Problem, tree: list[Node], index: int, k_rope: in
                     v_short = ((k_rope - best_k) / k_rope) * path[best_i].point + (
                         (best_k / k_rope) * path[best_i - 1].point
                     )
-                    tree.append(
-                        Node(
-                            v_short,
-                            path[best_i].parent,
-                            tree[path[best_i].parent].cost + distance(tree[path[best_i].parent].point, v_short),
-                        )
+                    add_node(
+                        tree,
+                        v_short,
+                        path[best_i].parent,
+                        tree[path[best_i].parent].cost + distance(tree[path[best_i].parent].point, v_short),
                     )
                     i_shortcut = len(tree) - 1
                 else:
@@ -157,7 +161,6 @@ def path_optimization(problem: Problem, tree: list[Node], index: int, k_rope: in
                     i_shortcut = path[best_i].parent  # Index of path[i-1]=v_short in the tree
 
                 if best_i == len(path) - 1:
-                    assert i_shortcut == goal.parent, "Wrong logic in 'no shortcut found' case"
                     # Here we have no shortcut
                 else:
                     switch_parent_and_propagate(tree, index, i_shortcut)
@@ -241,7 +244,7 @@ def rrt(
                     best_cost = c
                     best_parent = index
 
-        nodes.append(Node(v_new, best_parent, best_cost))
+        add_node(nodes, v_new, best_parent, best_cost)
         nodes[best_parent].children.add(len(nodes) - 1)
         grid_y_x[int(v_new.y // delta_r)][int(v_new.x // delta_r)].append(len(nodes) - 1)
         i_new = len(nodes) - 1
@@ -278,16 +281,18 @@ def rrt(
                 # print("New node provides a better path to the goal, with cost ",nodes[goal].cost," at step ",len(nodes) - 1,)
                 continue
             # add the goal node
-            nodes.append(Node(problem.goal1, i_new, best_cost + distance(v_new, problem.goal1)))
+            add_node(nodes, problem.goal1, i_new, best_cost + distance(v_new, problem.goal1))
             nodes[i_new].children.add(len(nodes) - 1)
             goal = len(nodes) - 1
             print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
             last_optimized_step = goal
             if not optimize_after_goal:
+                timer = time.time()
+                path_optimization(problem, nodes, goal, k_rope)
+                COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
                 break
 
         # Path optimization
-        # TODO don't do path optimization each step if slow
         if goal is not None and path_optimize:
             timer = time.time()
             path_optimization(problem, nodes, goal, k_rope)

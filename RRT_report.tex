@@ -210,8 +210,7 @@ def path_optimization(v_goal, k_rope):
                   # best is a new rope point
                   insert_in_tree(best.rope, parent=best.parent)
               switch_parent_propagate_costs(v_goal, best.point)
-              path_optimization(best.point, k_rope)
-              return
+              return path_optimization(best.point, k_rope)
 \end{lstlisting}
 
 \section{Question 20}
