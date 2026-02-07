@@ -43,19 +43,19 @@ We write the pseudocode with explanations for each step to make it clearer than 
   \item Initialize tree with a single root node at start (cost $= 0$). Build the spatial grid.
   \item For each iteration (up to \texttt{max\_iters}):
   \begin{enumerate}[nosep]
-    \item Sample a random free point $v_r$. If a goal path exists, reject samples that cannot improve it (see Q17).
-    \item Find the nearest tree node $v_n$ using the grid.
-    \item Steer from $v_n$ toward $v_r$ by at most $\delta_s$ to get $v_{\text{new}}$. Discard if the segment hits an obstacle.
-    \item Among grid neighbours of $v_{\text{new}}$, pick the collision-free parent to minimize the final cost of reaching $v_{\text{new}}$.
-    \item Add $v_{\text{new}}$ to the tree; update parent's children set and grid cell.
-    \item Rewire: for neighbours within $\delta_r$, if the path through $v_{\text{new}}$ lowers their cost and is collision free, update their parent, cost, and propagate the cost reduction to all descendants via the children sets.
-    \item If $v_{\text{new}}$ sees the goal and the resulting cost improves, either create the goal node or update the existing goal node's parent.
+    \item \textbf{Sampling.} Sample a random free point $v_r$. If a goal path exists, reject samples that cannot improve it (see Q17).
+    \item \textbf{Nearest neighbour.} Find the nearest tree node $v_n$ using the grid.
+    \item \textbf{Steer.} Steer from $v_n$ toward $v_r$ by at most $\delta_s$ to get $v_{\text{new}}$. Discard if the segment hits an obstacle.
+    \item \textbf{Best parent selection.} Among grid neighbours of $v_{\text{new}}$, pick the collision-free parent to minimize the final cost of reaching $v_{\text{new}}$.
+    \item \textbf{Insertion.} Add $v_{\text{new}}$ to the tree; update parent's children set and grid cell.
+    \item \textbf{Rewiring.} For neighbours within $\delta_r$, if the path through $v_{\text{new}}$ lowers their cost and is collision free, update their parent, cost, and propagate the cost reduction to all descendants via the children sets.
+    \item \textbf{Goal check.} If $v_{\text{new}}$ sees the goal and the resulting cost improves, either create the goal node or update the existing goal node's parent.
   \end{enumerate}
 \end{enumerate}
 
 \section{Question 16: Complexity of One Iteration}
 
-Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the average number of nodes per grid cell ($K \sim N\delta_r^2 / (x_{\max} y_{\max})$). We detail each step of the pseudocode :
+Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the average number of nodes per grid cell ($K \sim N \frac{\delta_r^2}{x_{\max} y_{\max}}$). We detail each step of the pseudocode :
 
 \begin{enumerate}[nosep]
   \item Initialization: $O(\frac{x_{\max}y_{\max}}{\delta_r^2}) = O(\frac{N}{K})$ to initialize the grid.
@@ -65,7 +65,7 @@ Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the
 
     \item \textbf{Nearest neighbour.} The grid search expands ring by ring from the cell containing $v_r$. If everything works correctly, the nearest neighbour should be found at a distance $\delta_s < \delta_r$ or less, so in the first 9 cells checked, and we would stop after that. This gives a complexity of $O(K)$.
 
-    \item \textbf{Steer + collision check.} Steering is $O(1)$ (one direction computation + clamp). The collision check tests the segment $v_n v_{\text{new}}$ against all $O$ obstacles, which is done in $O(1)$ per obstacle, which gives a complexity of $O(O)$.
+    \item \textbf{Steer.} Steering is $O(1)$ (one direction computation + clamp). The collision check tests the segment $v_n v_{\text{new}}$ against all $O$ obstacles, which is done in $O(1)$ per obstacle, which gives a complexity of $O(O)$.
 
     \item \textbf{Best parent selection.} We scan the 9 grid cells around $v_{\text{new}}$, giving $O(K)$ candidate nodes. For each, we compute one distance ($O(1)$) and one collision check ($O(O)$). This gives a complexity of $O(OK)$.
 
@@ -84,7 +84,7 @@ The dominant costs per iteration are the neighbour scans in 2.b, 2.d, and 2.f. I
 Several design choices improve upon the basic RRT* algorithm:
 
 \begin{itemize}
-  \item \textbf{Grid buckets for nodes.} Instead of scanning all $N$ nodes for nearest-neighbour and neighbourhood queries, we partition the domain into cells of size $\delta_r \times \delta_r$. This makes the common case $O(K \sim N\delta_r^2 / (x_{\max} y_{\max}))$ per query instead of $O(N)$.
+  \item \textbf{Grid buckets for nodes.} Instead of scanning all $N$ nodes for nearest-neighbour and neighbourhood queries, we partition the domain into cells of size $\delta_r \times \delta_r$. This makes the common case $O(K \sim N\frac{\delta_r^2}{x_{\max} y_{\max}})$ per query instead of $O(N)$.
 
   \item \textbf{Children sets for cost propagation.} Each node maintains a set of its children's indices. When a node is rewired (its parent changes), we can propagate the cost update to all descendants via a simple DFS through the children sets, rather than scanning all nodes. This is, in theory, possibly $O(N)$ in the worst case, but in practice it is often much smaller and does not slow down the algorithm.
 
