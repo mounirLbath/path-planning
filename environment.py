@@ -18,6 +18,9 @@ class Point:
     def __mul__(self, scalar: float):
         return Point(self.x * scalar, self.y * scalar)
 
+    def __rmul__(self, scalar: float):
+        return self.__mul__(scalar)
+
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 

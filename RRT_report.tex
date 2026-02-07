@@ -191,21 +191,26 @@ The straightforward path optimisation we can implement is - as will be the answe
 
 To detail this approach, after each iteration of the main loop where the cost to reach the goal (that we consider infinity while we do not have a path to the goal) changed, we do a Path Optimisation step. For each node $V$ starting from the end, we try to shortcut to an node earlier in the path (strictly earlier than the node's parent). We don't consider first its grandparent, but instead a node in between its parent and its grandparent. This node, $V_{\text{rope}} = \frac{k-1}{k} \text{V.parent} + \frac{1}{k} \text{V.grandparent}$ relies on the hyperparameter $k_\text{rope}$, that defines the number of points we want to consider for each path edge. If $V_\text{rope}$ is in sight of $V$, we make the shortcut between then, and we continue trying to shortcut to earlier nodes in a similar fashion, stopping when it finds a node that is not in line of sight. Then, we restart this process by setting $V$ to be the last node we shortcut to, and continue until we reach the starting node.
 
-This gives us, for a path to goal $v_\text{start}, v_1, \ddots, v_P, v_\text{goal}$ a simple $O(P k_\text{rope}\sum_{2\leq i \leq P}D_i)$, which should be very reasonable in practice.
+This gives us, for a path to goal $v_\text{start}, v_1, \cdots, v_P, v_\text{goal}$ a simple $O(P k_\text{rope}\sum_{2\leq i \leq P}D_i)$, which should be very reasonable in practice.
 
-\textbf{Pseudocode (insert at the end of each iteration):}
+\textbf{Pseudocode (simplified)(insert at the end of each iteration):}
 \begin{lstlisting}
-def path_optimization(path = [v_0, v_1, ..., v_P, v_goal], k_rope):
-  last_s, i_s = v_P, P-1
+def path_optimization(v_goal, k_rope):
+  path = reconstruct_path(v_goal)  # [v_0, ..., v_P, v_goal]
+
+  best = None # no shortcut yet
   for i = P down to 1:
       for k = 1 to k_rope:
-          v_short = ((k_rope - k)/k_rope) * v_i + (k/k_rope) * v_{i-1}
-          if line_of_sight(v_goal, v_short):
-              insert_in_tree(v_short, parent = v_i-1)
-              switch_parent_propagate_costs(v_goal, v_short)
-              last_s, is = v_short, i-1
-          else:
-              path_optimization(path = [v_0, ..., v_is, last_s], k_rope)
+          v_s = v_i * ((k_rope - k)/k_rope) + v_i-1 * (k/k_rope)
+          if line_of_sight(v_goal, v_s):
+              best = shortcut(i, k)    # remember best
+          else:                        # blocked: commit best
+              if best is None: return  # no shortcut found
+              if best.is_rope_point():
+                  # best is a new rope point
+                  insert_in_tree(best.rope, parent=best.parent)
+              switch_parent_propagate_costs(v_goal, best.point)
+              path_optimization(best.point, k_rope)
               return
 \end{lstlisting}
 
