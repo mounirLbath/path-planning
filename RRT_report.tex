@@ -215,6 +215,19 @@ def path_optimization(v_goal, k_rope):
 
 \section{Question 20}
 
+Compared to the basic algorithm we had before, this version is much more effective, even if it stays simple. We decided here to stop at the first path found - since the real improvement of further sampling will really appear only in question 21 - and run path optimization on it. We made the test on scenario 4, with otherwise the same parameters as before, but with a high $k_\text{rope} = 1000$.
+
+We found a path length 1968.18 for 0.76s of computation, in 462 steps. This is much better than the original 1987.74 in 2.22s we had previously in 1000 steps of optimization. % TODO include PSO part
+
+The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to find a shortcut, but will also make the optimization step slower (at worst linearly, see Q19). However, we notice the impact of path optimization is in general very low; even if we continue optimizing for $\sim$ 500 steps after reaching the goal (so $\sim$ 500 path optimizations), we only spend 0.26s out of 2.26s in path optimization, so about 11.5\%, which is not negligible but still reasonable for the improvement we get. We will see in question 21 an optimisation that reduces the importance of having a very high $k_\text{rope}$, so we can keep it reasonably low.
+
+\begin{figure}
+  \centering
+  \includegraphics{figures/Path_Optimized_RRT_4_path.png}
+  \caption{Scenario 4 with path optimization: tree}
+\end{figure}
+
+\section{Question 21}
 
 
 \begin{thebibliography}{9}

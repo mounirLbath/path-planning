@@ -286,9 +286,10 @@ def rrt(
             print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
             last_optimized_step = goal
             if not optimize_after_goal:
-                timer = time.time()
-                path_optimization(problem, nodes, goal, k_rope)
-                COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
+                if path_optimize:
+                    timer = time.time()
+                    path_optimization(problem, nodes, goal, k_rope)
+                    COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
                 break
 
         # Path optimization
@@ -361,10 +362,10 @@ if __name__ == "__main__":
         delta_r=150.0,
         max_iters=1000,
         recursive_rewire=False,
-        optimize_after_goal=True,
+        optimize_after_goal=False,
         display_tree_end=False,
         path_optimize=True,
-        k_rope=100,
+        k_rope=1000,
     )
     print(f"RRT completed in {time.time() - timer:.2f} seconds. Decomposition of costs:")
     for k, v in COSTS.items():
@@ -380,6 +381,6 @@ if __name__ == "__main__":
                 else f", last optimized step: {last_optimized_step}"
             )
         )
-        display_environment(prob, path)
+        # display_environment(prob, path)
     else:
         print("No path found")
