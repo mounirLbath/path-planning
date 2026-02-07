@@ -213,6 +213,8 @@ def path_optimization(v_goal, k_rope):
               return path_optimization(best.point, k_rope)
 \end{lstlisting}
 
+Let us note a very simple drawback of this method: since we overly optimize the first path we find, we may fall completely into a local minimum. For example, if we find a path that can only be optimized to length 15 while another is of length 13, we will likely never find the path of length 13 since by optimizing the first path we will make it look "better". If instead we let the algorithm run a bit longer before starting to path optimize (and improve the sampling method, see Q21), we would have more chances to find the better path, and then optimize it to the global optimum. A way to prevent this a little would be to run path optimization on not only the goal node, but every node we add to the tree, but this would be much more expensive. We could also want to run the full algorithm multiples times in a row to see if we find a better path; but this goes out of the scope of what we want to do here.
+
 \section{Question 20}
 
 Compared to the basic algorithm we had before, this version is much more effective, even if it stays simple. We decided here to stop at the first path found - since the real improvement of further sampling will really appear only in question 21 - and run path optimization on it. We made the test on scenario 4, with otherwise the same parameters as before, but with a high $k_\text{rope} = 1000$.
@@ -228,6 +230,7 @@ The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to 
 \end{figure}
 
 \section{Question 21}
+
 
 
 \begin{thebibliography}{9}
