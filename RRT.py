@@ -160,9 +160,8 @@ def path_optimization(problem: Problem, tree: list[Node], index: int, k_rope: in
                     # We use the existing node
                     i_shortcut = path[best_i].parent  # Index of path[i-1]=v_short in the tree
 
-                if best_i == len(path) - 1:
-                    # Here we have no shortcut
-                else:
+                if best_i != len(path) - 1:
+                    # Otherwise we have no shortcut
                     switch_parent_and_propagate(tree, index, i_shortcut)
                 return path_optimization(problem, tree, i_shortcut, k_rope)
     raise ValueError("Should have found a shortcut to the first element, check the logic of path_optimization")
