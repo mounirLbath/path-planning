@@ -223,13 +223,34 @@ We found a path length 1968.18 for 0.76s of computation, in 462 steps. This is m
 
 The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to find a shortcut, but will also make the optimization step slower (at worst linearly, see Q19). However, we notice the impact of path optimization is in general very low; even if we continue optimizing for $\sim$ 500 steps after reaching the goal (so $\sim$ 500 path optimizations), we only spend 0.26s out of 2.26s in path optimization, so about 11.5\%, which is not negligible but still reasonable for the improvement we get. We will see in question 21 an optimisation that reduces the importance of having a very high $k_\text{rope}$, so we can keep it reasonably low.
 
-\begin{figure}
+\begin{figure}[!ht]
   \centering
-  \includegraphics{figures/Path_Optimized_RRT_4_path.png}
-  \caption{Scenario 4 with path optimization: tree}
+  \includegraphics[width=\textwidth]{figures/Path_Optimized_RRT_4_path.png}
+
+  \caption{Scenario 4 with path optimization: The paths runs much closer to the obstacles, but not perfectly everywhere, since we only shortcut from goal to start.}
+  \label{scenario-4-path-opti}
 \end{figure}
 
 \section{Question 21}
+
+We do a very simple biaising algorithm that will fix the little issues left with the path optimization method. We notice in figure \ref{scenario-4-path-opti} that a few vertices are still not perfectly aligned with the obstacles, and so the path is not optimal. We now want to bias the sampling towards the path we already have, so that we have more chances to find improvements in the current path.
+
+What we do, in a similar fashion as RRT*-Smart \cite{RRT-Smart}, is to, with a certain probability $p_\text{bias}$, sample a point with a different measure than the uniform distribution. In this case, we pick a random interior vertex of the current best path, and sample a point using a truncated gaussian of hyperparameter radius $R_\text{sampling}$ around it. Note that $R_\text{sampling}$ should be lower than $\delta_r$, and it would likely be better to keep it around $\delta_s$ to be consistent with these other hyperparameters.
+
+\textbf{Pseudocode (replaces uniform sampling):}
+\begin{lstlisting}
+def sample(p_bias, R_sampling):
+  if no_path_found:
+    return uniform_sample()
+  else:
+    if UniformRV(0, 1) < p_bias:
+      v_path = random_vertex_on_path()
+      return truncated_gaussian_sample(v_path, R_sampling)
+    else:
+      return uniform_sample()
+\end{lstlisting}
+
+\section{Question 22}
 
 
 
