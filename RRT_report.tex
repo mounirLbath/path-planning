@@ -37,6 +37,8 @@ Complexity: $O(D)$ where $D$ is the depth of the node in the tree.
 
 \section{Question 15: RRT Pseudocode}
 
+We write the pseudocode with explanations for each step to make it clearer than simple function calls.
+
 \begin{enumerate}[nosep]
   \item Initialize tree with a single root node at start (cost $= 0$). Build the spatial grid.
   \item For each iteration (up to \texttt{max\_iters}):
@@ -48,13 +50,12 @@ Complexity: $O(D)$ where $D$ is the depth of the node in the tree.
     \item Add $v_{\text{new}}$ to the tree; update parent's children set and grid cell.
     \item Rewire: for neighbours within $\delta_r$, if the path through $v_{\text{new}}$ lowers their cost and is collision free, update their parent, cost, and propagate the cost reduction to all descendants via the children sets.
     \item If $v_{\text{new}}$ sees the goal and the resulting cost improves, either create the goal node or update the existing goal node's parent.
-    \item If we just want a path and we found one, stop; otherwise continue.
   \end{enumerate}
 \end{enumerate}
 
 \section{Question 16: Complexity of One Iteration}
 
-Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the average number of nodes per grid cell ($K \sim N\delta_r^2 / (x_{\max} y_{\max})$). We detail each step of the pseudocode:
+Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the average number of nodes per grid cell ($K \sim N\delta_r^2 / (x_{\max} y_{\max})$). We detail each step of the pseudocode :
 
 \begin{enumerate}[nosep]
   \item Initialization: $O(\frac{x_{\max}y_{\max}}{\delta_r^2}) = O(\frac{N}{K})$ to initialize the grid.
@@ -73,8 +74,6 @@ Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the
     \item \textbf{Rewiring.} Same $O(K)$ neighbour scan as 2.d, so $O(OK)$ for the candidate checks. For each rewired node, we propagate the cost update to its descendants via a DFS through children sets: $O(D_i)$ where $D_i$ is the subtree size of rewired node $i$. In practice, this $D_i$ is often small even if we can have $O(\sum_i D_i)$ total cost; and the constant factor is also very low.
 
     \item \textbf{Goal check.} One collision check ($O(O)$) and one cost comparison ($O(1)$) at most; so $O(O)$.
-
-    \item \textbf{Termination check.} $O(1)$.
   \end{enumerate}
 \end{enumerate}
 
@@ -89,7 +88,7 @@ Several design choices improve upon the basic RRT* algorithm:
 
   \item \textbf{Children sets for cost propagation.} Each node maintains a set of its children's indices. When a node is rewired (its parent changes), we can propagate the cost update to all descendants via a simple DFS through the children sets, rather than scanning all nodes. This is, in theory, possibly $O(N)$ in the worst case, but in practice it is often much smaller and does not slow down the algorithm.
 
-  \item \textbf{Sampling rejection.} Once a goal path of cost $c^*$ is known, we reject any random sample $v_r$ for which $\text{dist}(\text{start}, v_r) + \text{dist}(v_r, \text{goal}) \geq c^*$, since such a point cannot improve the current best path. This focuses sampling on the useful region and accelerates convergence. However, it is only useful in cases where the optimal path is close to the straight line between start and goal like scenario 0; in more complex environments it may not help much.
+  \item \textbf{Sampling rejection.} Once a goal path of cost $c^*$ is known, we reject any random sample $v_r$ for which $\text{dist}(v_\text{start}, v_r) + \text{dist}(v_r, v_\text{goal}) \geq c^*$, since such a point cannot improve the current best path. This focuses sampling on the useful region and accelerates convergence. However, it is only useful in cases where the optimal path is close to the straight line between start and goal like scenario 0; in more complex environments it may not help much.
 
   \item \textbf{Goal node reuse.} Instead of appending a new goal node each time a better connection is found, we update the existing goal node's parent in place via \texttt{switch\_parent}. This avoids accumulating dead goal nodes and keeps the tree clean.
   
@@ -188,12 +187,42 @@ In general, the main hyperparameters for which the tradeoff is not obvious is $\
 
 \section{Question 19}
 
-The straightforward path optimisation we can implement is - as will be the answer to the following questions - very much similar to the RRT*-Smart algorithm. We here detail a simple version that also includes an improvement from RRT-Rope.
+The straightforward path optimisation we can implement is - as will be the answer to the following questions - very much similar to the RRT*-Smart algorithm \cite{RRT-Smart}. We here detail a simple version that also includes an improvement from RRT-Rope \cite{RRT-Rope}.
 
-To detail this approach, after each iteration of the main loop where the cost to reach the goal (that we consider infinity while we do not have a path to the goal) changed, we do a Path Optimisation step. For each node $V$ starting from the end, we try to shortcut to an node earlier in the path (strictly earlier than the node's parent). We don't consider first the parent of its parent, but instead a node in between its parent and its grandparent. This node, $V_{\text{rope}} = \frac{k-1}{k} \text{V.parent} + \frac{1}{k} \text{V.grandparent}$ relies on the hyperparameter $k_rope$, that defines the number of points we want to consider for each path edge. If $V_rope$ is in sight of $V$, we make the shortcut between then, and we continue trying to shortcut to earlier nodes in a similar fashion, stopping when it finds a node that is not in line of sight. Then, we restart this process by setting $V$ to be the last node we shortcut to, and continue until we reach the starting node.
+To detail this approach, after each iteration of the main loop where the cost to reach the goal (that we consider infinity while we do not have a path to the goal) changed, we do a Path Optimisation step. For each node $V$ starting from the end, we try to shortcut to an node earlier in the path (strictly earlier than the node's parent). We don't consider first its grandparent, but instead a node in between its parent and its grandparent. This node, $V_{\text{rope}} = \frac{k-1}{k} \text{V.parent} + \frac{1}{k} \text{V.grandparent}$ relies on the hyperparameter $k_\text{rope}$, that defines the number of points we want to consider for each path edge. If $V_\text{rope}$ is in sight of $V$, we make the shortcut between then, and we continue trying to shortcut to earlier nodes in a similar fashion, stopping when it finds a node that is not in line of sight. Then, we restart this process by setting $V$ to be the last node we shortcut to, and continue until we reach the starting node.
 
-This gives us a simple $O(\text{len(path\_to\_goal)*k*cost\_propagation\_cost})$, which is experimentally not slowing down the general runtime too much.
+This gives us, for a path to goal $v_\text{start}, v_1, \ddots, v_P, v_\text{goal}$ a simple $O(P k_\text{rope}\sum_{2\leq i \leq P}D_i)$, which should be very reasonable in practice.
 
-% TODO include pseudocode
+\textbf{Pseudocode (insert at the end of each iteration):}
+\begin{lstlisting}
+def path_optimization(path = [v_0, v_1, ..., v_P, v_goal], k_rope):
+  last_s, i_s = v_P, P-1
+  for i = P down to 1:
+      for k = 1 to k_rope:
+          v_short = ((k_rope - k)/k_rope) * v_i + (k/k_rope) * v_{i-1}
+          if line_of_sight(v_goal, v_short):
+              insert_in_tree(v_short, parent = v_i-1)
+              switch_parent_propagate_costs(v_goal, v_short)
+              last_s, is = v_short, i-1
+          else:
+              path_optimization(path = [v_0, ..., v_is, last_s], k_rope)
+              return
+\end{lstlisting}
+
+\section{Question 20}
+
+
+
+\begin{thebibliography}{9}
+\bibitem{RRT-Smart}
+F.~Islam, J.~Nasir, U.~Malik, Y.~Ayaz, and O.~Hasan,
+``RRT*-Smart: Rapid convergence implementation of RRT* towards optimal solution,''
+in \emph{2012 IEEE International Conference on Mechatronics and Automation}, 2012, pp.~1651--1656, doi:10.1109/ICMA.2012.6284384.
+
+\bibitem{RRT-Rope}
+L.~Petit and A.~Lussier Desbiens,
+``RRT-Rope: A deterministic shortening approach for fast near-optimal path planning in large-scale uncluttered 3D environments,''
+in \emph{2021 IEEE International Conference on Systems, Man, and Cybernetics (SMC)}, 2021, pp.~1111--1118, doi:10.1109/SMC52423.2021.9659071.
+\end{thebibliography}
 
 \end{document}
