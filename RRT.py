@@ -1,5 +1,9 @@
 import random
 import time
+from math import cos, sin
+from math import pi as PI
+
+from scipy.stats import truncnorm
 
 from environment import Point, Problem, display_environment, load_problem
 from utils import distance, segment_collision
@@ -22,8 +26,19 @@ def add_node(tree: list[Node], point: Point, parent: int, cost: float) -> None:
     tree[parent].children.add(len(tree) - 1)
 
 
-def sample_random_point(problem: Problem) -> Point:
-    return Point(random.uniform(0, problem.xmax), random.uniform(0, problem.ymax))
+def sample_random_point(problem: Problem, p_bias: float = 0, r_sampling: float = 0, path: list[Point] = None) -> Point:
+    if path is None or len(path) == 0 or random.random() >= p_bias:
+        return Point(random.uniform(0, problem.xmax), random.uniform(0, problem.ymax))
+    else:
+        v_path = random.choice(path[1:-1])  # random interior vertex on the path
+        # Sample from truncated Gaussian around v_path
+        radius = truncnorm.rvs(0, r_sampling, loc=0, scale=r_sampling / 2)
+        angle = random.uniform(0, 2 * PI)
+        x = v_path.x + radius * cos(angle)
+        y = v_path.y + radius * sin(angle)
+        x = max(0, min(problem.xmax, x))
+        y = max(0, min(problem.ymax, y))
+        return Point(x, y)
 
 
 def nodes_around(
@@ -177,6 +192,9 @@ def rrt(
     display_tree_end: bool = False,
     path_optimize: bool = False,
     k_rope=10,
+    sample_optimize: bool = False,
+    p_bias: float = 0.75,
+    r_sampling: float = 1.0,
 ) -> list[Point] | None:
     global COSTS
     if delta_r < delta_s:
@@ -207,9 +225,18 @@ def rrt(
         check_infinite = 0
         while check_infinite < 1000:
             timer = time.time()
-            v_r = sample_random_point(problem)
-            # Only sample points that could improve the path to the goal
-            while goal and distance(problem.start1, v_r) + distance(v_r, problem.goal1) >= nodes[goal].cost:
+            if goal and sample_optimize:
+                v_r = sample_random_point(
+                    problem, p_bias=p_bias, r_sampling=r_sampling, path=[n.point for n in reconstruct_path(nodes, goal)]
+                )
+            else:
+                v_r = sample_random_point(problem)
+            # Only sample points that could improve the path to the goal; if we are not using the improved sampling
+            while (
+                not sample_optimize
+                and goal
+                and distance(problem.start1, v_r) + distance(v_r, problem.goal1) >= nodes[goal].cost
+            ):
                 v_r = sample_random_point(problem)
             COSTS["sampling"] = COSTS.get("sampling", 0) + time.time() - timer
 
@@ -294,9 +321,12 @@ def rrt(
 
         # Path optimization
         if goal is not None and path_optimize:
+            past_cost = nodes[goal].cost
             timer = time.time()
             path_optimization(problem, nodes, goal, k_rope)
             COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
+            if nodes[goal].cost < past_cost:
+                last_optimized_step = len(nodes) - 1
 
     if display_tree_end:
         display_tree(problem, nodes)
@@ -362,10 +392,13 @@ if __name__ == "__main__":
         delta_r=150.0,
         max_iters=1000,
         recursive_rewire=False,
-        optimize_after_goal=False,
+        optimize_after_goal=True,
         display_tree_end=False,
         path_optimize=True,
         k_rope=1000,
+        sample_optimize=True,
+        p_bias=0.8,
+        r_sampling=20.0,
     )
     print(f"RRT completed in {time.time() - timer:.2f} seconds. Decomposition of costs:")
     for k, v in COSTS.items():

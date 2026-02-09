@@ -235,9 +235,9 @@ The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to 
 
 We do a very simple biaising algorithm that will fix the little issues left with the path optimization method. We notice in figure \ref{scenario-4-path-opti} that a few vertices are still not perfectly aligned with the obstacles, and so the path is not optimal. We now want to bias the sampling towards the path we already have, so that we have more chances to find improvements in the current path.
 
-What we do, in a similar fashion as RRT*-Smart \cite{RRT-Smart}, is to, with a certain probability $p_\text{bias}$, sample a point with a different measure than the uniform distribution. In this case, we pick a random interior vertex of the current best path, and sample a point using a truncated gaussian of hyperparameter radius $R_\text{sampling}$ around it. Note that $R_\text{sampling}$ should be lower than $\delta_r$, and it would likely be better to keep it around $\delta_s$ to be consistent with these other hyperparameters.
+What we do, in a similar fashion as RRT*-Smart \cite{RRT-Smart}, is to, with a certain probability $p_\text{bias}$, sample a point with a different measure than the uniform distribution. In this case, we pick a random interior vertex of the current best path, and sample a point using a truncated gaussian of hyperparameter radius $R_\text{sampling}$ around it. This way, we have more chances to find points that are close to the path, and so to find improvements to it.
 
-\textbf{Pseudocode (replaces uniform sampling):}
+\textbf{Pseudocode (replaces uniform sampling with rejection):}
 \begin{lstlisting}
 def sample(p_bias, R_sampling):
   if no_path_found:
@@ -252,7 +252,40 @@ def sample(p_bias, R_sampling):
 
 \section{Question 22}
 
+Note that $R_\text{sampling}$ should be much lower than $\delta_r$, and it would likely be better to keep it lower than $\delta_s$ as well to be consistent with these other hyperparameters: $\delta_s$ is here to explore at a reasonable rate, while we are looking for more fine-grained improvement here. We decided here to keep the same parameters as before for $\delta_s$ and $\delta_r$, and set $R_\text{sampling} = 20.0$ and $p_\text{bias} = 0.8$, for $1000$ iterations.
 
+We get a result in 6.18s, with a path length of 1944.26. This is again an improvement over only path optimization for path length, where we had 1968.18 in the previous test. However, it was reached in 462steps and 0.76s. The real reason this is longer is not the sampling time: but since we focus the sampling on certain regions, they become much more charged and it highly increases the complexity of finding the nearest nodes and rewiring. For this, we might want to reduce $\delta_r$ to take advantage of the changes we made. However, for comparison purposes, we are not doing so here. To compare with the actual best we can reach, we ran this same algorithm for 4 000 steps, which took us 97.19s to reach 1941.48 path length, very close to the theoretical best of 1941.32 (computed by hand).
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=0.48\textwidth]{figures/Sampling_RRT_4_path_1000.png}
+    \caption{Scenario 4 with sampling optimization for 1000 steps.}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=0.48\textwidth]{figures/Sampling_RRT_4_path_4000.png}
+    \caption{Scenario 4 with sampling optimization for 4000 steps: we get very close to the theoretical optimum.}
+  \end{subfigure}
+\end{figure}
+
+This method is clearly the most effective at reaching the optimum, but it comes with a cost. Below are the comparisons for all scenarios with exactly the same hyperparameters as what we just did, and optimized over 1000 steps each (PL = Path length, PO = Path optimization, SO = Sampling optimization).
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Scenario & PL/Time (base) & PL/Time (PO) & (PO + SO)\\
+\hline
+0 & 1446.07/1.02s & FILL & FILL \\
+1 & 1457.48/1.80s & FILL & FILL \\
+2 & 1514.35/2.45s & FILL & FILL \\
+3 & 1540.05/2.44s & FILL & FILL \\
+4 & 1987.74/2.11s & FILL & 1944.26/6.18s \\
+\hline
+\end{tabular}
+\end{center}
+
+%TODO conclusion on the efficiency of RRT
 
 \begin{thebibliography}{9}
 \bibitem{RRT-Smart}
