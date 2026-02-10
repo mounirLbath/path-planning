@@ -3,6 +3,7 @@ import time
 from math import cos, sin
 from math import pi as PI
 
+import numpy as np
 from scipy.stats import truncnorm
 
 from environment import Point, Problem, display_environment, load_problem
@@ -376,6 +377,9 @@ def display_tree(problem: Problem, nodes: list[Node]) -> None:
 if __name__ == "__main__":
     # set random seed
     random.seed(1)
+    np.random.seed(1)
+
+    # Pick scenario from command line
     from sys import argv
 
     if len(argv) != 2:
