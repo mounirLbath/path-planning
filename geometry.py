@@ -22,6 +22,9 @@ class Point:
     def __str__(self):
         return f"Point({self.x},{self.y})"
     
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+    
     def clamp(self, xmax: float, ymax: float):
         return Point(max(0, min(self.x, xmax)), max(0, min(self.y, ymax)))
     
