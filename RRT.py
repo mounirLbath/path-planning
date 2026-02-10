@@ -124,12 +124,10 @@ def switch_parent_and_propagate(nodes: list[Node], index: int, new_parent: int):
 
 
 def rewire_nodes(
-    nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int, goal: int
+    nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int
 ) -> list[int]:
-    global COSTS
     rewired_nodes = []
     rewire_from_point = nodes[rewire_from].point
-    updated_goal = False
     for index in nodes_around(grid_y_x, rewire_from_point, delta_r):
         if index == rewire_from:
             continue
@@ -138,7 +136,7 @@ def rewire_nodes(
             if new_cost < nodes[index].cost:
                 rewired_nodes.append(index)
                 switch_parent_and_propagate(nodes, index, rewire_from)
-    return rewired_nodes, updated_goal
+    return rewired_nodes
 
 
 def path_optimization(problem: Problem, tree: list[Node], index: int, k_rope: int) -> None:
@@ -216,7 +214,6 @@ def rrt(
     goal = None
     last_optimized_step = None
 
-    timer = time.time()
     grid_y_x: list[list[list[int]]] = [
         [[] for i in range(int(problem.xmax / delta_r) + 1)] for j in range(int(problem.ymax / delta_r) + 1)
     ]
@@ -272,29 +269,22 @@ def rrt(
                     best_parent = index
 
         add_node(nodes, v_new, best_parent, best_cost)
-        nodes[best_parent].children.add(len(nodes) - 1)
         grid_y_x[int(v_new.y // delta_r)][int(v_new.x // delta_r)].append(len(nodes) - 1)
         i_new = len(nodes) - 1
         COSTS["best_parent"] = COSTS.get("best_parent", 0) + time.time() - timer
 
         # rewiring nodes close enough to v_new similarly
         timer = time.time()
-        rewire_from = i_new
-        rewired_nodes, rewired_goal = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, goal)
-        if rewired_goal:
-            last_optimized_step = current_step
+        rewired_nodes = rewire_nodes(nodes, grid_y_x, problem, delta_r, i_new)
         COSTS["rewire"] = COSTS.get("rewire", 0) + time.time() - timer
 
         # Custom addition: rewire recursively if asked
         if recursive_rewire:
             timer = time.time()
-        while recursive_rewire and len(rewired_nodes) > 0:
-            rewire_from = rewired_nodes.pop()
-            rewired_nodes, rewired_goal = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, goal)
-            rewired_nodes.extend(rewired_nodes)
-            if rewired_goal:
-                last_optimized_step = current_step
-        if recursive_rewire:
+            while rewired_nodes:
+                rewire_from = rewired_nodes.pop()
+                new_rewired = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from)
+                rewired_nodes.extend(new_rewired)
             COSTS["recursive_rewire"] = COSTS.get("recursive_rewire", 0) + time.time() - timer
 
         # check if we reached the goal
@@ -309,7 +299,6 @@ def rrt(
                 continue
             # add the goal node
             add_node(nodes, problem.goal1, i_new, best_cost + distance(v_new, problem.goal1))
-            nodes[i_new].children.add(len(nodes) - 1)
             goal = len(nodes) - 1
             print("Goal found with cost ", nodes[goal].cost, " at step ", current_step)
             last_optimized_step = current_step
