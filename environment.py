@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle as MplRectangle
 from utils import *
 from geometry import Point, Rectangle
 import numpy as np
@@ -131,15 +130,19 @@ def load_problem(file_path: str) -> Problem:
 
     start1, goal1 = Point(s1x, s1y), Point(g1x, g1y)
     start2, goal2 = Point(s2x, s2y), Point(g2x, g2y)
-    if not(start1.is_within_bounds(xmax, ymax) and goal1.is_within_bounds(xmax, ymax)\
-           and start2.is_within_bounds(xmax, ymax) and goal2.is_within_bounds(xmax, ymax) ):
-        raise ValueError(f"Point out of bounds.")
+    if not (
+        start1.is_within_bounds(xmax, ymax)
+        and goal1.is_within_bounds(xmax, ymax)
+        and start2.is_within_bounds(xmax, ymax)
+        and goal2.is_within_bounds(xmax, ymax)
+    ):
+        raise ValueError("Point out of bounds.")
 
     obstacles: list[Rectangle] = []
     for i in range(0, len(obstacle_tokens), 4):
         ob = Rectangle(*obstacle_tokens[i : i + 4])
         if not ob.is_within_bounds(xmax, ymax):
-            raise ValueError(f"Obstacle {i//4} is out of bound.")
+            raise ValueError(f"Obstacle {i // 4} is out of bound.")
         obstacles.append(ob)
 
     return Problem(
@@ -162,7 +165,7 @@ def display_environment(problem: Problem, path: Path = None, paths: list[Path] =
 
     # Obstacles
     for obs in problem.obstacles:
-        ax.add_patch(MplRectangle((obs.x, obs.y), obs.width, obs.height, color="black"))
+        ax.add_patch(plt.Rectangle((obs.x, obs.y), obs.width, obs.height, color="black"))
 
     # Start and goal points for 1st robot
     ax.plot(problem.start1.x, problem.start1.y, "ro", label="start", markersize=10, clip_on=False, zorder=3)
