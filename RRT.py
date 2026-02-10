@@ -222,7 +222,7 @@ def rrt(
     ]
     grid_y_x[int(problem.start1.y // delta_r)][int(problem.start1.x // delta_r)].append(0)
 
-    for _ in range(max_iters):
+    for current_step in range(max_iters):
         check_infinite = 0
         while check_infinite < 1000:
             timer = time.time()
@@ -282,7 +282,7 @@ def rrt(
         rewire_from = i_new
         rewired_nodes, rewired_goal = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, goal)
         if rewired_goal:
-            last_optimized_step = len(nodes) - 1
+            last_optimized_step = current_step
         COSTS["rewire"] = COSTS.get("rewire", 0) + time.time() - timer
 
         # Custom addition: rewire recursively if asked
@@ -293,7 +293,7 @@ def rrt(
             rewired_nodes, rewired_goal = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, goal)
             rewired_nodes.extend(rewired_nodes)
             if rewired_goal:
-                last_optimized_step = len(nodes) - 1
+                last_optimized_step = current_step
         if recursive_rewire:
             COSTS["recursive_rewire"] = COSTS.get("recursive_rewire", 0) + time.time() - timer
 
@@ -304,15 +304,15 @@ def rrt(
             if goal is not None:
                 # update goal instead
                 switch_parent_and_propagate(nodes, goal, i_new)
-                last_optimized_step = len(nodes) - 1
+                last_optimized_step = current_step
                 # print("New node provides a better path to the goal, with cost ",nodes[goal].cost," at step ",len(nodes) - 1,)
                 continue
             # add the goal node
             add_node(nodes, problem.goal1, i_new, best_cost + distance(v_new, problem.goal1))
             nodes[i_new].children.add(len(nodes) - 1)
             goal = len(nodes) - 1
-            print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
-            last_optimized_step = goal
+            print("Goal found with cost ", nodes[goal].cost, " at step ", current_step)
+            last_optimized_step = current_step
             if not optimize_after_goal:
                 if path_optimize:
                     timer = time.time()
@@ -327,7 +327,7 @@ def rrt(
             path_optimization(problem, nodes, goal, k_rope)
             COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
             if nodes[goal].cost < past_cost:
-                last_optimized_step = len(nodes) - 1
+                last_optimized_step = current_step
 
     if display_tree_end:
         display_tree(problem, nodes)
