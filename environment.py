@@ -24,6 +24,12 @@ class Point:
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
+    def __hash__(self):
+        return hash((self.x, self.y))
+
+    def __lt__(self, other):
+        return (self.x, self.y) < (other.x, other.y)
+
     def is_within_bounds(self, xmax: float, ymax: float) -> bool:
         return 0 <= self.x <= xmax and 0 <= self.y <= ymax
 
@@ -37,8 +43,11 @@ class Rectangle:
         self.width = width
         self.height = height
 
-    def contains_point(self, p: Point) -> bool:
-        return self.x <= p.x <= self.x + self.width and self.y <= p.y <= self.y + self.height
+    def contains_point(self, p: Point, strict: bool = False) -> bool:
+        if strict:
+            return self.x < p.x < self.x + self.width and self.y < p.y < self.y + self.height
+        else:
+            return self.x <= p.x <= self.x + self.width and self.y <= p.y <= self.y + self.height
 
     def is_within_bounds(self, xmax: float, ymax: float) -> bool:
         return self.x >= 0 and self.y >= 0 and self.x + self.width <= xmax and self.y + self.height <= ymax
@@ -54,6 +63,14 @@ class Rectangle:
             (bottomRight, topRight),
             (topRight, topLeft),
             (topLeft, bottomLeft),
+        ]
+
+    def vertices(self) -> list[Point]:
+        return [
+            Point(self.x, self.y),
+            Point(self.x + self.width, self.y),
+            Point(self.x, self.y + self.height),
+            Point(self.x + self.width, self.y + self.height),
         ]
 
 

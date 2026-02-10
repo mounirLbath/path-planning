@@ -12,6 +12,15 @@
 \begin{document}
 \maketitle
 
+\section{Introduction}
+%TODO Complete introduction
+
+%TODO Motivation (robots/drones)
+
+Here, the environment is very simple; we are working in an environment with few obstacles, and all of them are rectangles. The results we have here cannot be simply extended to results on arbitrary environments; however, we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles. Otherwise, we could propose an extremely simple solution, implemented in graph\_solve.py, that can perfectly solve all the environments we have here, and in general any environment with known polygonal obstacle, in $O(O_cV^2)$ where $O_c$ is the cost to check collision with an obstacle for a segment, and $V$ is the number of vertices of the obstacles by running a Dijkstra on the obstacle vertices with a few tricks for collisions: here, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4.
+
+%TODO Include PSO questions
+
 \section{Question 13: Tree Data Structure}
 
 The tree is stored as a Python list of \texttt{Node} objects. Each node stores:
