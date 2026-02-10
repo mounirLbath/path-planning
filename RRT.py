@@ -1,5 +1,10 @@
 import random
 import time
+from math import cos, sin
+from math import pi as PI
+
+import numpy as np
+from scipy.stats import truncnorm
 
 from environment import Point, Problem, display_environment, load_problem
 from utils import distance, segment_collision
@@ -17,14 +22,24 @@ class Node:
         self.children: set[int] = set()
 
 
-def switch_parent(nodes: list["Node"], node_index: int, new_parent: int):
-    nodes[nodes[node_index].parent].children.discard(node_index)
-    nodes[node_index].parent = new_parent
-    nodes[new_parent].children.add(node_index)
+def add_node(tree: list[Node], point: Point, parent: int, cost: float) -> None:
+    tree.append(Node(point, parent, cost))
+    tree[parent].children.add(len(tree) - 1)
 
 
-def sample_random_point(problem: Problem) -> Point:
-    return Point(random.uniform(0, problem.xmax), random.uniform(0, problem.ymax))
+def sample_random_point(problem: Problem, p_bias: float = 0, r_sampling: float = 0, path: list[Point] = None) -> Point:
+    if path is None or len(path) == 0 or random.random() >= p_bias:
+        return Point(random.uniform(0, problem.xmax), random.uniform(0, problem.ymax))
+    else:
+        v_path = random.choice(path[1:-1])  # random interior vertex on the path
+        # Sample from truncated Gaussian around v_path
+        radius = truncnorm.rvs(0, r_sampling, loc=0, scale=r_sampling / 2)
+        angle = random.uniform(0, 2 * PI)
+        x = v_path.x + radius * cos(angle)
+        y = v_path.y + radius * sin(angle)
+        x = max(0, min(problem.xmax, x))
+        y = max(0, min(problem.ymax, y))
+        return Point(x, y)
 
 
 def nodes_around(
@@ -70,46 +85,100 @@ def crop_vr(v_near: Point, v_rand: Point, delta_s: float) -> Point:
     return v_near + (v_rand - v_near) * scale
 
 
-def reconstruct_path(nodes: list[Node], index: int) -> list[Point]:
-    path: list[Point] = []
+def reconstruct_path(nodes: list[Node], index: int) -> list[Node]:
+    path: list[Node] = []
     while index != -1:
-        path.append(nodes[index].point)
+        path.append(nodes[index])
         index = nodes[index].parent
     path.reverse()
     return path
 
 
+def _switch_parent(nodes: list["Node"], node_index: int, new_parent: int):
+    nodes[nodes[node_index].parent].children.discard(node_index)
+    nodes[node_index].parent = new_parent
+    nodes[new_parent].children.add(node_index)
+
+
+def _propagate_costs(nodes: list[Node], index: int):
+    stack = list(nodes[index].children)
+    while stack:
+        child_index = stack.pop()
+        new_cost = nodes[nodes[child_index].parent].cost + distance(
+            nodes[nodes[child_index].parent].point, nodes[child_index].point
+        )
+        if new_cost > nodes[child_index].cost:
+            raise ValueError("Rewiring causes a higher cost")
+        elif new_cost == nodes[child_index].cost:
+            raise ValueError("Rewiting does not cause a lower cost")
+        nodes[child_index].cost = new_cost
+        stack.extend(nodes[child_index].children)
+
+
+def switch_parent_and_propagate(nodes: list[Node], index: int, new_parent: int):
+    new_cost = nodes[new_parent].cost + distance(nodes[new_parent].point, nodes[index].point)
+    assert new_cost < nodes[index].cost, "New parent does not provide a lower cost"
+    nodes[index].cost = new_cost
+    _switch_parent(nodes, index, new_parent)
+    _propagate_costs(nodes, index)
+
+
 def rewire_nodes(
-    nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int, goal: int
+    nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int
 ) -> list[int]:
     rewired_nodes = []
     rewire_from_point = nodes[rewire_from].point
-    updated_goal = False
     for index in nodes_around(grid_y_x, rewire_from_point, delta_r):
         if index == rewire_from:
             continue
         if not segment_collision(rewire_from_point, nodes[index].point, problem.obstacles):
             new_cost = nodes[rewire_from].cost + distance(rewire_from_point, nodes[index].point)
             if new_cost < nodes[index].cost:
-                nodes[index].cost = new_cost
-                switch_parent(nodes, index, rewire_from)
                 rewired_nodes.append(index)
+                switch_parent_and_propagate(nodes, index, rewire_from)
+    return rewired_nodes
 
-                # update cost of descendants with a DFS
-                stack = list(nodes[index].children)
-                while stack:
-                    child_index = stack.pop()
-                    new_cost = nodes[nodes[child_index].parent].cost + distance(
-                        nodes[nodes[child_index].parent].point, nodes[child_index].point
+
+def path_optimization(problem: Problem, tree: list[Node], index: int, k_rope: int) -> None:
+    path: list[Node] = reconstruct_path(tree, index)
+    goal = tree[index]
+    if len(path) < 3:
+        # One segment only: nothing to shortcut
+        return
+    # Verify if we can shortcut to the first element
+    if not segment_collision(goal.point, path[0].point, problem.obstacles):
+        switch_parent_and_propagate(tree, index, path[1].parent)
+        return
+    # Best shortcut for now (parent of index)
+    best_i, best_k = len(path) - 1, k_rope
+    for i in range(len(path) - 2, 0, -1):
+        for k in range(1, k_rope + 1):
+            v_short = ((k_rope - k) / k_rope) * path[i].point + ((k / k_rope) * path[i - 1].point)
+            if not segment_collision(goal.point, v_short, problem.obstacles):
+                # We consider this as the new best possible shortcut
+                best_i, best_k = i, k
+            else:
+                if best_k != k_rope:
+                    # We insert the node in the tree
+                    v_short = ((k_rope - best_k) / k_rope) * path[best_i].point + (
+                        (best_k / k_rope) * path[best_i - 1].point
                     )
-                    if new_cost >= nodes[child_index].cost:
-                        raise ValueError("Rewiring causes a higher cost")
-                    if child_index == goal:
-                        updated_goal = True
-                        # print("Goal rewired with better cost, new cost: ", new_cost)
-                    nodes[child_index].cost = new_cost
-                    stack.extend(nodes[child_index].children)
-    return rewired_nodes, updated_goal
+                    add_node(
+                        tree,
+                        v_short,
+                        path[best_i].parent,
+                        tree[path[best_i].parent].cost + distance(tree[path[best_i].parent].point, v_short),
+                    )
+                    i_shortcut = len(tree) - 1
+                else:
+                    # We use the existing node
+                    i_shortcut = path[best_i].parent  # Index of path[i-1]=v_short in the tree
+
+                if best_i != len(path) - 1:
+                    # Otherwise we have no shortcut
+                    switch_parent_and_propagate(tree, index, i_shortcut)
+                return path_optimization(problem, tree, i_shortcut, k_rope)
+    raise ValueError("Should have found a shortcut to the first element, check the logic of path_optimization")
 
 
 def rrt(
@@ -120,6 +189,11 @@ def rrt(
     recursive_rewire: bool = False,
     optimize_after_goal: bool = False,
     display_tree_end: bool = False,
+    path_optimize: bool = False,
+    k_rope=10,
+    sample_optimize: bool = False,
+    p_bias: float = 0.75,
+    r_sampling: float = 1.0,
 ) -> list[Point] | None:
     global COSTS
     if delta_r < delta_s:
@@ -140,19 +214,27 @@ def rrt(
     goal = None
     last_optimized_step = None
 
-    timer = time.time()
     grid_y_x: list[list[list[int]]] = [
         [[] for i in range(int(problem.xmax / delta_r) + 1)] for j in range(int(problem.ymax / delta_r) + 1)
     ]
     grid_y_x[int(problem.start1.y // delta_r)][int(problem.start1.x // delta_r)].append(0)
 
-    for _ in range(max_iters):
+    for current_step in range(max_iters):
         check_infinite = 0
         while check_infinite < 1000:
             timer = time.time()
-            v_r = sample_random_point(problem)
-            # Only sample points that could improve the path to the goal
-            while goal and distance(problem.start1, v_r) + distance(v_r, problem.goal1) >= nodes[goal].cost:
+            if goal and sample_optimize:
+                v_r = sample_random_point(
+                    problem, p_bias=p_bias, r_sampling=r_sampling, path=[n.point for n in reconstruct_path(nodes, goal)]
+                )
+            else:
+                v_r = sample_random_point(problem)
+            # Only sample points that could improve the path to the goal; if we are not using the improved sampling
+            while (
+                not sample_optimize
+                and goal
+                and distance(problem.start1, v_r) + distance(v_r, problem.goal1) >= nodes[goal].cost
+            ):
                 v_r = sample_random_point(problem)
             COSTS["sampling"] = COSTS.get("sampling", 0) + time.time() - timer
 
@@ -186,62 +268,62 @@ def rrt(
                     best_cost = c
                     best_parent = index
 
-        nodes.append(Node(v_new, best_parent, best_cost))
-        nodes[best_parent].children.add(len(nodes) - 1)
+        add_node(nodes, v_new, best_parent, best_cost)
         grid_y_x[int(v_new.y // delta_r)][int(v_new.x // delta_r)].append(len(nodes) - 1)
         i_new = len(nodes) - 1
         COSTS["best_parent"] = COSTS.get("best_parent", 0) + time.time() - timer
 
         # rewiring nodes close enough to v_new similarly
         timer = time.time()
-        rewire_from = i_new
-        rewired_nodes, rewired_goal = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, goal)
-        if rewired_goal:
-            last_optimized_step = len(nodes) - 1
+        rewired_nodes = rewire_nodes(nodes, grid_y_x, problem, delta_r, i_new)
         COSTS["rewire"] = COSTS.get("rewire", 0) + time.time() - timer
 
         # Custom addition: rewire recursively if asked
         if recursive_rewire:
             timer = time.time()
-        while recursive_rewire and len(rewired_nodes) > 0:
-            rewire_from = rewired_nodes.pop()
-            rewired_nodes, rewired_goal = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, goal)
-            rewired_nodes.extend(rewired_nodes)
-            if rewired_goal:
-                last_optimized_step = len(nodes) - 1
-        if recursive_rewire:
+            while rewired_nodes:
+                rewire_from = rewired_nodes.pop()
+                new_rewired = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from)
+                rewired_nodes.extend(new_rewired)
             COSTS["recursive_rewire"] = COSTS.get("recursive_rewire", 0) + time.time() - timer
 
-        # goal check
+        # check if we reached the goal
         if not segment_collision(v_new, problem.goal1, problem.obstacles) and (
             goal is None or best_cost + distance(v_new, problem.goal1) < nodes[goal].cost
         ):
             if goal is not None:
                 # update goal instead
-                switch_parent(nodes, goal, i_new)
-                nodes[goal].cost = best_cost + distance(v_new, problem.goal1)
-                last_optimized_step = len(nodes) - 1
+                switch_parent_and_propagate(nodes, goal, i_new)
+                last_optimized_step = current_step
                 # print("New node provides a better path to the goal, with cost ",nodes[goal].cost," at step ",len(nodes) - 1,)
                 continue
-            nodes.append(Node(problem.goal1, i_new, best_cost + distance(v_new, problem.goal1)))
-            nodes[i_new].children.add(len(nodes) - 1)
+            # add the goal node
+            add_node(nodes, problem.goal1, i_new, best_cost + distance(v_new, problem.goal1))
             goal = len(nodes) - 1
-            # print("Goal found with cost ", nodes[goal].cost, " at step ", len(nodes) - 1)
-            last_optimized_step = goal
+            print("Goal found with cost ", nodes[goal].cost, " at step ", current_step)
+            last_optimized_step = current_step
             if not optimize_after_goal:
+                if path_optimize:
+                    timer = time.time()
+                    path_optimization(problem, nodes, goal, k_rope)
+                    COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
                 break
-            else:
-                if nodes[goal].cost < distance(problem.start1, problem.goal1) * 1.01:
-                    print(
-                        "WARNING: path is already close to a straight line, optimization after goal may not be effective and will increase runtime"
-                    )
+
+        # Path optimization
+        if goal is not None and path_optimize:
+            past_cost = nodes[goal].cost
+            timer = time.time()
+            path_optimization(problem, nodes, goal, k_rope)
+            COSTS["path_optimization"] = COSTS.get("path_optimization", 0) + time.time() - timer
+            if nodes[goal].cost < past_cost:
+                last_optimized_step = current_step
 
     if display_tree_end:
         display_tree(problem, nodes)
 
     if goal is not None:
         # display_tree(problem, nodes)
-        return nodes[goal].cost, reconstruct_path(nodes, goal), goal, last_optimized_step
+        return nodes[goal].cost, [i.point for i in reconstruct_path(nodes, goal)], goal, last_optimized_step
 
     return None, None, None, None
 
@@ -281,29 +363,42 @@ def display_tree(problem: Problem, nodes: list[Node]) -> None:
     plt.show()
 
 
-# TODO bidirectional (also goes from end)
 if __name__ == "__main__":
     # set random seed
     random.seed(1)
+    np.random.seed(1)
+
+    # Pick scenario from command line
+    from sys import argv
+
+    if len(argv) != 2:
+        scenario_nb = 0
+    else:
+        scenario_nb = int(argv[1])
     timer = time.time()
-    prob = load_problem("./scenarios/scenario4.txt")
+    prob = load_problem(f"./scenarios/scenario{scenario_nb}.txt")
     print(f"Environment loaded in {time.time() - timer:.2f} seconds")
     timer = time.time()
     cost, path, steps_taken, last_optimized_step = rrt(
         prob,
-        delta_s=50.0,
+        delta_s=40.0,
         delta_r=150.0,
-        max_iters=3000,
+        max_iters=1000,
         recursive_rewire=False,
         optimize_after_goal=True,
         display_tree_end=False,
+        path_optimize=True,
+        k_rope=1000,
+        sample_optimize=True,
+        p_bias=0.8,
+        r_sampling=20.0,
     )
     print(f"RRT completed in {time.time() - timer:.2f} seconds. Decomposition of costs:")
     for k, v in COSTS.items():
         print(f"  {k}: {v:.4f} seconds")
     print("Total accounted time: ", sum(COSTS.values()), " seconds")
     if path is not None:
-        assert cost == sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))
+        assert abs(cost - sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))) < 1e-6
         print(
             f"Path found with {len(path)} points and total length {cost:.2f}"
             + (
@@ -312,9 +407,6 @@ if __name__ == "__main__":
                 else f", last optimized step: {last_optimized_step}"
             )
         )
-        display_environment(prob, path)
+        # display_environment(prob, path)
     else:
         print("No path found")
-
-
-# Timings: cost recomputation for rewiring: 0.01s / 4s at most

@@ -1,0 +1,308 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+\title{$CSC_42021$ Project, RRT}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+%TODO Complete introduction
+
+%TODO Motivation (robots/drones)
+
+Here, the environment is very simple; we are working in an environment with few obstacles, and all of them are rectangles. The results we have here cannot be simply extended to results on arbitrary environments; however, we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles. Otherwise, we could propose an extremely simple solution, implemented in graph\_solve.py, that can perfectly solve all the environments we have here, and in general any environment with known polygonal obstacle, in $O(O_cV^2)$ where $O_c$ is the cost to check collision with an obstacle for a segment, and $V$ is the number of vertices of the obstacles by running a Dijkstra on the obstacle vertices with a few tricks for collisions: here, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4.
+
+%TODO Include PSO questions
+
+\section{Question 13: Tree Data Structure}
+
+The tree is stored as a Python list of \texttt{Node} objects. Each node stores:
+\begin{itemize}[nosep]
+  \item \texttt{point}: its 2D position $(x,y)$,
+  \item \texttt{parent}: the index of its parent in the list ($-1$ for the root),
+  \item \texttt{cost}: the cost-to-come, i.e.\ the total path length from the start to this node,
+  \item \texttt{children}: a set of indices of its children in the tree.
+\end{itemize}
+The \texttt{children} set is not strictly necessary for basic RRT, but it allows efficient cost propagation to descendants after a rewire operation (see Q17).
+
+To accelerate nearest-neighbour and neighbourhood queries, we also maintain a 2D grid of cell size $\delta_r$: each cell holds a list of node indices whose positions fall in that cell. Querying the 9 cells around a point gives all neighbours within $\delta_r$; which is much better (see Q16) than scanning all nodes.
+
+\section{Question 14: Path Reconstruction}
+
+Given the index $i$ of any node, we reconstruct the path to the start by following parent links:
+\begin{enumerate}[nosep]
+  \item Append \texttt{nodes[i].point} to a list.
+  \item Set $i \leftarrow \texttt{nodes[i].parent}$; repeat until $i = -1$.
+  \item Reverse the list.
+\end{enumerate}
+Complexity: $O(D)$ where $D$ is the depth of the node in the tree.
+
+\section{Question 15: RRT Pseudocode}
+
+We write the pseudocode with explanations for each step to make it clearer than simple function calls.
+
+\begin{enumerate}[nosep]
+  \item Initialize tree with a single root node at start (cost $= 0$). Build the spatial grid.
+  \item For each iteration (up to \texttt{max\_iters}):
+  \begin{enumerate}[nosep]
+    \item \textbf{Sampling.} Sample a random free point $v_r$. If a goal path exists, reject samples that cannot improve it (see Q17).
+    \item \textbf{Nearest neighbour.} Find the nearest tree node $v_n$ using the grid.
+    \item \textbf{Steer.} Steer from $v_n$ toward $v_r$ by at most $\delta_s$ to get $v_{\text{new}}$. Discard if the segment hits an obstacle.
+    \item \textbf{Best parent selection.} Among grid neighbours of $v_{\text{new}}$, pick the collision-free parent to minimize the final cost of reaching $v_{\text{new}}$.
+    \item \textbf{Insertion.} Add $v_{\text{new}}$ to the tree; update parent's children set and grid cell.
+    \item \textbf{Rewiring.} For neighbours within $\delta_r$, if the path through $v_{\text{new}}$ lowers their cost and is collision free, update their parent, cost, and propagate the cost reduction to all descendants via the children sets.
+    \item \textbf{Goal check.} If $v_{\text{new}}$ sees the goal and the resulting cost improves, either create the goal node or update the existing goal node's parent.
+  \end{enumerate}
+\end{enumerate}
+
+\section{Question 16: Complexity of One Iteration}
+
+Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the average number of nodes per grid cell ($K \sim N \frac{\delta_r^2}{x_{\max} y_{\max}}$). We detail each step of the pseudocode :
+
+\begin{enumerate}[nosep]
+  \item Initialization: $O(\frac{x_{\max}y_{\max}}{\delta_r^2}) = O(\frac{N}{K})$ to initialize the grid.
+  \item On one iteration of the main loop:
+  \begin{enumerate}[nosep]
+    \item \textbf{Sampling.} Drawing a uniform random point is $O(1)$. The rejection test (when a goal path of cost $c^*$ exists) computes two distances: $O(1)$. In the worst case we may reject many samples, but on average this step remains $O(1)$.
+
+    \item \textbf{Nearest neighbour.} The grid search expands ring by ring from the cell containing $v_r$. If everything works correctly, the nearest neighbour should be found at a distance $\delta_s < \delta_r$ or less, so in the first 9 cells checked, and we would stop after that. This gives a complexity of $O(K)$.
+
+    \item \textbf{Steer.} Steering is $O(1)$ (one direction computation + clamp). The collision check tests the segment $v_n v_{\text{new}}$ against all $O$ obstacles, which is done in $O(1)$ per obstacle, which gives a complexity of $O(O)$.
+
+    \item \textbf{Best parent selection.} We scan the 9 grid cells around $v_{\text{new}}$, giving $O(K)$ candidate nodes. For each, we compute one distance ($O(1)$) and one collision check ($O(O)$). This gives a complexity of $O(OK)$.
+
+    \item \textbf{Insertion.} Appending a node to the list, adding its index to the parent's children set, and inserting into the grid cell are each $O(1)$.
+
+    \item \textbf{Rewiring.} Same $O(K)$ neighbour scan as 2.d, so $O(OK)$ for the candidate checks. For each rewired node, we propagate the cost update to its descendants via a DFS through children sets: $O(D_i)$ where $D_i$ is the subtree size of rewired node $i$. In practice, this $D_i$ is often small even if we can have $O(\sum_i D_i)$ total cost; and the constant factor is also very low.
+
+    \item \textbf{Goal check.} One collision check ($O(O)$) and one cost comparison ($O(1)$) at most; so $O(O)$.
+  \end{enumerate}
+\end{enumerate}
+
+The dominant costs per iteration are the neighbour scans in 2.b, 2.d, and 2.f. In the typical case one iteration costs $O(OK + \sum_i D_i)$. In practice, we notice what we expected: 2.d and 2.f each take around 40\% of the runtime, and 2.b around 15\% for environments with $O \simeq 11$, and all of them take around 33\% of the runtime for scenario 0 with $O=1$.
+
+\section{Question 17: Implementation Choices}
+
+Several design choices improve upon the basic RRT* algorithm:
+
+\begin{itemize}
+  \item \textbf{Grid buckets for nodes.} Instead of scanning all $N$ nodes for nearest-neighbour and neighbourhood queries, we partition the domain into cells of size $\delta_r \times \delta_r$. This makes the common case $O(K \sim N\frac{\delta_r^2}{x_{\max} y_{\max}})$ per query instead of $O(N)$.
+
+  \item \textbf{Children sets for cost propagation.} Each node maintains a set of its children's indices. When a node is rewired (its parent changes), we can propagate the cost update to all descendants via a simple DFS through the children sets, rather than scanning all nodes. This is, in theory, possibly $O(N)$ in the worst case, but in practice it is often much smaller and does not slow down the algorithm.
+
+  \item \textbf{Sampling rejection.} Once a goal path of cost $c^*$ is known, we reject any random sample $v_r$ for which $\text{dist}(v_\text{start}, v_r) + \text{dist}(v_r, v_\text{goal}) \geq c^*$, since such a point cannot improve the current best path. This focuses sampling on the useful region and accelerates convergence. However, it is only useful in cases where the optimal path is close to the straight line between start and goal like scenario 0; in more complex environments it may not help much.
+
+  \item \textbf{Goal node reuse.} Instead of appending a new goal node each time a better connection is found, we update the existing goal node's parent in place via \texttt{switch\_parent}. This avoids accumulating dead goal nodes and keeps the tree clean.
+  
+  \item \textbf{Optimize after goal (optional).} When enabled, the algorithm continues iterating after first reaching the goal, progressively improving the path cost. The loop terminates at \texttt{max\_iters}. Otherwise, it returns the first path found.
+
+  \item \textbf{Recursive rewire (optional).} When enabled, rewired nodes are themselves used as starting points for further rewiring, propagating improvements deeper into the tree. This is more expensive but can yield shorter paths. In practice, we found that it does not significantly improve path cost in our scenarios, but adds a significant time delay, so we keep it disabled by default.
+\end{itemize}
+
+\section{Question 18: Experimental Results}
+
+Here are the results I obtained, using the parameters defined below. We applied an optimization so we do not just have "path length / steps taken / CPU time". Instead, we report the optimized path length, the time taken for this optimization, as well as the number of steps taken to find the first path to the goal, and its length.
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Scenario & Path length (1000 steps) & Time (1000 steps) & First path steps & First path length\\
+\hline
+0 & 1446.07 & 1.07s & 55 & 1521.12 \\
+1 & 1457.48 & 1.89s & 59 & 1566.66 \\
+2 & 1514.35 & 2.62s & 121 & 1552.25 \\
+3 & 1540.05 & 2.57s & 328 & 1558.16 \\
+4 & 1987.74 & 2.11s & 460 & 2027.95 \\
+\hline
+\end{tabular}
+\caption{Table of all results for hyperparameters $\delta_s = 40$, $\delta_r = 150$ on 1000 iterations. We compare the final results after 1000 steps (first two columns) with the step number and length of the first path found to the goal.}
+\end{figure}
+
+To select the hyperparameters $\delta_s$ and $\delta_r$, and $max_steps$, we performed a grid search (see \texttt{RRT\_benchmark\_results.txt}), then analyzed it (\texttt{RRT\_best\_performances.txt}) and found that across all scenarios, values around $\delta_s = 40.0$, $\delta_r = 150.0$, and $max\_steps = 1000$ (optimizing after goal, see Q17) gave a good balance of path quality and runtime.
+
+While we would greatly benefit from deciding the hyperparameters differently for each scenario, we wanted to give a fair point of view on the general performance we can reach by staying generic across different scenarios.
+
+In general, the main hyperparameters for which the tradeoff is not obvious is $\delta_s$ and $\delta_r$. Setting $\delta_s$ smaller gives us more fine-grained precision in our task, but will be much slower to explore the environment. On the other side, $\delta_r$ is much more related to the efficiency of the algorithm: having a larger $\delta_r$ will always improve the algorithm if we have infinite computing power; but otherwise, it will slow down the algorithm by making $K$ larger (see Q16/Q17).
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_0_tree.png}
+  \caption{Scenario 0: tree}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_0_path.png}
+  \caption{Scenario 0: path}
+\end{subfigure}
+\caption{\emph{We notice here a strong impact of the rejection sampling; since we found a quick path, we don't need to waste time on all the environment so we reject candidate nodes too far away.}}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_1_tree.png}
+  \caption{Scenario 1: tree}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_1_path.png}
+  \caption{Scenario 1: path}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_2_tree.png}
+  \caption{Scenario 2: tree}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_2_path.png}
+  \caption{Scenario 2: path}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_3_tree.png}
+  \caption{Scenario 3: tree}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_3_path.png}
+  \caption{Scenario 3: path}
+\end{subfigure}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_4_tree.png}
+  \caption{Scenario 4: tree}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/RRT_4_path.png}
+  \caption{Scenario 4: path}
+\end{subfigure}
+\caption{\emph{Here, the initial path found is much longer, so the rejection sampling basically has no effect.}}
+\end{figure}
+
+
+
+\section{Question 19}
+
+The straightforward path optimisation we can implement is - as will be the answer to the following questions - very much similar to the RRT*-Smart algorithm \cite{RRT-Smart}. We here detail a simple version that also includes an improvement from RRT-Rope \cite{RRT-Rope}.
+
+To detail this approach, after each iteration of the main loop where the cost to reach the goal (that we consider infinity while we do not have a path to the goal) changed, we do a Path Optimisation step. For each node $V$ starting from the end, we try to shortcut to an node earlier in the path (strictly earlier than the node's parent). We don't consider first its grandparent, but instead a node in between its parent and its grandparent. This node, $V_{\text{rope}} = \frac{k-1}{k} \text{V.parent} + \frac{1}{k} \text{V.grandparent}$ relies on the hyperparameter $k_\text{rope}$, that defines the number of points we want to consider for each path edge. If $V_\text{rope}$ is in sight of $V$, we make the shortcut between then, and we continue trying to shortcut to earlier nodes in a similar fashion, stopping when it finds a node that is not in line of sight. Then, we restart this process by setting $V$ to be the last node we shortcut to, and continue until we reach the starting node.
+
+This gives us, for a path to goal $v_\text{start}, v_1, \cdots, v_P, v_\text{goal}$ a simple $O(P k_\text{rope}\sum_{2\leq i \leq P}D_i)$, which should be very reasonable in practice.
+
+\textbf{Pseudocode (simplified)(insert at the end of each iteration):}
+\begin{lstlisting}
+def path_optimization(v_goal, k_rope):
+  path = reconstruct_path(v_goal)  # [v_0, ..., v_P, v_goal]
+
+  best = None # no shortcut yet
+  for i = P down to 1:
+      for k = 1 to k_rope:
+          v_s = v_i * ((k_rope - k)/k_rope) + v_i-1 * (k/k_rope)
+          if line_of_sight(v_goal, v_s):
+              best = shortcut(i, k)    # remember best
+          else:                        # blocked: commit best
+              if best is None: return  # no shortcut found
+              if best.is_rope_point():
+                  # best is a new rope point
+                  insert_in_tree(best.rope, parent=best.parent)
+              switch_parent_propagate_costs(v_goal, best.point)
+              return path_optimization(best.point, k_rope)
+\end{lstlisting}
+
+Let us note a very simple drawback of this method: since we overly optimize the first path we find, we may fall completely into a local minimum. For example, if we find a path that can only be optimized to length 15 while another is of length 13, we will likely never find the path of length 13 since by optimizing the first path we will make it look "better". If instead we let the algorithm run a bit longer before starting to path optimize (and improve the sampling method, see Q21), we would have more chances to find the better path, and then optimize it to the global optimum. A way to prevent this a little would be to run path optimization on not only the goal node, but every node we add to the tree, but this would be much more expensive. We could also want to run the full algorithm multiples times in a row to see if we find a better path; but this goes out of the scope of what we want to do here.
+
+\section{Question 20}
+
+Compared to the basic algorithm we had before, this version is much more effective, even if it stays simple. We decided here to stop at the first path found - since the real improvement of further sampling will really appear only in question 21 - and run path optimization on it. We made the test on scenario 4, with otherwise the same parameters as before, but with a high $k_\text{rope} = 1000$.
+
+We found a path length 1968.18 for 0.81s of computation, in 460 steps. This is much better than the original 1987.74 in 2.22s we had previously in 1000 steps of optimization. %TODO include PSO part
+
+The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to find a shortcut, but will also make the optimization step slower (at worst linearly, see Q19). However, we notice the impact of path optimization is in general very low; even if we continue optimizing for $\sim$ 500 steps after reaching the goal (so $\sim$ 500 path optimizations), we only spend 0.16s out of 2.29s in path optimization, so about 7\%, which is not negligible but still reasonable for the improvement we get. We will see in question 21 an optimisation that reduces the importance of having a very high $k_\text{rope}$, so we can keep it reasonably low.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/Path_Optimized_RRT_4_path.png}
+
+  \caption{Scenario 4 with path optimization: The paths runs much closer to the obstacles, but not perfectly everywhere, since we only shortcut from goal to start.}
+  \label{scenario-4-path-opti}
+\end{figure}
+
+\section{Question 21}
+
+We do a very simple biaising algorithm that will fix the little issues left with the path optimization method. We notice in figure \ref{scenario-4-path-opti} that a few vertices are still not perfectly aligned with the obstacles, and so the path is not optimal. We now want to bias the sampling towards the path we already have, so that we have more chances to find improvements in the current path.
+
+What we do, in a similar fashion as RRT*-Smart \cite{RRT-Smart}, is to, with a certain probability $p_\text{bias}$, sample a point with a different measure than the uniform distribution. In this case, we pick a random interior vertex of the current best path, and sample a point using a truncated gaussian of hyperparameter radius $R_\text{sampling}$ around it. This way, we have more chances to find points that are close to the path, and so to find improvements to it.
+
+\textbf{Pseudocode (replaces uniform sampling with rejection):}
+\begin{lstlisting}
+def sample(p_bias, R_sampling):
+  if no_path_found:
+    return uniform_sample()
+  else:
+    if UniformRV(0, 1) < p_bias:
+      v_path = random_vertex_on_path()
+      return truncated_gaussian_sample(v_path, R_sampling)
+    else:
+      return uniform_sample()
+\end{lstlisting}
+
+\section{Question 22}
+
+Note that $R_\text{sampling}$ should be much lower than $\delta_r$, and it would likely be better to keep it lower than $\delta_s$ as well to be consistent with these other hyperparameters: $\delta_s$ is here to explore at a reasonable rate, while we are looking for more fine-grained improvement here. We decided here to keep the same parameters as before for $\delta_s$ and $\delta_r$, and set $R_\text{sampling} = 10.0$ and $p_\text{bias} = 0.8$, for $1000$ iterations.
+
+We get a result in 4.27s, with a path length of 1942.19. This is again an improvement over only path optimization for path length, where we had 1968.18 in the previous test. However, it was reached in 460 steps and 0.81s. The real reason this is longer is not the sampling time: but since we focus the sampling on certain regions, they become much more charged and it highly increases the complexity of finding the nearest nodes and rewiring. For this, we might want to reduce $\delta_r$ to take advantage of the changes we made. However, for comparison purposes, we are not doing so here. We also notice the algorithm returned a value very close to the theoretical best path length of 1941.32 (computed by hand).
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{figures/Sampling_RRT_4_path_1000.png}
+  \caption{Scenario 4 with sampling optimization for 1000 steps.}
+\end{figure}
+
+This method is clearly the most effective at reaching the optimum, but it comes with a cost. Below are the comparisons for all scenarios with exactly the same hyperparameters as what we just did, and optimized over 1000 steps each (PL = Path length, PO = Path optimization, SO = Sampling optimization).
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Scenario & PL/Time (base) & PL/Time (PO) & (PO + SO)\\
+\hline
+0 & 1446.07/1.07s & 1443.51/1.16s & 1443.37/2.56s \\
+1 & 1457.48/1.89s & 1451.18/2.15s & 1453.08/4.83s \\
+2 & 1514.35/2.62s & 1512.20/2.99s & 1505.60/5.75s \\
+3 & 1540.05/2.57s & 1527.94/2.76s & 1524.93/4.42s \\
+4 & 1987.74/2.11s & 1968.18/2.29s & 1942.19/4.27s \\
+\hline
+\end{tabular}
+\caption{Table of all results on the same hyperparameters, with $1000$ iterations: $\delta_s = 40.0$, $\delta_r = 150.0$, $k_\text{rope} = 1000$, $p_\text{bias} = 0.8$, $R_\text{sampling} = 20.0$. Notice the interest of this improvement lies mostly in more complex environments like scenario 4 than in very simple ones like scenario 0.}
+\end{figure}
+
+%TODO conclusion on the efficiency of RRT
+
+\begin{thebibliography}{9}
+\bibitem{RRT-Smart}
+F.~Islam, J.~Nasir, U.~Malik, Y.~Ayaz, and O.~Hasan,
+``RRT*-Smart: Rapid convergence implementation of RRT* towards optimal solution,''
+in \emph{2012 IEEE International Conference on Mechatronics and Automation}, 2012, pp.~1651--1656, doi:10.1109/ICMA.2012.6284384.
+
+\bibitem{RRT-Rope}
+L.~Petit and A.~Lussier Desbiens,
+``RRT-Rope: A deterministic shortening approach for fast near-optimal path planning in large-scale uncluttered 3D environments,''
+in \emph{2021 IEEE International Conference on Systems, Man, and Cybernetics (SMC)}, 2021, pp.~1111--1118, doi:10.1109/SMC52423.2021.9659071.
+\end{thebibliography}
+
+\end{document}

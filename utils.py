@@ -9,17 +9,23 @@ def dot(a: Point, b: Point) -> float:
     return a.x * b.x + a.y * b.y
 
 
-def segment_intersects_rect(a: Point, b: Point, r: Rectangle) -> bool:
+def segment_intersects_rect(a: Point, b: Point, r: Rectangle, strict: bool = False) -> bool:
     if a == b:
         raise ValueError("Checking intersection for a segment of length 0")
     # quick reject by bounding boxes
-    if max(a.x, b.x) < r.x or min(a.x, b.x) > r.x + r.width:
-        return False
-    if max(a.y, b.y) < r.y or min(a.y, b.y) > r.y + r.height:
-        return False
+    if not strict:
+        if max(a.x, b.x) < r.x or min(a.x, b.x) > r.x + r.width:
+            return False
+        if max(a.y, b.y) < r.y or min(a.y, b.y) > r.y + r.height:
+            return False
+    else:
+        if max(a.x, b.x) <= r.x or min(a.x, b.x) >= r.x + r.width:
+            return False
+        if max(a.y, b.y) <= r.y or min(a.y, b.y) >= r.y + r.height:
+            return False
 
-    # quick accept if either endpoint is inside rectangle
-    if r.contains_point(a) or r.contains_point(b):
+    # quick accept if either endpoint is inside rectangle (probably likely to happen in the case of an intersection)
+    if r.contains_point(a, strict=strict) or r.contains_point(b, strict=strict):
         return True
 
     # For the case of colinearity between ab and edges :
@@ -38,9 +44,10 @@ def segment_intersects_rect(a: Point, b: Point, r: Rectangle) -> bool:
     return False
 
 
-def segment_collision(a: Point, b: Point, obstacles: list[Rectangle]) -> bool:
+def segment_collision(a: Point, b: Point, obstacles: list[Rectangle], strict: bool = False) -> bool:
+    # If strict is True, we still reject points in 2 rectangles, since the path is of width 0 here.
     for obs in obstacles:
-        if segment_intersects_rect(a, b, obs):
+        if segment_intersects_rect(a, b, obs, strict=strict):
             return True
     return False
 
