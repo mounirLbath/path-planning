@@ -1,4 +1,4 @@
-from environment import Point, Rectangle
+from geometry import Point, Rectangle
 
 
 def distance(a: Point, b: Point) -> float:
@@ -29,16 +29,16 @@ def segment_intersects_rect(a: Point, b: Point, r: Rectangle, strict: bool = Fal
         return True
 
     # For the case of colinearity between ab and edges :
-    # If ab is axis-aligned: either 1. It is outside the rectangle (rejected by bounding box) or 2. It intersects the rectangle
+    # If ab is axis-aligned: either it is outside the rectangle (rejected by bounding box) or it intersects the rectangle
     if a.x == b.x or a.y == b.y:
         return True
 
     # Normal vector to ab
     normal = Point(b.y - a.y, a.x - b.x)
-    for e1, e2 in r.edges():
-        # We do the full check now that we have no colinearity: a and b are opposite sides of edge e1e2 and e1 and e2 are opposite sides of ab
-        normal_r = Point(e2.y - e1.y, e1.x - e2.x)
-        if dot(normal, e1 - a) * dot(normal, e2 - a) <= 0 and dot(normal_r, a - e1) * dot(normal_r, b - e1) <= 0:
+    for p1, p2 in r.edges(): # p1 and p2 are the 2 ends of the edge
+        # We do the full check now that we have no colinearity: a and b are opposite sides of edge p1p2 and p1 and p2 are opposite sides of ab
+        normal_r = Point(p2.y - p1.y, p1.x - p2.x)
+        if dot(normal, p1 - a) * dot(normal, p2 - a) <= 0 and dot(normal_r, a - p1) * dot(normal_r, b - p1) <= 0:
             return True
 
     return False
@@ -50,3 +50,4 @@ def segment_collision(a: Point, b: Point, obstacles: list[Rectangle], strict: bo
         if segment_intersects_rect(a, b, obs, strict=strict):
             return True
     return False
+

@@ -1,78 +1,79 @@
 import matplotlib.pyplot as plt
+from utils import *
+from geometry import Point, Rectangle
+import numpy as np
 
+class Path:
+    """A path which linear by piece"""
 
-class Point:
-    """Points in the environment."""
+    def __init__(self, points: list[Point], start: Point, end: Point) -> None:
+        self.points = points
+        self.start = start
+        self.end = end
 
-    def __init__(self, x: float, y: float) -> None:
-        self.x = x
-        self.y = y
+    def collision(self, obstacles: list[Rectangle]) -> bool:
+        """Returns true if path collides with an obstacle"""
+        for i in range(len(self.points)-1):
+            if segment_collision(self.points[i], self.points[i+1], obstacles):
+                return True
+        return segment_collision(self.start, self.points[0], obstacles) or segment_collision(self.end, self.points[-1], obstacles)
+    
+    def nb_pair_collision(self, obstacles: list[Rectangle]) -> bool:
+        """Returns the number of pairs (obstacle, segment) that collide (where segment is in the path)"""
+        n = 0
+        for ob in obstacles:
+            if segment_intersects_rect(self.start, self.points[0], ob) or segment_intersects_rect(self.end, self.points[-1], ob):
+                n += 1
+            for i in range(len(self.points)-1):
+                if segment_intersects_rect(self.points[i], self.points[i+1], ob):
+                    n += 1
+        return n
 
-    # Define basic vector operations
+    def length(self):
+        d = distance(self.start, self.points[0]) or distance(self.end, self.points[-1])
+        for i in range(len(self.points) -1 ):
+            d += distance(self.points[i], self.points[i+1])
+        return d
+    
+    def update(self, other):
+        if len(other.points) != len(self.points):
+            raise ValueError("Update was tried but point lists not of same length.")
+        
+        for i in range(len(self.points)):
+            self.points[i] = other.points[i]
+    
     def __add__(self, other):
-        return Point(self.x + other.x, self.y + other.y)
-
+        """Adds the 2 path component wise"""
+        if len(self.points) != len(other.points):
+            raise ValueError("Trying to add 2 paths with different sizes.")
+        result = [self.points[i] + other.points[i] for i in range(len(self.points))]
+        return Path(result, self.start, self.end)
+    
     def __sub__(self, other):
-        return Point(self.x - other.x, self.y - other.y)
+        if len(self.points) != len(other.points):
+            raise ValueError("Trying to substract 2 paths with different sizes.")
+        
+        result = [self.points[i] - other.points[i] for i in range(len(self.points))]
+        
+        return Path(result, self.start, self.end)
 
     def __mul__(self, scalar: float):
-        return Point(self.x * scalar, self.y * scalar)
+        return Path([p*scalar for p in self.points], self.start, self.end)
+    
+    def __str__(self):
+        s = str(self.start)+";"
+        for p in self.points:
+            s += str(p) + ";"
+        s += str(self.end)
+        return s
+    
+    def clamp(self, xmax:float, ymax:float):
+        return Path([p.clamp(xmax, ymax) for p in self.points], self.start, self.end)
 
-    def __rmul__(self, scalar: float):
-        return self.__mul__(scalar)
-
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
-
-    def __hash__(self):
-        return hash((self.x, self.y))
-
-    def __lt__(self, other):
-        return (self.x, self.y) < (other.x, other.y)
-
-    def is_within_bounds(self, xmax: float, ymax: float) -> bool:
-        return 0 <= self.x <= xmax and 0 <= self.y <= ymax
-
-
-class Rectangle:
-    """Rectangles representing obstacles in the environment."""
-
-    def __init__(self, x: float, y: float, width: float, height: float) -> None:
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-
-    def contains_point(self, p: Point, strict: bool = False) -> bool:
-        if strict:
-            return self.x < p.x < self.x + self.width and self.y < p.y < self.y + self.height
-        else:
-            return self.x <= p.x <= self.x + self.width and self.y <= p.y <= self.y + self.height
-
-    def is_within_bounds(self, xmax: float, ymax: float) -> bool:
-        return self.x >= 0 and self.y >= 0 and self.x + self.width <= xmax and self.y + self.height <= ymax
-
-    def edges(self):
-        bottomLeft = Point(self.x, self.y)
-        bottomRight = Point(self.x + self.width, self.y)
-        topLeft = Point(self.x, self.y + self.height)
-        topRight = Point(self.x + self.width, self.y + self.height)
-
-        return [
-            (bottomLeft, bottomRight),
-            (bottomRight, topRight),
-            (topRight, topLeft),
-            (topLeft, bottomLeft),
-        ]
-
-    def vertices(self) -> list[Point]:
-        return [
-            Point(self.x, self.y),
-            Point(self.x + self.width, self.y),
-            Point(self.x, self.y + self.height),
-            Point(self.x + self.width, self.y + self.height),
-        ]
-
+    def clamp_norm(self, max_norm:float):
+        return Path([p.clamp_norm(max_norm) for p in self.points], self.start, self.end)
+        
+    
 
 class Problem:
     """Represents a complete path-planning problem with environment bounds, start and goal points, safety radius, and obstacles."""
@@ -156,7 +157,7 @@ def load_problem(file_path: str) -> Problem:
     )
 
 
-def display_environment(problem: Problem, path: list[Point] = []):
+def display_environment(problem: Problem, path: Path = None, paths: list[Path] = None):
     _, ax = plt.subplots()
     ax.set_xlim(0, problem.xmax)
     ax.set_ylim(0, problem.ymax)
@@ -175,8 +176,12 @@ def display_environment(problem: Problem, path: list[Point] = []):
     ax.plot(problem.goal2.x, problem.goal2.y, "g*", label="goal2", markersize=10, clip_on=False, zorder=3)
 
     # Path
+    if paths:
+        for pa in paths:
+            ax.plot([pa.start.x,*[p.x for p in pa.points], pa.end.x], [pa.start.y,*[p.y for p in pa.points], pa.end.y], "b-", linewidth=0.5)
+
     if path:
-        ax.plot([p.x for p in path], [p.y for p in path], "b-", label="path", linewidth=0.5)
+        ax.plot([path.start.x,*[p.x for p in path.points], path.end.x], [path.start.y,*[p.y for p in path.points], path.end.y], "r-", label="path", linewidth=0.5)
 
     ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), borderaxespad=0)
     plt.show()
