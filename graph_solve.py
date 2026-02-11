@@ -2,7 +2,7 @@ import random
 import time
 from queue import PriorityQueue
 
-from environment import Point, Problem, Rectangle, display_environment, load_problem
+from environment import Path, Point, Problem, Rectangle, display_environment, load_problem
 from utils import distance, segment_collision
 
 
@@ -66,6 +66,6 @@ if __name__ == "__main__":
     if path is not None:
         assert abs(cost - sum(distance(path[i], path[i + 1]) for i in range(len(path) - 1))) < 1e-6
         print(f"Path found with {len(path)} points and total length {cost:.2f}")
-        display_environment(prob, path)
+        display_environment(prob, Path(path, path[0], path[-1]))
     else:
         print("No path found")

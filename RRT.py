@@ -6,7 +6,7 @@ from math import pi as PI
 import numpy as np
 from scipy.stats import truncnorm
 
-from environment import Point, Problem, display_environment, load_problem
+from environment import Path, Point, Problem, display_environment, load_problem
 from utils import distance, segment_collision
 
 COSTS = dict()
@@ -22,9 +22,19 @@ class Node:
         self.children: set[int] = set()
 
 
-def add_node(tree: list[Node], point: Point, parent: int, cost: float) -> None:
+def add_node(
+    tree: list[Node],
+    point: Point,
+    parent: int,
+    cost: float,
+    grid_y_x: list[list[list[int]]],
+    delta_r: float,
+    no_add_to_grid: bool = False,
+) -> None:
     tree.append(Node(point, parent, cost))
     tree[parent].children.add(len(tree) - 1)
+    if not no_add_to_grid:
+        grid_y_x[int(point.y // delta_r)][int(point.x // delta_r)].append(len(tree) - 1)
 
 
 def sample_random_point(problem: Problem, p_bias: float = 0, r_sampling: float = 0, path: list[Point] = None) -> Point:
@@ -43,7 +53,7 @@ def sample_random_point(problem: Problem, p_bias: float = 0, r_sampling: float =
 
 
 def nodes_around(
-    grid_y_x: list[list[list[int]]],
+    grid_y_x: list[list[list[int | Point]]],
     point: Point,
     delta_r: float,
     grid_zone: list[tuple[int, int]] = [(i, j) for i in (-1, 0, 1) for j in (-1, 0, 1)],
@@ -123,8 +133,49 @@ def switch_parent_and_propagate(nodes: list[Node], index: int, new_parent: int):
     _propagate_costs(nodes, index)
 
 
+def remove_point_around(
+    grid_y_x: list[list[list[int]]],
+    point: Point,
+    delta_r: float,
+    grid_zone: list[tuple[int, int]] = [(i, j) for i in (-1, 0, 1) for j in (-1, 0, 1)],
+) -> None:
+    for i, j in grid_zone:
+        y_idx = int(point.y // delta_r) + i
+        x_idx = int(point.x // delta_r) + j
+        if 0 <= y_idx < len(grid_y_x) and 0 <= x_idx < len(grid_y_x[0]):
+            for i, p in enumerate(grid_y_x[y_idx][x_idx]):
+                if p == point:
+                    grid_y_x[y_idx][x_idx].pop(i)
+
+
+def find_best_parent(
+    nodes: list[Node],
+    grid_y_x: list[list[list[int]]],
+    problem: Problem,
+    delta_r: float,
+    i_n: int,
+    v_n: Point,
+    v_new: Point,
+) -> tuple[int, float]:
+    best_parent = i_n
+    best_cost = nodes[i_n].cost + distance(v_n, v_new)
+    for index in nodes_around(grid_y_x, v_new, delta_r):
+        node = nodes[index]
+        if not segment_collision(node.point, v_new, problem.obstacles):
+            c = node.cost + distance(node.point, v_new)
+            if c < best_cost:
+                best_cost = c
+                best_parent = index
+    return best_parent, best_cost
+
+
 def rewire_nodes(
-    nodes: list[Node], grid_y_x: list[list[list[int]]], problem: Problem, delta_r: float, rewire_from: int
+    nodes: list[Node],
+    grid_y_x: list[list[list[int]]],
+    problem: Problem,
+    delta_r: float,
+    rewire_from: int,
+    obstacle_corners_grid: list[list[list[Point]]],
 ) -> list[int]:
     rewired_nodes = []
     rewire_from_point = nodes[rewire_from].point
@@ -136,6 +187,23 @@ def rewire_nodes(
             if new_cost < nodes[index].cost:
                 rewired_nodes.append(index)
                 switch_parent_and_propagate(nodes, index, rewire_from)
+
+    if obstacle_corners_grid:
+        global COSTS
+        timer = time.time()
+        for corner in nodes_around(obstacle_corners_grid, rewire_from_point, delta_r):
+            if not segment_collision(rewire_from_point, corner, problem.obstacles):
+                add_node(
+                    nodes,
+                    corner,
+                    rewire_from,
+                    nodes[rewire_from].cost + distance(rewire_from_point, corner),
+                    grid_y_x,
+                    delta_r,
+                )
+                remove_point_around(obstacle_corners_grid, corner, delta_r)
+        COSTS["rewire_obstacle_corners"] = COSTS.get("rewire_obstacle_corners", 0) + time.time() - timer
+        COSTS["rewire"] = COSTS.get("rewire", 0) - time.time() + timer
     return rewired_nodes
 
 
@@ -168,6 +236,9 @@ def path_optimization(problem: Problem, tree: list[Node], index: int, k_rope: in
                         v_short,
                         path[best_i].parent,
                         tree[path[best_i].parent].cost + distance(tree[path[best_i].parent].point, v_short),
+                        None,
+                        None,
+                        no_add_to_grid=True,
                     )
                     i_shortcut = len(tree) - 1
                 else:
@@ -191,10 +262,13 @@ def rrt(
     display_tree_end: bool = False,
     path_optimize: bool = False,
     k_rope=10,
+    sample_on_obstacles: bool = False,
+    p_sample_corner: float = 0.3,
+    rewire_on_obstacles: bool = False,
     sample_optimize: bool = False,
     p_bias: float = 0.75,
     r_sampling: float = 1.0,
-) -> list[Point] | None:
+) -> tuple[float | None, list[Point] | None, int | None, int | None]:
     global COSTS
     if delta_r < delta_s:
         raise ValueError("delta_r must be greater than or equal to delta_s")
@@ -202,7 +276,7 @@ def rrt(
         raise ValueError("delta_r is larger than one of the environment dimensions")
 
     if not segment_collision(problem.start1, problem.goal1, problem.obstacles):
-        return [problem.start1, problem.goal1]
+        return distance(problem.start1, problem.goal1), [problem.start1, problem.goal1], None, 0
     # Warn that if delta_r is too small, the algorithm will start going slower instead of faster (too much memory used)
     if problem.xmax / delta_r * problem.ymax / delta_r > 1e6:
         print("Warning: delta_r is too small, the algorithm may run slowly due to high memory usage.")
@@ -219,11 +293,30 @@ def rrt(
     ]
     grid_y_x[int(problem.start1.y // delta_r)][int(problem.start1.x // delta_r)].append(0)
 
+    # Initialize data structure to check obstacle corners when close enough:
+    if rewire_on_obstacles:
+        obstacle_corners_grid = [
+            [[] for i in range(int(problem.xmax / delta_r) + 1)] for j in range(int(problem.ymax / delta_r) + 1)
+        ]
+        for obs_index, obs in enumerate(problem.obstacles):
+            for i, vert in enumerate(obs.displaced_vertices()):
+                if vert.x < 0 or vert.x > problem.xmax or vert.y < 0 or vert.y > problem.ymax:
+                    continue
+                obstacle_corners_grid[int(vert.y // delta_r)][int(vert.x // delta_r)].append(vert)
+    else:
+        obstacle_corners_grid = None
+
     for current_step in range(max_iters):
+        # Sampling
         check_infinite = 0
         while check_infinite < 1000:
             timer = time.time()
-            if goal and sample_optimize:
+            if sample_on_obstacles and random.random() < p_sample_corner:
+                v_r = Point(-1, -1)
+                while v_r.x < 0 or v_r.x > problem.xmax or v_r.y < 0 or v_r.y > problem.ymax:
+                    obs_index, corner_index = random.randint(0, len(problem.obstacles) - 1), random.randint(0, 3)
+                    v_r = problem.obstacles[obs_index].displaced_vertices()[corner_index]
+            elif goal and sample_optimize:
                 v_r = sample_random_point(
                     problem, p_bias=p_bias, r_sampling=r_sampling, path=[n.point for n in reconstruct_path(nodes, goal)]
                 )
@@ -243,6 +336,10 @@ def rrt(
             i_n = nearest_node_index(nodes, grid_y_x, delta_r, v_r)
             v_n = nodes[i_n].point
             COSTS["nearest"] = COSTS.get("nearest", 0) + time.time() - timer
+            if v_n == v_r:
+                # We already have this node in the tree, we can skip the rest of the loop and sample another point
+                check_infinite += 1
+                continue
 
             # crop random point within delta_s
             v_new = crop_vr(v_n, v_r, delta_s)
@@ -258,24 +355,15 @@ def rrt(
         # choose best parent within delta_r for v_new
         # we check the 9 grid cells around v_new and that makes a sufficient condition (picking a parent further than delta_r with better total distance would still be optimal, and delta_r is here just to improve the efficiency of the algorithm)
         timer = time.time()
-        best_parent = i_n
-        best_cost = nodes[i_n].cost + distance(v_n, v_new)
-        for index in nodes_around(grid_y_x, v_new, delta_r):
-            node = nodes[index]
-            if not segment_collision(node.point, v_new, problem.obstacles):
-                c = node.cost + distance(node.point, v_new)
-                if c < best_cost:
-                    best_cost = c
-                    best_parent = index
+        best_parent, best_cost = find_best_parent(nodes, grid_y_x, problem, delta_r, i_n, v_n, v_new)
 
-        add_node(nodes, v_new, best_parent, best_cost)
-        grid_y_x[int(v_new.y // delta_r)][int(v_new.x // delta_r)].append(len(nodes) - 1)
+        add_node(nodes, v_new, best_parent, best_cost, grid_y_x, delta_r)
         i_new = len(nodes) - 1
         COSTS["best_parent"] = COSTS.get("best_parent", 0) + time.time() - timer
 
         # rewiring nodes close enough to v_new similarly
         timer = time.time()
-        rewired_nodes = rewire_nodes(nodes, grid_y_x, problem, delta_r, i_new)
+        rewired_nodes = rewire_nodes(nodes, grid_y_x, problem, delta_r, i_new, obstacle_corners_grid)
         COSTS["rewire"] = COSTS.get("rewire", 0) + time.time() - timer
 
         # Custom addition: rewire recursively if asked
@@ -283,7 +371,7 @@ def rrt(
             timer = time.time()
             while rewired_nodes:
                 rewire_from = rewired_nodes.pop()
-                new_rewired = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from)
+                new_rewired = rewire_nodes(nodes, grid_y_x, problem, delta_r, rewire_from, obstacle_corners_grid)
                 rewired_nodes.extend(new_rewired)
             COSTS["recursive_rewire"] = COSTS.get("recursive_rewire", 0) + time.time() - timer
 
@@ -298,7 +386,10 @@ def rrt(
                 # print("New node provides a better path to the goal, with cost ",nodes[goal].cost," at step ",len(nodes) - 1,)
                 continue
             # add the goal node
-            add_node(nodes, problem.goal1, i_new, best_cost + distance(v_new, problem.goal1))
+            add_node(
+                nodes, problem.goal1, i_new, best_cost + distance(v_new, problem.goal1), None, None, no_add_to_grid=True
+            )
+            # No need to update grid_y_x since we will not look for neighbors of the goal
             goal = len(nodes) - 1
             print("Goal found with cost ", nodes[goal].cost, " at step ", current_step)
             last_optimized_step = current_step
@@ -322,7 +413,6 @@ def rrt(
         display_tree(problem, nodes)
 
     if goal is not None:
-        # display_tree(problem, nodes)
         return nodes[goal].cost, [i.point for i in reconstruct_path(nodes, goal)], goal, last_optimized_step
 
     return None, None, None, None
@@ -383,13 +473,16 @@ if __name__ == "__main__":
         prob,
         delta_s=40.0,
         delta_r=150.0,
-        max_iters=1000,
+        max_iters=300,
         recursive_rewire=False,
         optimize_after_goal=True,
         display_tree_end=False,
         path_optimize=True,
         k_rope=1000,
-        sample_optimize=True,
+        sample_on_obstacles=False,
+        p_sample_corner=0.8,
+        rewire_on_obstacles=True,
+        sample_optimize=False,
         p_bias=0.8,
         r_sampling=20.0,
     )
@@ -407,6 +500,6 @@ if __name__ == "__main__":
                 else f", last optimized step: {last_optimized_step}"
             )
         )
-        # display_environment(prob, path)
+        # display_environment(prob, Path(path, path[0], path[-1]))
     else:
         print("No path found")

@@ -1,4 +1,3 @@
-
 class Point:
     """Points in the environment."""
 
@@ -15,32 +14,32 @@ class Point:
 
     def __mul__(self, scalar: float):
         return Point(self.x * scalar, self.y * scalar)
-    
+
     def __rmul__(self, scalar: float):
         return self.__mul__(scalar)
-    
+
     def __hash__(self):
         return hash((self.x, self.y))
-    
+
     def __lt__(self, other):
         return (self.x, self.y) < (other.x, other.y)
-    
+
     def is_within_bounds(self, xmax: float, ymax: float) -> bool:
         return 0 <= self.x <= xmax and 0 <= self.y <= ymax
-    
+
     def __str__(self):
         return f"Point({self.x},{self.y})"
-    
+
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
-    
+
     def clamp(self, xmax: float, ymax: float):
         return Point(max(0, min(self.x, xmax)), max(0, min(self.y, ymax)))
-    
-    def clamp_norm(self, max_norm : float):
-        n = (self.x*self.x+self.y*self.y)**0.5
+
+    def clamp_norm(self, max_norm: float):
+        n = (self.x * self.x + self.y * self.y) ** 0.5
         if n > max_norm:
-            return self * (max_norm/n)
+            return self * (max_norm / n)
         return self
 
 
@@ -64,9 +63,9 @@ class Rectangle:
 
     def edges(self):
         bottomLeft = Point(self.x, self.y)
-        bottomRight = Point(self.x+self.width, self.y)
-        topLeft = Point(self.x, self.y+self.height)
-        topRight = Point(self.x+self.width, self.y+self.height)
+        bottomRight = Point(self.x + self.width, self.y)
+        topLeft = Point(self.x, self.y + self.height)
+        topRight = Point(self.x + self.width, self.y + self.height)
 
         return [
             (bottomLeft, bottomRight),
@@ -75,3 +74,15 @@ class Rectangle:
             (topLeft, bottomLeft),
         ]
 
+    def vertices(self):
+        return [
+            Point(self.x, self.y),
+            Point(self.x + self.width, self.y),
+            Point(self.x, self.y + self.height),
+            Point(self.x + self.width, self.y + self.height),
+        ]
+
+    def displaced_vertices(self, epsilon=1e-6):
+        displacement = Point(-1, -1), Point(1, -1), Point(-1, 1), Point(1, 1)
+        epsilon = 1e-6
+        return [vert + displacement[i] * epsilon for i, vert in enumerate(self.vertices())]

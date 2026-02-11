@@ -17,7 +17,7 @@
 
 %TODO Motivation (robots/drones)
 
-Here, the environment is very simple; we are working in an environment with few obstacles, and all of them are rectangles. The results we have here cannot be simply extended to results on arbitrary environments; however, we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles. Otherwise, we could propose an extremely simple solution, implemented in graph\_solve.py, that can perfectly solve all the environments we have here, and in general any environment with known polygonal obstacle, in $O(O_cV^2)$ where $O_c$ is the cost to check collision with an obstacle for a segment, and $V$ is the number of vertices of the obstacles by running a Dijkstra on the obstacle vertices with a few tricks for collisions: here, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4.
+Here, the environment is very simple; we are working in an environment with few obstacles, and all of them are rectangles. The results we have here cannot be simply extended to results on arbitrary environments; however, we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles, except . Otherwise, we could propose an extremely simple solution, implemented in graph\_solve.py, that can perfectly solve all the environments we have here, and in general any environment with known polygonal obstacle, in $O(O_cV^2)$ where $O_c$ is the cost to check collision with every obstacle for a segment, and $V$ is the number of vertices of the obstacles by running a Dijkstra on the obstacle vertices with a few tricks for collisions ; notice in our case $O_c = O(V)$ so the complexity is $O(V^3)$. Here, since we have few obstacles, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4, which are the best possible paths.
 
 %TODO Include PSO questions
 
@@ -244,11 +244,28 @@ The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to 
 
 \section{Question 21}
 
-We do a very simple biaising algorithm that will fix the little issues left with the path optimization method. We notice in figure \ref{scenario-4-path-opti} that a few vertices are still not perfectly aligned with the obstacles, and so the path is not optimal. We now want to bias the sampling towards the path we already have, so that we have more chances to find improvements in the current path.
+We can do sampling based on obstacles, but we will also see another intelligent sampling method. We said before that we prefer not to base ourselves on the corner of the rectangles, since it would be too specific to our environment. For example, we could simply, at each iteration, with probability $p_\text{sample\_corner}$, sample a corner of the obstacles instead of a uniformly random node. This could still be a better method than simple graph traversal ; as we did in the introduction, graph traversal has a cubic complexity of the number of obstacles, as opposed to a linear complexity here (the collision check cost), so such a method would still be better if the number of obstacle vertices is in the order of the thousands or more.
+
+However, we here propose to use rectangle corners in a different way, which guarantees convergence to the perfect solution quickly, taking not a cubic time in the number of obstacles but in a fast quadratic time. This is not \textit{per se} a sampling method, but it can be seen as "sampling the corners of the obstacles close to the node we just rewired". Indeed, what we do now is when rewiring, we also try to "rewire" the (for now unconnected) corners of each obstacles to the tree. This takes $O(O^2 \frac{\delta_r^2}{x_{\max} y_{\max}})$ for each iteration : checking all obstacle corners that are in a radius $\delta_R$ of the rewired node in (on average) $O(O \frac{\delta_r^2}{x_{\max} y_{\max}})$, and for each of them, checking if they are in line of sight with the rewired node, which is $O(O)$; and it should reach the same optimal solution as the graph traversal method when the tree visited enough of the environment to be able to rewire all the corners of the obstacles.
+
+\textbf{Pseudocode (in RRT initialization):}
+\begin{lstlisting}
+obstacle_corners_grid = grid_from(problem.obstacles.corners, delta_r)
+\end{lstlisting}
+
+\textbf{Pseudocode (in rewire_node):}
+\begin{lstlisting}
+for corner in obstacle_corners_grid.nodes_around(point_rewired):
+    if no_collision(point_rewired, corner):
+        add_node(corner, parent=point_rewired)
+        remove_from_grid(obstacle_corners_grid, corner)
+\end{lstlisting}
+
+We now propose the other intelligent sampling that we were interested in, and that is more general. We now want to bias the sampling towards the path we already have, so that we have more chances to find improvements in the current path.
 
 What we do, in a similar fashion as RRT*-Smart \cite{RRT-Smart}, is to, with a certain probability $p_\text{bias}$, sample a point with a different measure than the uniform distribution. In this case, we pick a random interior vertex of the current best path, and sample a point using a truncated gaussian of hyperparameter radius $R_\text{sampling}$ around it. This way, we have more chances to find points that are close to the path, and so to find improvements to it.
 
-\textbf{Pseudocode (replaces uniform sampling with rejection):}
+\textbf{Pseudocode (replaces uniform sampling):}
 \begin{lstlisting}
 def sample(p_bias, R_sampling):
   if no_path_found:
@@ -263,9 +280,11 @@ def sample(p_bias, R_sampling):
 
 \section{Question 22}
 
+Since we decided not to focus on improvements using assumptions on the environment, we will not discuss much the methods based on sampling corners of obstacles here, and instead will just report the results in the table below. We now discuss the last, "sample around the current best path" method.
+
 Note that $R_\text{sampling}$ should be much lower than $\delta_r$, and it would likely be better to keep it lower than $\delta_s$ as well to be consistent with these other hyperparameters: $\delta_s$ is here to explore at a reasonable rate, while we are looking for more fine-grained improvement here. We decided here to keep the same parameters as before for $\delta_s$ and $\delta_r$, and set $R_\text{sampling} = 10.0$ and $p_\text{bias} = 0.8$, for $1000$ iterations.
 
-We get a result in 4.27s, with a path length of 1942.19. This is again an improvement over only path optimization for path length, where we had 1968.18 in the previous test. However, it was reached in 460 steps and 0.81s. The real reason this is longer is not the sampling time: but since we focus the sampling on certain regions, they become much more charged and it highly increases the complexity of finding the nearest nodes and rewiring. For this, we might want to reduce $\delta_r$ to take advantage of the changes we made. However, for comparison purposes, we are not doing so here. We also notice the algorithm returned a value very close to the theoretical best path length of 1941.32 (computed by hand).
+Here, we get a result in 4.27s, with a path length of 1942.19. This is again an improvement over only path optimization for path length, where we had 1968.18 in the previous test. However, it was reached in 460 steps and 0.81s. The real reason this is longer is not the sampling time: but since we focus the sampling on certain regions, they become much more charged and it highly increases the complexity of finding the nearest nodes and rewiring. For this, we might want to reduce $\delta_r$ to take advantage of the changes we made. However, for comparison purposes, we are not doing so here. We also notice the algorithm returned a value very close to the theoretical best path length of 1941.32 (computed by hand).
 
 \begin{figure}[h!]
   \centering
@@ -273,7 +292,7 @@ We get a result in 4.27s, with a path length of 1942.19. This is again an improv
   \caption{Scenario 4 with sampling optimization for 1000 steps.}
 \end{figure}
 
-This method is clearly the most effective at reaching the optimum, but it comes with a cost. Below are the comparisons for all scenarios with exactly the same hyperparameters as what we just did, and optimized over 1000 steps each (PL = Path length, PO = Path optimization, SO = Sampling optimization).
+This method is clearly the most effective at reaching the optimum in the general case, but it comes with a cost. Below are the comparisons for all scenarios with exactly the same hyperparameters as what we just did, and optimized over 1000 steps each (PL = Path length, PO = Path optimization, SO = Sampling optimization).
 
 \begin{figure}[!h]
 \centering
@@ -290,6 +309,24 @@ Scenario & PL/Time (base) & PL/Time (PO) & (PO + SO)\\
 \end{tabular}
 \caption{Table of all results on the same hyperparameters, with $1000$ iterations: $\delta_s = 40.0$, $\delta_r = 150.0$, $k_\text{rope} = 1000$, $p_\text{bias} = 0.8$, $R_\text{sampling} = 20.0$. Notice the interest of this improvement lies mostly in more complex environments like scenario 4 than in very simple ones like scenario 0.}
 \end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Scenario & PL/Time (PO + Sample corners) & PL/Time (PO + Rewire corners) & PL/Time (Graph solve)\\
+\hline
+0 & 1443.33/0.17s & 1443.33/0.15s & 1443.33/0.00s \\
+1 & 1449.06/0.36s & 1449.06/0.38s & 1449.06/0.01s \\
+2 & 1505.51/0.61s & 1506.10/0.61s & 1505.19/0.03s \\
+3 & 1522.52/0.49s & 1522.52/0.53s & 1522.52/0.02s \\
+4 & 1941.32/0.49s & 1941.32/0.43s & 1941.32/0.03s \\
+\hline
+\end{tabular}
+\caption{Table of all results with corner-based improvements, with $300$ iterations and otherwise the same hyperparameters, and $p_\text{sample\_corner} = 0.8$. Notice all of these methods achieve amazing results since we have simple environments. Sampling the corners doesn't change the general complexity, rewiring the corners introduces a $O(O^2 \frac{\delta_r^2}{x_{\max} y_{\max}})$ term, and the graph solve method is in $O(O^3)$.}
+\end{figure}
+
+%TODO results of corner sampling methods
 
 %TODO conclusion on the efficiency of RRT
 
