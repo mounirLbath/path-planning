@@ -10,8 +10,6 @@ def dot(a: Point, b: Point) -> float:
 
 
 def segment_intersects_rect(a: Point, b: Point, r: Rectangle, strict: bool = False) -> bool:
-    if a == b:
-        raise ValueError("Checking intersection for a segment of length 0")
     # quick reject by bounding boxes
     if not strict:
         if max(a.x, b.x) < r.x or min(a.x, b.x) > r.x + r.width:
