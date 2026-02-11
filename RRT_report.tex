@@ -19,7 +19,155 @@
 
 Here, the environment is very simple; we are working in an environment with few obstacles, and all of them are rectangles. The results we have here cannot be simply extended to results on arbitrary environments; however, we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles, except . Otherwise, we could propose an extremely simple solution, implemented in graph\_solve.py, that can perfectly solve all the environments we have here, and in general any environment with known polygonal obstacle, in $O(O_cV^2)$ where $O_c$ is the cost to check collision with every obstacle for a segment, and $V$ is the number of vertices of the obstacles by running a Dijkstra on the obstacle vertices with a few tricks for collisions ; notice in our case $O_c = O(V)$ so the complexity is $O(V^3)$. Here, since we have few obstacles, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4, which are the best possible paths.
 
-%TODO Include PSO questions
+\section{Question 3: Particle Swarm Optimization}
+
+We discretize the set of paths from $\texttt{start}$ to $\texttt{goal}$ by restricting ourselves to piecewise linear paths. 
+Let $\texttt{nb\_points\_path} = n$ denote the number of intermediate points defining the path (excluding $\texttt{start}$ and $\texttt{goal}$). 
+
+A path is therefore fully determined by:
+$$
+(\texttt{start}, x_1, \dots, x_n, \texttt{goal}),
+\quad \text{with } x_i \in \mathbb{R}^2$$
+Hence, each path can be encoded as a point in $\mathbb{R}^{2n}$ corresponding to the intermediate points, since $\texttt{start}$ and $\texttt{goal}$ are fixed.
+
+In our implementation of Particle Swarm Optimization (PSO) for Path Planning, \textbf{each particle is one path}. 
+Because all particles share the same $\texttt{start}$ and $\texttt{goal}$, a particle is represented by the vector
+$$(x_1, \dots, x_n) \in \mathbb{R}^{2n}$$
+
+The goal is to minimize a fitness function that reflects the quality of the path. 
+We consider a fitness function of the form
+$$f(\text{path}) = \mathrm{length}(\text{path}) + \text{penalty for intersections}.$$
+
+Initially, we defined
+$$f(\text{path}) 
+= \mathrm{length}(\text{path}) 
++ \lambda \cdot \mathbf{1}_{\{\text{path intersects obstacles}\}},$$
+where $\lambda > 0$ is a penalty parameter.
+
+We then refined this definition to account for the number of intersections:
+$$f(\text{path}) 
+= \mathrm{length}(\text{path}) 
++ \lambda \cdot N_{\text{intersections}},$$
+
+where $N_{\text{intersections}}$ denotes the number of segment–obstacle intersection pairs.
+
+
+We also considered formulating the fitness using a lexicographic order (prioritizing feasibility over length). 
+However, for methods such as Simulated Annealing, the fitness function must be purely numerical, which justifies the penalized formulation above.
+
+
+Note: It was initially tempting to define a particle as a single point traveling along the path. 
+However, PSO is designed to minimize a function over a search space and does not guarantee that the trajectory followed by a moving particle corresponds to the shortest path. 
+Therefore, encoding the entire path as a single particle is more appropriate.
+
+\section{Question 4: Path-Obstacle Intersection}
+
+We chose to split intersection detection into several functions:
+\begin{itemize}
+\item First, we created a function to determine if 2 segments $[a,b]$ and $[a',b']$ intersect. They do intersect if and only if those 2 conditions are met:
+\begin{itemize}
+    \item Points $a$ and $b$ are on opposite sides of the line $(a'b')$, and
+    \item Points $a'$ and $b'$ are on opposite sides of the line $(ab)$.
+\end{itemize}
+
+To determine whether two points lie on opposite sides of a segment, we use a dot product test. First, compute a normal vector $n$ to the segment $(a'b')$. Then compute $s_1 = n \cdot (a - a')$ and $s_2 = n \cdot (b - a')$. If $s_1$ and $s_2$ have opposite signs, then $a$ and $b$ lie on opposite sides of $(a'b')$. The same procedure is applied symmetrically for $(ab)$ with respect to $a'$ and $b'$.
+
+
+\item Then, we created a function to test whether a segment intersects a rectangle. For this task, we test intersection between the segment and each of the four sides of the rectangle. If the segment intersects at least one side, then it intersects the rectangle.
+
+
+If a segment is parallel to one of the coordinate axes, the intersection test can be simplified, leading to faster computation (see implementation details in the code).
+
+\item  Finally we can check whether a path intersects any obstacle:
+
+\begin{verbatim}
+for each segment in the path:
+    for each obstacle in the problem:
+        if intersection(segment, obstacle):
+            return True
+return False
+\end{verbatim}
+
+\end{itemize}
+
+
+Note: We were pleased to observe that the method we derived with a few sketches on our paper gives a clean code, compared to actually computing the intersection point with explicit formulas (which was our first idea).
+
+
+\section{Question 5: Pseudo-code for PSO}
+
+Here is the pseudo-code
+
+\begin{enumerate}[nosep]
+
+\item Parameters:
+    \begin{itemize}[nosep]
+        \item $S$ = number of particles
+        \item max\_iters = maximum number of iterations
+        \item $w$ = inertia weight
+        \item $c_1, c_2$ = acceleration coefficients
+        \item nb\_points\_path = number of intermediate points in a path
+    \end{itemize}
+
+\item Initialize particles:
+    \begin{itemize}[nosep]
+        \item For each particle $i = 1$ to $S$:
+        \begin{itemize}[nosep]
+            \item Generate a random path $X_i =(x_1, ...x_n)$ where $n=$nb\_points\_path
+            \item Initialize velocity $V_i = 0$
+            \item Set personal best $P_i = X_i$
+        \end{itemize}
+    \end{itemize}
+
+\item Find global best:
+ $$ g = \arg\min_i \text{fitness}(P_i) $$
+
+\item For each iteration $k = 1$ to max\_iters:
+
+    \begin{enumerate}[nosep]
+
+    \item For each particle $i = 1$ to $S$:
+
+        \begin{itemize}[nosep]
+            \item Generate random numbers $r_1, r_2 \in [0,1]$
+            
+            \item Update velocity:
+            $$ V_i = w V_i + c_1 r_1 (P_i - X_i) + c_2 r_2 (P_g - X_i)$$
+            
+            \item Update position:
+            $$
+            X_i = X_i + V_i
+            $$
+            
+            \item Clamp path points inside environment bounds
+            
+            \item If fitness($X_i$) $<$ fitness($P_i$):
+            \begin{itemize}[nosep]
+                \item $P_i = X_i$
+            \end{itemize}
+        \end{itemize}
+
+    \item Update global best:
+        $$g = \arg\min_i \text{fitness}(P_i)$$
+    \end{enumerate}
+
+\item Return best path $P_g$
+
+\end{enumerate}
+\section{Question 6: Complexity of PSO}
+
+Let $S$ be the number of particles, $T=\texttt{max\_iters}$, and
+$n=\texttt{nb\_points\_path}$.
+
+Initialization generates $S$ paths of length $n$, hence $\mathcal{O}(Sn)$. Evaluating the fitness of all particles costs $\mathcal{O}(Sn)$ and finding the global best among $S$ particles costs $\mathcal{O}(S)$.
+Each iteration updates $S$ particles, and each update (velocity/position + clamping
++ fitness evaluation) costs $\mathcal{O}(n)$, so one iteration costs $\mathcal{O}(Sn)$.
+Therefore, the total time complexity is:
+\[
+\mathcal{O}(Sn + TSn) = \mathcal{O}(TSn).
+\]
+
+\section{Question 7: Implementation of PSO}
 
 \section{Question 13: Tree Data Structure}
 
@@ -253,7 +401,8 @@ However, we here propose to use rectangle corners in a different way, which guar
 obstacle_corners_grid = grid_from(problem.obstacles.corners, delta_r)
 \end{lstlisting}
 
-\textbf{Pseudocode (in rewire_node):}
+
+\textbf{Pseudocode (in rewire\_node):}
 \begin{lstlisting}
 for corner in obstacle_corners_grid.nodes_around(point_rewired):
     if no_collision(point_rewired, corner):
