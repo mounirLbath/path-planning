@@ -93,6 +93,9 @@ def particle_swarm_optimization(problem : Problem,
     g_index = min(range(S), key=lambda i: fitness(P[i], problem)) # index of the particle with global best position
     fitness_g = fitness(P[g_index], problem)
 
+    best_path = P[g_index]    # useful if simulated annealing is activated, to keep track of the best solution found even if g is not the best anymore
+    best_fitness = fitness_g
+
     # initialize temperature for simulated annealing
     T = T0
 
@@ -156,11 +159,16 @@ def particle_swarm_optimization(problem : Problem,
                 if  curr_f < fitness_g:
                     g_index = i
                     fitness_g = curr_f
+            
+            # independently of simulated annealing, keep track of the best solution found so far
+            if curr_f < best_fitness:
+                best_fitness = curr_f
+                best_path = P[i]
 
         if DEBUG:
-            print(fitness_g)
+            print(fitness_g, "at iteration", k, "best fitness so far:", best_fitness)
 
-    return P[g_index], P
+    return best_path, P
 
 
 if __name__ == "__main__":
