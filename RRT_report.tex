@@ -7,20 +7,48 @@
 \usepackage{parskip}
 \usepackage{graphicx}
 \usepackage{amsfonts}
+\usepackage{hyperref}
 
-\title{$CSC_42021$ Project, RRT}
+\title{CSC\_42021 Project, PATH PLANNING ALGORITHMS}
+\author{Octave GASPARD, Mounir LBATH}
 
 \begin{document}
 \maketitle
 
-\section{Introduction}
-%TODO Complete introduction
+\section*{Introduction}
 
-%TODO Motivation (robots/drones)
+Path planning aims at computing a feasible and efficient trajectory between a start and a goal configuration in a continuous space with obstacles. Unlike graph search, which assumes a discrete set of states, path planning must reason over a continuous domain, making the problem inherently infinite-dimensional and often non-convex. 
 
-Here, the environment is very simple; we are working in an environment with few obstacles, and all of them are rectangles. The results we have here cannot be simply extended to results on arbitrary environments; however, we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles, except . Otherwise, we could propose an extremely simple solution, implemented in graph\_solve.py, that can perfectly solve all the environments we have here, and in general any environment with known polygonal obstacle, in $O(O_cV^2)$ where $O_c$ is the cost to check collision with every obstacle for a segment, and $V$ is the number of vertices of the obstacles by running a Dijkstra on the obstacle vertices with a few tricks for collisions ; notice in our case $O_c = O(V)$ so the complexity is $O(V^3)$. Here, since we have few obstacles, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4, which are the best possible paths.
+Such problems arise in many applications, including robotics, autonomous navigation, and motion planning, where environments may be only partially known or too complex to discretize exactly. This motivates the use of sampling-based and optimization-based methods, which can efficiently explore large continuous spaces and provide good-quality solutions without exhaustive enumeration.
 
-\section{Question 3: Particle Swarm Optimization}
+In this project, we explore 2 methods for path planning, in a fully known environment: Particle Swarm Optimization and Rapidly-exploring Random Trees. You can find our code here: \href{https://github.com/mounirLbath/path-planning}{Github repository}.\\
+
+Note that in all the provided scenarios, the environment are very simple: there are few obstacles, all of them are rectangles, and we are aware of the full environment at the start. But the methods we will explore can be applied to more complex environments. So we will try our best to keep our implementations as general as possible. For example, we are not basing ourselves on the corner of the rectangles, except when it is required by the questions (intelligent sampling).\\
+
+In fact, if we consider that our implmentations don't need to work on more complex environments, the problem of path planning can be solved in an extremely simple algorithm. We implemented it in graph\_solve.py. It perfectly solves all the environments we have here, and in general any environment with known polygonal obstacle, in $O(V^3)$, with $V$ is the number of vertices of the obstacles, by running a Dijkstra on the obstacle vertices with a few tricks for collisions. Here, since we have few obstacles, it solves all environments in maximum 0.03s, giving path length of 1443.33 for scenario 0, 1449.06 for scenario 1, 1505.19 for scenario 2, 1522.52 for scenario 3 and 1941.32 for scenario 4, which are the best possible paths.
+
+\section*{Question 1 \& 2: Setting Up the Environment}
+
+We have these functions under environment.py: load\_problem() and display\_environment(). The function makes basic validity check then returns a Problem object, containing all the necessary values :
+
+\begin{lstlisting}
+class Problem:
+    xmax            # maximum x-bound
+    ymax            # maximum y-bound
+
+    start1          # start point of robot 1
+    goal1           # goal point of robot 1
+
+    start2          # start point of robot 2
+    goal2           # goal point of robot 2
+
+    safety_radius   # for the 2-robots problem
+    obstacles       # list of obstacles as a list[Rectangle]
+\end{lstlisting}
+
+It contains obstacles as a list of Rectangle objects, all containing methods to help with the implementation of other functions like intersection checks or the graph\_solve.py file.
+
+\section*{Question 3: Particle Swarm Optimization}
 
 We discretize the set of paths from $\texttt{start}$ to $\texttt{goal}$ by restricting ourselves to piecewise linear paths. 
 Let $\texttt{nb\_points\_path} = n$ denote the number of intermediate points defining the path (excluding $\texttt{start}$ and $\texttt{goal}$). 
@@ -61,7 +89,7 @@ Note: It was initially tempting to define a particle as a single point traveling
 However, PSO is designed to minimize a function over a search space and does not guarantee that the trajectory followed by a moving particle corresponds to the shortest path. 
 Therefore, encoding the entire path as a single particle is more appropriate.
 
-\section{Question 4: Path-Obstacle Intersection}
+\section*{Question 4: Path-Obstacle Intersection}
 
 We chose to split intersection detection into several functions:
 \begin{itemize}
@@ -95,7 +123,7 @@ return False
 Note: We were pleased to observe that the method we derived with a few sketches on our paper gives a clean code, compared to actually computing the intersection point with explicit formulas (which was our first idea).
 
 
-\section{Question 5: Pseudo-code for PSO}
+\section*{Question 5: Pseudo-code for PSO}
 
 Here is the pseudo-code
 
@@ -159,7 +187,7 @@ While $k<$  max\_iters or global best hasn't changed for \texttt{patience} steps
 \item Return best path $P_g$
 
 \end{enumerate}
-\section{Question 6: Complexity of PSO}
+\section*{Question 6: Complexity of PSO}
 
 Let $S$ be the number of particles, $T=\texttt{max\_iters}$, and
 $n=\texttt{nb\_points\_path}$.
@@ -172,7 +200,7 @@ Therefore, the total time complexity is:
 \mathcal{O}(Sn + TSn) = \mathcal{O}(TSn).
 \]
 
-\section{Question 7: Implementation of PSO}
+\section*{Question 7: Implementation of PSO}
 
 We implemented a \texttt{Path} class containing:
 \begin{itemize}
@@ -184,7 +212,7 @@ We implemented a \texttt{Path} class containing:
 All particles share the same start and end points. Only the intermediate 
 points are optimized during the PSO process.
 
-Initially, paths were generated using identically random uniform variables for the points. This was later improved by sampling points from a Gaussian distribution centered around the straight line between start and goal. To improve this even more, and give a fair repartition of the initial particles in the search space, we also tried a random initialization around curves that fill the screen (Figure~\ref{fig:pso-init}). All our experiments are made with this last initialization as it was the most effective.
+Initially, paths were generated using identically random uniform variables for the points. This was later improved by sampling points from a Gaussian distribution centered around the straight line between start and goal. To improve this even more, and give a fair repartition of the initial particles in the search space, we also tried a random initialization around curves that fill the screen (Figure~\ref{fig:pso-init}). All our experiments are made with this last initialization as it was the most effective (but the 2 other initializations also work, the algorithm just converges more slowly)
 
 \begin{figure}[!h]
 \centering
@@ -213,10 +241,10 @@ At each iteration, we decided to clamp the norm of the velocities to a certain \
 
 We set a certain \texttt{max\_iters}. We also stop the program as soon as \texttt{best\_fitness} doesn't change for \texttt{patience} steps. 
 
-\section{Question 8: Results of simple PSO}
+\section*{Question 8: Results of simple PSO}
 
 
-Here are the results I obtained. The parameters were chosen thanks to a grid search.
+Here are the results we obtained. The parameters were chosen thanks to a grid search.
 
 We chose to keep $S=50$ particles, \texttt{max\_iter}$=1000$, \texttt{patience}$=100$, \texttt{nb\_points\_path}$= 10$. We 
 $c_1=c_2=2.0$, $w=0.8$. In all figures below, we show all the paths (particles) at the end of the algorithm in blue, and the best path in red.
@@ -269,7 +297,7 @@ Despite extensive experimentation with different hyperparameter configurations, 
 
 In general, the biggest trade-off is in the choice of S, between speed and quality. This was even more visible for the optimizations in the next few questions.
 
-\section{Question 9: Random Restart}
+\section*{Question 9: Random Restart}
 
 Random restart periodically reinitializes some particles.
 This helps exploration when the swarm collapses around a poor local optimum or a narrow infeasible region.
@@ -344,7 +372,7 @@ Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
 \caption{PSO with random restart: best path for each scenario.}
 \end{figure}
 
-\section{Question 10: Simulated Annealing}
+\section*{Question 10: Simulated Annealing}
 
 Simulated annealing allows occasional acceptance of worse global-best candidates early on, so that the search can escape local minima. Acceptance probability depends on a temperature $T_k$:
 $$
@@ -370,18 +398,6 @@ for k in 1..max_iters:
 
     If u <= prob:
         G = P[i]
-\end{verbatim}
-
-\textbf{Note: } in the final code, in order to avoid to get errors with huge floats, we update \textfff{prob} in such manner:
-
-\begin{verbatim}
-delta = f(P[i])-f(G)
-if f(P[i]) <= f(G):
-    prob = 1
-elif delta < T*10.:
-    prob = exp(-delta/T)
-else:
-    prob = 0
 \end{verbatim}
 
 \textbf{Comparison:}
@@ -428,7 +444,7 @@ Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
 \caption{PSO with random restart and simulated annealing: best path for each scenario.}
 \end{figure}
 
-\section{Question 11: Dimensional Learning}
+\section*{Question 11: Dimensional Learning}
 
 Dimensional learning reduces oscillation by injecting coordinates of the global best into a particle that has stagnated. If particle $i$ has not improved its personal best for $\tau$ steps, we try replacing each waypoint dimension with the global best's corresponding dimension, keeping the change only if fitness improves.
 
@@ -454,6 +470,7 @@ With dimensional learning and the previous optimizations, we finally find soluti
 Dimensional learning often accelerates convergence once a feasible corridor is discovered,
 because it helps transfer useful waypoint coordinates without fully collapsing diversity.
 It is complementary to random restart and simulated annealing. It enables us to have the consistency and accuracy of simple PSO, with the exploration capacity of random restart and simulated annealing.
+Results are remarkably close to the optimal ones found using Dijkstra (cf. introduction)
 
 \begin{figure}[!h]
 \centering
@@ -496,9 +513,22 @@ Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
 \caption{PSO with random restart, simulated annealing and dimensional learning: best path for each scenario.}
 \end{figure}
 
-\section{Question 12: Other improvements}
+\section*{Question 12: Other improvements}
 
-\section{Question 13: Tree Data Structure}
+To make the algorithm more efficient, we looked at how important the initialization step is. The initial particles need to explore the search space as much as possible in order to:
+\begin{itemize}
+    \item Avoid getting stuck too early in a local minimum
+    \item Reach good solutions faster
+\end{itemize}
+For this, we generated particles around a structured configuration (segment or curves $y = x^\epsilon$, like in figure (a)) and added random noise. This keeps a good global structure while still allowing enough randomness for exploration.
+
+Another improvement we thought about, but didn’t implement yet, would be to use a penalty proportional to the distance traveled inside obstacles instead of just counting collisions. This would give a smoother penalty and could help guide the particles more effectively during the search.
+
+In conclusion, Particle Swarm Optimization is very efficient at solving the Path Planning Problem. We will compare it with Rapidly-exploring Random Tree in the next questions.
+
+% TODO bullshit
+
+\section*{Question 13: Tree Data Structure}
 
 The tree is stored as a Python list of \texttt{Node} objects. Each node stores:
 \begin{itemize}[nosep]
@@ -511,7 +541,7 @@ The \texttt{children} set is not strictly necessary for basic RRT, but it allows
 
 To accelerate nearest-neighbour and neighbourhood queries, we also maintain a 2D grid of cell size $\delta_r$: each cell holds a list of node indices whose positions fall in that cell. Querying the 9 cells around a point gives all neighbours within $\delta_r$; which is much better (see Q16) than scanning all nodes.
 
-\section{Question 14: Path Reconstruction}
+\section*{Question 14: Path Reconstruction}
 
 Given the index $i$ of any node, we reconstruct the path to the start by following parent links:
 \begin{enumerate}[nosep]
@@ -521,7 +551,7 @@ Given the index $i$ of any node, we reconstruct the path to the start by followi
 \end{enumerate}
 Complexity: $O(D)$ where $D$ is the depth of the node in the tree.
 
-\section{Question 15: RRT Pseudocode}
+\section*{Question 15: RRT Pseudocode}
 
 We write the pseudocode with explanations for each step to make it clearer than simple function calls.
 
@@ -539,7 +569,7 @@ We write the pseudocode with explanations for each step to make it clearer than 
   \end{enumerate}
 \end{enumerate}
 
-\section{Question 16: Complexity of One Iteration}
+\section*{Question 16: Complexity of One Iteration}
 
 Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the average number of nodes per grid cell ($K \sim N \frac{\delta_r^2}{x_{\max} y_{\max}}$). We detail each step of the pseudocode :
 
@@ -565,7 +595,7 @@ Let $N$ be the current number of nodes, $O$ the number of obstacles, and $K$ the
 
 The dominant costs per iteration are the neighbour scans in 2.b, 2.d, and 2.f. In the typical case one iteration costs $O(OK + \sum_i D_i)$. In practice, we notice what we expected: 2.d and 2.f each take around 40\% of the runtime, and 2.b around 15\% for environments with $O \simeq 11$, and all of them take around 33\% of the runtime for scenario 0 with $O=1$.
 
-\section{Question 17: Implementation Choices}
+\section*{Question 17: Implementation Choices}
 
 Several design choices improve upon the basic RRT* algorithm:
 
@@ -583,9 +613,9 @@ Several design choices improve upon the basic RRT* algorithm:
   \item \textbf{Recursive rewire (optional).} When enabled, rewired nodes are themselves used as starting points for further rewiring, propagating improvements deeper into the tree. This is more expensive but can yield shorter paths. In practice, we found that it does not significantly improve path cost in our scenarios, but adds a significant time delay, so we keep it disabled by default.
 \end{itemize}
 
-\section{Question 18: Experimental Results}
+\section*{Question 18: Experimental Results}
 
-Here are the results I obtained, using the parameters defined below. We applied an optimization so we do not just have "path length / steps taken / CPU time". Instead, we report the optimized path length, the time taken for this optimization, as well as the number of steps taken to find the first path to the goal, and its length.
+Here, in Figure \ref{results 18}, are the results we obtained, using the parameters defined below. We applied an optimization so we do not just have "path length / steps taken / CPU time". Instead, we report the optimized path length, the time taken for this optimization, as well as the number of steps taken to find the first path to the goal, and its length.
 
 \begin{figure}[!h]
 \centering
@@ -601,6 +631,7 @@ Scenario & Path length (1000 steps) & Time (1000 steps) & First path steps & Fir
 \hline
 \end{tabular}
 \caption{Table of all results for hyperparameters $\delta_s = 40$, $\delta_r = 150$ on 1000 iterations. We compare the final results after 1000 steps (first two columns) with the step number and length of the first path found to the goal.}
+\label{results 18}
 \end{figure}
 
 To select the hyperparameters $\delta_s$ and $\delta_r$, and $max_steps$, we performed a grid search (see \texttt{RRT\_benchmark\_results.txt}), then analyzed it (\texttt{RRT\_best\_performances.txt}) and found that across all scenarios, values around $\delta_s = 40.0$, $\delta_r = 150.0$, and $max\_steps = 1000$ (optimizing after goal, see Q17) gave a good balance of path quality and runtime.
@@ -673,7 +704,7 @@ In general, the main hyperparameters for which the tradeoff is not obvious is $\
 
 
 
-\section{Question 19}
+\section*{Question 19: Path optimization method}
 
 The straightforward path optimisation we can implement is - as will be the answer to the following questions - very much similar to the RRT*-Smart algorithm \cite{RRT-Smart}. We here detail a simple version that also includes an improvement from RRT-Rope \cite{RRT-Rope}.
 
@@ -703,23 +734,23 @@ def path_optimization(v_goal, k_rope):
 
 Let us note a very simple drawback of this method: since we overly optimize the first path we find, we may fall completely into a local minimum. For example, if we find a path that can only be optimized to length 15 while another is of length 13, we will likely never find the path of length 13 since by optimizing the first path we will make it look "better". If instead we let the algorithm run a bit longer before starting to path optimize (and improve the sampling method, see Q21), we would have more chances to find the better path, and then optimize it to the global optimum. A way to prevent this a little would be to run path optimization on not only the goal node, but every node we add to the tree, but this would be much more expensive. We could also want to run the full algorithm multiples times in a row to see if we find a better path; but this goes out of the scope of what we want to do here.
 
-\section{Question 20}
+\section*{Question 20: Path optimization results}
 
 Compared to the basic algorithm we had before, this version is much more effective, even if it stays simple. We decided here to stop at the first path found - since the real improvement of further sampling will really appear only in question 21 - and run path optimization on it. We made the test on scenario 4, with otherwise the same parameters as before, but with a high $k_\text{rope} = 1000$.
 
-We found a path length 1968.18 for 0.81s of computation, in 460 steps. This is much better than the original 1987.74 in 2.22s we had previously in 1000 steps of optimization. %TODO include PSO part
+We found a path length 1968.18 for 0.81s of computation, in 460 steps. This is much better than the original 1987.74 in 2.22s we had previously in 1000 steps of optimization. Even though it is not as good as the PSO 1941.52 for 20.59s, it is much faster; and we will see later (Q22) versions of RRT that reach the same level of optimality, but much faster. 
 
 The tradeoff here is that a higher $k_\text{rope}$ will give us more chances to find a shortcut, but will also make the optimization step slower (at worst linearly, see Q19). However, we notice the impact of path optimization is in general very low; even if we continue optimizing for $\sim$ 500 steps after reaching the goal (so $\sim$ 500 path optimizations), we only spend 0.16s out of 2.29s in path optimization, so about 7\%, which is not negligible but still reasonable for the improvement we get. We will see in question 21 an optimisation that reduces the importance of having a very high $k_\text{rope}$, so we can keep it reasonably low.
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/Path_Optimized_RRT_4_path.png}
+  \includegraphics[width=0.5\textwidth]{figures/Path_Optimized_RRT_4_path.png}
 
   \caption{Scenario 4 with path optimization: The paths runs much closer to the obstacles, but not perfectly everywhere, since we only shortcut from goal to start.}
   \label{scenario-4-path-opti}
 \end{figure}
 
-\section{Question 21}
+\section*{Question 21: Intelligent sampling / corner-based methods}
 
 We can do sampling based on obstacles, but we will also see another intelligent sampling method. We said before that we prefer not to base ourselves on the corner of the rectangles, since it would be too specific to our environment. For example, we could simply, at each iteration, with probability $p_\text{sample\_corner}$, sample a corner of the obstacles instead of a uniformly random node. This could still be a better method than simple graph traversal ; as we did in the introduction, graph traversal has a cubic complexity of the number of obstacles, as opposed to a linear complexity here (the collision check cost), so such a method would still be better if the number of obstacle vertices is in the order of the thousands or more.
 
@@ -756,21 +787,30 @@ def sample(p_bias, R_sampling):
       return uniform_sample()
 \end{lstlisting}
 
-\section{Question 22}
+\section*{Question 22: Intelligent sampling / corner methods results}
 
-Since we decided not to focus on improvements using assumptions on the environment, we will not discuss much the methods based on sampling corners of obstacles here, and instead will just report the results in the table below. We now discuss the last, "sample around the current best path" method.
+Since we decided not to focus on improvements using assumptions on the environment, we will not discuss much the methods based on sampling corners of obstacles here, and instead will just report the results in the table below, Figure \ref{Q22 corner}. We now discuss the last, "sample around the current best path" method.
 
 Note that $R_\text{sampling}$ should be much lower than $\delta_r$, and it would likely be better to keep it lower than $\delta_s$ as well to be consistent with these other hyperparameters: $\delta_s$ is here to explore at a reasonable rate, while we are looking for more fine-grained improvement here. We decided here to keep the same parameters as before for $\delta_s$ and $\delta_r$, and set $R_\text{sampling} = 10.0$ and $p_\text{bias} = 0.8$, for $1000$ iterations.
 
 Here, we get a result in 4.27s, with a path length of 1942.19. This is again an improvement over only path optimization for path length, where we had 1968.18 in the previous test. However, it was reached in 460 steps and 0.81s. The real reason this is longer is not the sampling time: but since we focus the sampling on certain regions, they become much more charged and it highly increases the complexity of finding the nearest nodes and rewiring. For this, we might want to reduce $\delta_r$ to take advantage of the changes we made. However, for comparison purposes, we are not doing so here. We also notice the algorithm returned a value very close to the theoretical best path length of 1941.32 (computed by hand).
 
-\begin{figure}[h!]
-  \centering
+With all these improvements, it is clear that these last versions of RRT are the best to solve the path planning problem from the methods we considered.
+
+\begin{figure}[!h]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
   \includegraphics[width=\textwidth]{figures/Sampling_RRT_4_path_1000.png}
-  \caption{Scenario 4 with sampling optimization for 1000 steps.}
+  \caption{Scenario 4 path with sampling optimization for 1000 steps.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{figures/Sampling_RRT_4_tree_1000.png}
+  \caption{Scenario 4 tree with sampling optimization for 1000 steps.}
+\end{subfigure}\hfill
+\label{fig:pso-init}
 \end{figure}
 
-This method is clearly the most effective at reaching the optimum in the general case, but it comes with a cost. Below are the comparisons for all scenarios with exactly the same hyperparameters as what we just did, and optimized over 1000 steps each (PL = Path length, PO = Path optimization, SO = Sampling optimization).
+This method is clearly the most effective at reaching the optimum in the general case, but it comes with a cost. In Figure \ref{Q22} and \ref{Q22 corner} are the comparisons for all scenarios with exactly the same hyperparameters as what we just did, and optimized over 1000 steps each.
 
 \begin{figure}[!h]
 \centering
@@ -785,14 +825,15 @@ Scenario & PL/Time (base) & PL/Time (PO) & (PO + SO)\\
 4 & 1987.74/2.11s & 1968.18/2.29s & 1942.19/4.27s \\
 \hline
 \end{tabular}
-\caption{Table of all results on the same hyperparameters, with $1000$ iterations: $\delta_s = 40.0$, $\delta_r = 150.0$, $k_\text{rope} = 1000$, $p_\text{bias} = 0.8$, $R_\text{sampling} = 20.0$. Notice the interest of this improvement lies mostly in more complex environments like scenario 4 than in very simple ones like scenario 0.}
+\caption{Table of results on same hyperparameters, with $1000$ iterations: $\delta_s = 40.0$, $\delta_r = 150.0$, $k_\text{rope} = 1000$, $p_\text{bias} = 0.8$, $R_\text{sampling} = 20.0$. PL = Path length, PO = Path optimization, SO = Sampling optimization. Notice the interest of this improvement lies mostly in more complex environments like scenario 4 than in very simple ones like scenario 0.}
+\label{Q22}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-Scenario & PL/Time (PO + Sample corners) & PL/Time (PO + Rewire corners) & PL/Time (Graph solve)\\
+Scenario & PL/Time (PO + SC) & PL/Time (PO + RC) & PL/Time (GS)\\
 \hline
 0 & 1443.33/0.17s & 1443.33/0.15s & 1443.33/0.00s \\
 1 & 1449.06/0.36s & 1449.06/0.38s & 1449.06/0.01s \\
@@ -801,12 +842,57 @@ Scenario & PL/Time (PO + Sample corners) & PL/Time (PO + Rewire corners) & PL/Ti
 4 & 1941.32/0.49s & 1941.32/0.43s & 1941.32/0.03s \\
 \hline
 \end{tabular}
-\caption{Table of all results with corner-based improvements, with $300$ iterations and otherwise the same hyperparameters, and $p_\text{sample\_corner} = 0.8$. Notice all of these methods achieve amazing results since we have simple environments. Sampling the corners doesn't change the general complexity, rewiring the corners introduces a $O(O^2 \frac{\delta_r^2}{x_{\max} y_{\max}})$ term, and the graph solve method is in $O(O^3)$.}
+\caption{Table of results with corner-based improvements, with $300$ iterations and same hyperparameters, and $p_\text{sample\_corner} = 0.8$. SC = Sample corners, RC = Rewire corners, GS = Graph solve. Notice all of these methods achieve amazing results since we have simple environments. Sampling the corners doesn't change the general complexity, rewiring the corners introduces a $O(O^2 \frac{\delta_r^2}{x_{\max} y_{\max}})$ term, and the graph solve method is in $O(O^3)$.}
+\label{Q22 corner}
 \end{figure}
 
-%TODO results of corner sampling methods
+\section*{Question 23}
 
-%TODO conclusion on the efficiency of RRT
+We propose two ways of dealing with this problem. 
+
+\textbf{First approach:}
+
+We will here detail a theoretical simple solution, which we did not implement, and then explain our way of dealing with the 2 robots in PSO. For the simple solution, we notice a simple fact: if we compute the optimal path for each robot, they intersect at most once (whether on a single point, or on a long path; but when they separate they never intersect again). The proof is easy: if they separate and reunite, one of them will potentially have gone slower than the other, so its path is not optimal, or they will have taken the same time, and they could have taken the same path then. Therefore, we can just compute the best paths individually (for example, with an optimised RRT), then check: if their paths intersect (or get closer than $R$), when both robots arrive at the intersection, we take the robot that has the longest time to reach the goal from this intersection to go first, and the other robot follows him. This minimizes the last-arrival time. In theory, this can make this last-arrival time longer than the optimal 2 robots solution by at most $R$: our method has "maximum path length" (with $L_\text{opt}(ri)$ the optimal path length for robot $i$, $L_{\max} = \max(L_{\text{opt}}(r1), L_{\text{opt}}(r2))$, $L_{\min} = \min(L_{\text{opt}}(r1), L_{\text{opt}}(r2))$) :
+
+$$L_\text{method, last-arrival} \leq \max{(L_{\max}, L_{\min} + R)}$$
+The proof is not detailed, but we can notice the "worst-case" is when both robots take the same time to arrive at the intersection; and the rest can be computed. And the optimal solution respects $L_{\text{opt, last-arrival}} \geq L_{\max}$, giving us a solution optimal up to $R$ path length; when we try to minimize the last-arrival time. This method requires to have the optimal best path for both robots; but it would also work if we were just to take our non-optimized path and reconstruct them in case that we have multiple intersections to achieve individual paths with similar properties.
+
+However, we may want to find a better solution, that does not include this $R$ cost:
+
+\textbf{Second :}
+
+For this we use particle swarm optimization again, but this time the particle is defined by the union of the 2 paths of the robots. We update these 2 paths simultaneously. The fitness is now defined as
+
+$$f(\text{path}_1, \text{path}_2) 
+= g(\text{length}(\text{path}_1),  \text{length}(\text{path}_2))
++ \lambda \cdot N_{\text{obstacle intersections}} + \lambda'\cdot\mathbf{1}_{\text{robot}_1\text{ and }\text{robot}_2 \text{ collide}}$$
+
+where $g$ is either the $\min$ or the sum of the lengths depending on what we want to achieve (shortest time, or lowest amount of fuel). Checking whether the robots collide is a bit tricky as we want to be able to perform that computation in $\mathcal{O}(n)$ to get the same complexity as before (where $n$ is the number of points on the path). This can be done by using $2$ pointers that you slide on each path and for which you check that they stay at distance at least $2R$ apart. The details are in the code and can be explained during the presentation.
+
+Using this method, we were able to get satisfying results for scenarios 0,1 and 2, but we got stuck again in local minima for 3 and 4. 
+
+Despite that, it is interesting to see that optimal strategies often include curved paths to avoid getting stuck while the other robots passes. You can find videos of the robots moving along our optimal solutions in the Github repository.
+\section*{Question 24}
+
+%TODO PSO implementation
+
+\section*{Question 25: AI use}
+
+In this project, for some questions (not all of them! it feels good to type some code the old way sometimes :) ), we used Github Copilot’s tab autocomplete feature to make coding faster.  \\
+
+In addition, for the 2 robots, we asked ChatGPT to write an animated script to visualize the robots and safe zones on the path: it was really helpful to get this vizualisation quickly. We also used AI in the writing of this report to improve the clarity and presentation (for example: AI was useful to format the tables).\\
+
+Finally, we used GitHub extensively for versioning, sharing our code and working in parallel as a team. Our repository is available here: \\ 
+\href{https://github.com/mounirLbath/path-planning}.
+
+\section*{Conclusion}
+
+In this project, we investigated two complementary approaches to the path planning problem: Particle Swarm Optimization (PSO) and Rapidly-exploring Random Trees (RRT). While the environment considered was relatively simple, our objective was to design methods that remain as general as possible and highlight the strengths and limitations of each approach.
+
+PSO provides a flexible optimization-based framework by encoding entire paths as particles. It performs well in simple environments but suffers from premature convergence in more constrained scenarios. We showed that incorporating exploration mechanisms such as random restart, simulated annealing, and dimensional learning significantly improves robustness. In particular, dimensional learning proved essential to consistently find feasible solutions in all scenarios while maintaining good path quality.
+
+On the other hand, RRT-based methods offer strong exploration capabilities and quickly find feasible paths, even in complex environments. With appropriate data structures and optimizations such as grid-based nearest-neighbor search, rewiring, and path optimization, RRT achieves a good balance between computational efficiency and solution quality. Moreover, intelligent sampling and corner-based strategies allow the algorithm to approach optimal solutions more systematically.
+
 
 \begin{thebibliography}{9}
 \bibitem{RRT-Smart}
