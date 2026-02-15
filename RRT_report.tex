@@ -184,7 +184,22 @@ We implemented a \texttt{Path} class containing:
 All particles share the same start and end points. Only the intermediate 
 points are optimized during the PSO process.
 
-Initially, paths were generated using identically random uniform variables for the points. This was later improved by sampling points from a Gaussian distribution centered around the straight line between start and goal. To improve this even more, and give a fair repartition of the initial particles in the search space, we also tried a random initialization around curves that fill the screen as shown in the figure just below. All our experiments are made with this initialization as it was the most effective.
+Initially, paths were generated using identically random uniform variables for the points. This was later improved by sampling points from a Gaussian distribution centered around the straight line between start and goal. To improve this even more, and give a fair repartition of the initial particles in the search space, we also tried a random initialization around curves that fill the screen (Figure~\ref{fig:pso-init}). All our experiments are made with this last initialization as it was the most effective.
+
+\begin{figure}[!h]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/Initialization.png}
+  \caption{Without noise}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/Initialization_plus_random.png}
+  \caption{With noise}
+\end{subfigure}\hfill
+
+\caption{PSO initialization strategy: initial particles (paths) for scenario 4. (a)~Repartition of paths without random noise. (b)~Paths initialized with same pattern as the left + random noise}
+\label{fig:pso-init}
+\end{figure}
 
 Initial velocities were set to zero.
 
