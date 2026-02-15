@@ -30,7 +30,7 @@ class Path:
         return n
 
     def length(self):
-        d = distance(self.start, self.points[0]) or distance(self.end, self.points[-1])
+        d = distance(self.start, self.points[0]) + distance(self.end, self.points[-1])
         for i in range(len(self.points) -1 ):
             d += distance(self.points[i], self.points[i+1])
         return d

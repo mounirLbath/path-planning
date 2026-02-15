@@ -476,7 +476,7 @@ if __name__ == "__main__":
         max_iters=300,
         recursive_rewire=False,
         optimize_after_goal=True,
-        display_tree_end=False,
+        display_tree_end=True,
         path_optimize=True,
         k_rope=1000,
         sample_on_obstacles=False,
@@ -500,6 +500,6 @@ if __name__ == "__main__":
                 else f", last optimized step: {last_optimized_step}"
             )
         )
-        # display_environment(prob, Path(path, path[0], path[-1]))
+        display_environment(prob, Path(path, path[0], path[-1]))
     else:
         print("No path found")
