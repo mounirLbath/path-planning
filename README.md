@@ -14,6 +14,7 @@ Main scripts:
 - `PSO.py`: single-robot Particle Swarm Optimization
 - `RRT.py`: RRT planner
 - `PSO_robots.py`: two-robot PSO (robots must avoid obstacles and each other’s safety zone)
+- `graph_solve.py`: path-planning solver using Dijkstra for simple environments like the ones provided
 
 Core modules:
 - `environment.py`: problem loading + visualization helpers
@@ -25,7 +26,7 @@ Core modules:
 Figures / outputs:
 - `figures/`: RRT-related figures
 - `pso_figures/`: PSO-related figures
-- (optional) `robots/`: exported robot animations (if you save them)
+- (optional) `robots/`: exported robot animations
 
 Report:
 - `RRT_report.tex`: project report (includes PSO + RRT sections)
