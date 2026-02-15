@@ -60,6 +60,7 @@ def particle_swarm_optimization(problem : Problem,
                                 T0: float = 10000,
                                 dim_learning: bool = False,
                                 nb_update_before_dim: int = 5, 
+                                patience: int = 100,
                                 DEBUG: bool = True, 
                                 show_paths_start: bool = False
                                 ) -> tuple[Path, list[Path]]:
@@ -77,6 +78,7 @@ def particle_swarm_optimization(problem : Problem,
     beta and T0: parameters for simulated annealing
     dim_learning: set to True to include dimension learning optimization
     nb_update_before_dim: time to wait without any updates of P[i] before enforcing dimension learning 
+    patience: number of iterations without improvement in the best fitness before stopping the algorithm
     DEBUG: show logs if True
     show_paths_start: display the initial paths of the particles if True
     """
@@ -95,6 +97,7 @@ def particle_swarm_optimization(problem : Problem,
 
     best_path = P[g_index]    # useful if simulated annealing is activated, to keep track of the best solution found even if g is not the best anymore
     best_fitness = fitness_g
+    last_update_best_fitness = 0
 
     # initialize temperature for simulated annealing
     T = T0
@@ -164,7 +167,12 @@ def particle_swarm_optimization(problem : Problem,
             if curr_f < best_fitness:
                 best_fitness = curr_f
                 best_path = P[i]
+                last_update_best_fitness = k
 
+        if k - last_update_best_fitness >= patience:
+            print("No improvement in the best fitness for ", patience, " iterations, stopping the algorithm")
+            break
+                
         if DEBUG:
             print(fitness_g, "at iteration", k, "best fitness so far:", best_fitness)
 
@@ -187,25 +195,48 @@ if __name__ == "__main__":
     print(f"Environment loaded in {time.time() - timer:.2f} seconds")
     timer = time.time()
 
+
+    # Results for a PSO with random restart
+    # best_path, paths = particle_swarm_optimization(
+    #     prob,
+    #     fitness = fitness,
+    #     max_iter=1000,
+    #     nb_points_path = 10,
+    #     S=20,
+    #     c1=2.0,
+    #     c2=2.0,
+    #     w = 0.8,
+    #     random_restart=True,
+    #     random_period=15,
+    #     simulated_annealing=False,
+    #     dim_learning=False,
+    #     DEBUG=True,
+    #     show_paths_start=True,
+    #     patience = 100,
+    # )
+
+    # Results for a PSO
     best_path, paths = particle_swarm_optimization(
         prob,
         fitness = fitness,
-        max_iter=300,
+        max_iter=1000,
         nb_points_path = 10,
-        S=300,
+        S=10,
         c1=2.0,
-        c2=1.2,
+        c2=2.0,
         w = 0.8,
-        random_restart=True,
+        random_restart=False,
         random_period=15,
-        simulated_annealing=True,
+        simulated_annealing=False,
         beta=0.95,
         T0=10000,
-        dim_learning=True,
+        dim_learning=False,
         nb_update_before_dim=15,
+        patience = 100,
         DEBUG=True,
-        show_paths_start=True
+        show_paths_start=True,
     )
+
 
     print(f"PSO completed in {time.time() - timer:.2f} seconds.")
     
@@ -214,6 +245,7 @@ if __name__ == "__main__":
             f"Path found with total length {best_path.length():.2f}"
         )
         display_environment(prob, best_path, paths)
+        display_environment(prob, best_path)
     else:
         print("No path found")
         display_environment(prob, best_path, paths)

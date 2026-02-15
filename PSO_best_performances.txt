@@ -1,0 +1,52 @@
+
+Scenario 0:
+  best_value: S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1450.81, time=0.39s, value=24.90
+
+  best_cost: S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1443.33, time=12.98s, value=1.00
+
+  best_time: S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1454.21, time=0.23s, value=1.00
+
+
+Scenario 1:
+  best_value: S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1478.87, time=0.74s, value=679485.71
+
+  best_cost: S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1449.49, time=14.00s, value=1.00
+
+  best_time: S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1528.52, time=0.74s, value=1.00
+
+
+Scenario 2:
+  best_value: S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1543.94, time=2.34s, value=40.09
+
+  best_cost: S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1505.29, time=19.32s, value=1.00
+
+  best_time: S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1654.85, time=2.02s, value=1.00
+
+
+Scenario 3:
+  best_value: S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1543.27, time=3.32s, value=10.97
+
+  best_cost: S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1540.39, time=22.22s, value=1.00
+
+  best_time: S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+    cost=1546.66, time=2.34s, value=1.00
+
+
+Scenario 4:
+  best_value: (no valid runs)
+
+  best_cost: (no valid runs)
+
+  best_time: (no valid runs)
+

@@ -1,0 +1,1311 @@
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1724.40, time=0.53s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1597.18, time=0.70s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1467.80, time=0.69s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1817.89, time=0.92s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1613.22, time=0.68s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.85, time=0.72s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1547.50, time=0.77s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1582.68, time=0.66s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1450.81, time=0.39s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1625.44, time=0.72s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1561.78, time=0.74s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1451.96, time=0.72s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1555.70, time=0.30s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1766.54, time=0.70s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1446.46, time=0.71s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1518.87, time=0.57s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1500.34, time=0.71s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1446.37, time=0.78s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1581.58, time=0.72s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1570.26, time=0.72s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.73, time=0.74s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1478.63, time=0.65s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1572.74, time=0.77s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.07, time=0.69s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1576.46, time=0.74s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1586.30, time=0.75s
+
+Scenario 0, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1454.21, time=0.23s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1560.59, time=1.60s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1449.78, time=2.11s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.49, time=2.74s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1479.28, time=1.23s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1452.39, time=2.40s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.43, time=2.26s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1462.50, time=2.42s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1447.14, time=2.26s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.51, time=2.23s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.99, time=1.09s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1473.48, time=2.55s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.95, time=2.48s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1479.49, time=1.81s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1462.49, time=1.47s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.67, time=2.29s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1489.26, time=1.98s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1474.52, time=2.38s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.10, time=2.35s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1470.17, time=2.11s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1469.17, time=2.54s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.59, time=2.47s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1458.68, time=2.38s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.86, time=2.34s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.23, time=2.36s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1446.54, time=2.37s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.55, time=2.28s
+
+Scenario 0, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.20, time=2.31s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1459.70, time=3.79s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1457.46, time=3.89s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.44, time=3.96s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1449.11, time=2.18s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.75, time=3.54s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.39, time=4.67s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1451.44, time=3.75s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.03, time=4.17s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.44, time=4.05s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1477.97, time=1.77s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1447.92, time=4.72s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.61, time=4.12s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1450.84, time=3.28s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1447.99, time=4.56s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.36, time=4.47s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1450.98, time=2.42s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1446.65, time=4.01s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.40, time=3.16s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1451.27, time=3.91s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1449.54, time=5.05s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.34, time=4.33s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1449.06, time=3.51s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.41, time=3.78s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.64, time=4.73s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1461.07, time=4.35s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.59, time=4.67s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.49, time=2.14s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1449.23, time=13.28s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.60, time=14.78s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=12.98s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1446.89, time=15.30s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1446.49, time=12.16s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=13.98s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1452.61, time=10.83s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.43, time=16.99s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=17.77s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1463.78, time=15.96s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.79, time=15.69s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=15.54s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.17, time=16.10s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.31, time=16.79s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=14.64s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.99, time=15.97s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=12.84s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.35, time=15.00s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.27, time=16.29s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1444.57, time=26.15s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.36, time=25.82s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1445.19, time=12.06s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.35, time=16.97s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.36, time=16.34s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.5, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.65, time=15.82s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.33, time=17.25s
+
+Scenario 0, S=150, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.36, time=14.98s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=2010.12, time=0.81s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1623.42, time=1.36s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=2049.87, time=1.38s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1557.44, time=0.64s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1645.32, time=1.18s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1518.96, time=0.56s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1696.48, time=1.04s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1593.46, time=1.38s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.52, time=0.74s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1582.06, time=1.04s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1891.06, time=1.52s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1573.73, time=1.00s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1826.08, time=1.34s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1594.20, time=1.35s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.89, time=1.20s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1657.42, time=1.19s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1545.32, time=1.20s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1451.25, time=1.25s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1723.36, time=1.24s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1714.28, time=1.10s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.24, time=0.78s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1783.47, time=1.15s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1636.44, time=1.22s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1549.79, time=1.18s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1539.33, time=1.17s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1453.65, time=1.28s
+
+Scenario 1, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1478.87, time=0.74s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1574.07, time=2.43s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1459.20, time=3.36s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1671.45, time=3.48s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1543.06, time=3.05s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1539.95, time=3.58s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1474.08, time=5.41s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1542.48, time=3.72s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.17, time=3.66s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.53, time=3.95s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1542.20, time=3.31s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1466.75, time=4.39s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1537.37, time=3.50s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1542.90, time=4.18s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1529.49, time=4.06s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1450.76, time=4.37s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.53, time=3.93s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1476.06, time=4.59s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1538.30, time=3.82s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1549.39, time=3.71s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.60, time=4.11s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.56, time=2.55s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1480.70, time=4.57s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.18, time=4.10s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.23, time=2.86s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.59, time=4.48s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.99, time=4.19s
+
+Scenario 1, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.48, time=5.15s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1558.43, time=9.21s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.76, time=11.06s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.97, time=12.24s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1673.40, time=11.46s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1530.70, time=10.88s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1449.49, time=14.00s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1547.34, time=8.72s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.98, time=11.65s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.48, time=12.56s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1529.62, time=9.72s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1530.44, time=13.03s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.43, time=12.01s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1532.72, time=9.61s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1452.57, time=11.13s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.95, time=11.58s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1533.76, time=12.84s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.88, time=10.83s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.96, time=11.06s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1452.69, time=14.81s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1543.87, time=10.58s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.88, time=10.11s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.70, time=13.07s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.88, time=10.56s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1528.53, time=11.36s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.94, time=12.38s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.00, time=11.21s
+
+Scenario 1, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.12, time=9.17s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1618.09, time=1.48s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1959.39, time=3.72s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1546.53, time=3.27s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1837.79, time=1.96s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1633.79, time=1.85s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1651.65, time=2.52s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=2819.94, time=2.13s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1583.84, time=2.83s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1543.94, time=2.34s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1776.11, time=1.33s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1874.45, time=2.42s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1605.17, time=2.85s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1984.36, time=2.62s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1683.81, time=2.79s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1489.27, time=2.46s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1546.72, time=2.42s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1471.83, time=3.19s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1501.74, time=2.74s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1610.28, time=3.14s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1725.16, time=4.13s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1490.70, time=4.05s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1741.48, time=2.93s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1452.25, time=2.69s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1527.06, time=2.46s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1615.82, time=2.87s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1449.18, time=3.09s
+
+Scenario 2, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1469.75, time=2.63s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1688.32, time=8.53s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1467.05, time=7.32s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1475.90, time=7.94s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1860.46, time=8.54s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1551.49, time=7.59s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1535.21, time=6.18s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1563.41, time=7.25s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1430.46, time=8.18s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1529.95, time=6.87s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1552.85, time=8.32s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1586.65, time=8.91s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1510.59, time=7.42s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1560.26, time=6.95s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1496.90, time=7.49s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1467.62, time=8.16s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1753.88, time=7.76s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1477.03, time=8.53s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1509.08, time=9.60s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1608.45, time=8.98s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1529.39, time=8.61s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1472.67, time=5.54s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1827.26, time=8.81s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1472.59, time=8.75s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1632.42, time=4.69s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1598.57, time=7.60s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1578.17, time=7.18s
+
+Scenario 2, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1654.85, time=2.02s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1772.55, time=21.26s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1476.39, time=19.87s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1532.47, time=20.71s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1519.92, time=21.58s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1489.47, time=17.54s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1507.51, time=22.94s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1570.79, time=18.21s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1484.50, time=20.12s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1629.46, time=18.24s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1559.25, time=22.79s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1536.08, time=15.80s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1425.94, time=17.92s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1550.32, time=21.59s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1507.93, time=19.09s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1484.50, time=17.03s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1535.88, time=17.50s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1532.35, time=20.75s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1728.93, time=16.33s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1560.47, time=23.61s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1518.19, time=21.01s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1532.18, time=24.01s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1478.96, time=19.21s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1476.30, time=17.94s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1534.05, time=11.78s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1581.99, time=17.92s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1505.29, time=19.32s
+
+Scenario 2, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1447.13, time=9.48s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=4, length=1919.29, time=1.70s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1605.99, time=2.78s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=4, length=1654.59, time=3.25s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1629.70, time=2.93s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=4, length=1680.45, time=1.86s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1479.30, time=2.75s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1892.04, time=3.35s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1519.76, time=2.97s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1513.34, time=2.61s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1755.55, time=1.26s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1622.01, time=2.67s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1511.02, time=2.93s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1620.76, time=1.99s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1587.07, time=2.31s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1476.10, time=3.33s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1782.12, time=2.82s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1603.33, time=3.36s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1416.69, time=3.67s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1797.02, time=2.74s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1477.52, time=2.65s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1473.40, time=2.62s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=2351.27, time=2.75s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1511.32, time=2.25s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1520.77, time=2.86s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1522.65, time=2.62s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1543.27, time=3.32s
+
+Scenario 3, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1546.66, time=2.34s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1497.85, time=4.33s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1476.19, time=5.24s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1483.51, time=7.92s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1469.92, time=4.08s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1449.71, time=7.17s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1450.62, time=7.04s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1477.95, time=5.33s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1562.06, time=8.57s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1416.14, time=8.27s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1482.57, time=5.16s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1590.01, time=8.03s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1480.19, time=7.54s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1437.24, time=4.27s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1554.08, time=9.58s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1468.51, time=7.99s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1504.27, time=5.99s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1470.14, time=6.86s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1469.68, time=7.70s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=4, length=1449.73, time=9.17s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1497.25, time=9.07s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1458.98, time=6.87s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1497.28, time=7.19s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1484.87, time=7.62s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1486.55, time=8.16s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1549.36, time=8.41s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1540.44, time=8.70s
+
+Scenario 3, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1506.52, time=10.00s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1567.27, time=18.06s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1474.72, time=20.68s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1468.25, time=17.52s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1473.97, time=12.26s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1609.71, time=16.96s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1469.74, time=18.92s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1475.29, time=17.29s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1506.75, time=21.25s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1467.67, time=19.41s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1515.89, time=17.23s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1471.59, time=23.34s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1467.70, time=17.99s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1416.12, time=20.75s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1470.92, time=18.56s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1487.61, time=20.33s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1524.40, time=16.48s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1728.62, time=19.40s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1469.40, time=17.56s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1540.39, time=22.22s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1728.27, time=16.70s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1467.76, time=19.95s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1486.31, time=24.78s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1469.02, time=17.57s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1468.40, time=18.53s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1680.48, time=20.36s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1432.81, time=20.78s
+
+Scenario 3, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1467.73, time=42.30s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1899.53, time=7.42s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1585.88, time=3.84s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1517.26, time=5.21s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1752.76, time=2.38s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1718.01, time=4.86s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1461.28, time=5.58s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=4, length=1743.56, time=4.18s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1549.30, time=6.42s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1547.81, time=5.89s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1469.51, time=3.66s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1832.58, time=6.81s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1486.28, time=9.09s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=4, length=1931.79, time=6.19s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=2237.13, time=12.21s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1482.83, time=7.94s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1522.61, time=4.88s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1471.26, time=7.23s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1559.37, time=4.07s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1704.63, time=5.69s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1807.12, time=8.49s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1476.72, time=7.65s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=2633.41, time=6.51s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1653.02, time=5.69s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1461.49, time=5.84s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1595.56, time=5.87s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1520.03, time=7.04s
+
+Scenario 4, S=10, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1450.97, time=5.56s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1487.19, time=7.41s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1580.20, time=18.73s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1480.56, time=19.57s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1569.29, time=13.52s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1460.44, time=22.26s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1515.23, time=24.55s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1594.15, time=21.75s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1452.10, time=17.97s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1468.15, time=23.97s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1749.93, time=13.87s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1451.33, time=20.18s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1521.89, time=12.00s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1690.61, time=6.66s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=3, length=1460.82, time=9.18s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1477.34, time=10.56s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1515.21, time=6.78s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1638.82, time=8.08s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1449.80, time=8.40s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1516.47, time=8.91s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1529.13, time=8.04s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1452.24, time=7.11s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1506.25, time=5.06s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1470.25, time=6.13s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1560.09, time=6.41s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1471.53, time=13.28s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1449.15, time=13.08s
+
+Scenario 4, S=30, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1475.30, time=11.62s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1558.28, time=20.99s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1472.95, time=22.99s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1509.45, time=21.92s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1649.53, time=14.19s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1476.48, time=21.62s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1451.82, time=26.66s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1466.21, time=18.81s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1477.72, time=27.98s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.2, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1650.63, time=19.55s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1529.46, time=13.61s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1557.72, time=23.47s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1432.85, time=20.97s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1513.77, time=19.01s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1521.74, time=20.84s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1728.19, time=20.60s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1735.98, time=15.25s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1506.70, time=22.22s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=1.5, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1485.03, time=7.47s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1477.47, time=14.27s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1481.54, time=22.90s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.2, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1737.94, time=20.78s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1506.53, time=18.28s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1507.18, time=22.58s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=1.5, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1435.94, time=20.81s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.7, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1449.28, time=21.95s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1467.63, time=22.19s
+
+Scenario 4, S=75, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.9, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1732.42, time=10.16s
+
+Scenario 0, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1443.34, time=4.82s
+
+Scenario 1, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+cost=1526.88, time=6.42s
+
+Scenario 2, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1445.58, time=14.79s
+
+Scenario 3, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=1, length=1467.70, time=13.92s
+
+Scenario 4, S=50, max_iter=1000, nb_points_path=10, c1=2.0, c2=2.0, w=0.8, random_restart=False, random_period=15, simulated_annealing=False, beta=0.95, T0=10000, dim_learning=False, nb_update_before_dim=15
+No valid path found, collisions=2, length=1470.37, time=17.47s
