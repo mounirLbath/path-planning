@@ -6,13 +6,13 @@ Such problems arise in many applications, including robotics, autonomous navigat
 
 In this project we explore two methods for path planning in a fully known 2D environment:
 - Particle Swarm Optimization (PSO)
-- Rapidly-exploring Random Trees (RRT / RRT*)
+- Rapidly-exploring Random Trees (RRT)
 
 ## Repository structure
 
 Main scripts:
 - `PSO.py`: single-robot Particle Swarm Optimization
-- `RRT.py`: RRT / RRT* planner
+- `RRT.py`: RRT planner
 - `PSO_robots.py`: two-robot PSO (robots must avoid obstacles and each other’s safety zone)
 
 Core modules:
@@ -52,7 +52,7 @@ python PSO.py 0
 ```
 put the number of the scenario instead of 0 to load another scenario
 
-### RRT / RRT*
+### RRT
 
 ```bash
 python RRT.py 0
