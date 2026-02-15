@@ -8,6 +8,14 @@ def distance(a: Point, b: Point) -> float:
 def dot(a: Point, b: Point) -> float:
     return a.x * b.x + a.y * b.y
 
+def segments_intersect(a: Point, b: Point, c: Point, d: Point) -> bool:
+    """
+    Check if the segments [a,b] and [c,d] intersect
+    """
+    normal = Point(b.y - a.y, a.x - b.x)
+    normal_r = Point(d.y - c.y, c.x - d.x)
+    # a and b are opposite sides of edge [c,d] and c and d are opposite sides of edge [a,b]
+    return dot(normal, c - a) * dot(normal, d - a) <= 0 and dot(normal_r, a - c) * dot(normal_r, b - c) <= 0
 
 def segment_intersects_rect(a: Point, b: Point, r: Rectangle, strict: bool = False) -> bool:
     # quick reject by bounding boxes
@@ -31,12 +39,9 @@ def segment_intersects_rect(a: Point, b: Point, r: Rectangle, strict: bool = Fal
     if a.x == b.x or a.y == b.y:
         return True
 
-    # Normal vector to ab
-    normal = Point(b.y - a.y, a.x - b.x)
+    # We do the full check now that we have no colinearity: 
     for p1, p2 in r.edges(): # p1 and p2 are the 2 ends of the edge
-        # We do the full check now that we have no colinearity: a and b are opposite sides of edge p1p2 and p1 and p2 are opposite sides of ab
-        normal_r = Point(p2.y - p1.y, p1.x - p2.x)
-        if dot(normal, p1 - a) * dot(normal, p2 - a) <= 0 and dot(normal_r, a - p1) * dot(normal_r, b - p1) <= 0:
+        if segments_intersect(a, b, p1, p2):
             return True
 
     return False
@@ -49,3 +54,25 @@ def segment_collision(a: Point, b: Point, obstacles: list[Rectangle], strict: bo
             return True
     return False
 
+def distance_point_to_segment(a: Point, b: Point, c: Point) -> float:
+    """
+    Distance between point c and segment [a,b]
+    """
+    if b != a:
+        proj =min(1, max(dot(c-a,b-a) / distance(a,b)**2, 0))*(b-a) + a
+    else:
+        proj = a
+    return distance(proj, c)
+
+def distance_segment_to_segment(a: Point, b: Point, c: Point, d: Point) -> float:
+
+    if segments_intersect(a, b, c, d):
+        return 0
+    
+    d1 = distance_point_to_segment(a, b, c)
+    d2 = distance_point_to_segment(a, b, d)
+
+    d3 = distance_point_to_segment(c, d, a)
+    d4 = distance_point_to_segment(c, d, b)
+
+    return min(d1, d2, d3, d4)

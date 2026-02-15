@@ -18,10 +18,10 @@ def settings_line(scenario_number: int, setting: dict) -> str:
 
 
 def settings():
-    for S in [50]: #(10, 30, 75):
-        for c1 in [2.0]: #(1.2, 1.5, 2.0):
-            for c2 in [2.0]: #(1.2, 1.5, 2.0):
-                for w in [0.8]: #(0.7, 0.8, 0.9):
+    for S in (10, 30, 75, 100):
+        for c1 in (1.2, 1.5, 2.0):
+            for c2 in (1.2, 1.5, 2.0):
+                for w in (0.7, 0.8, 0.9):
                     yield {
                         "S": S,
                         "max_iter": MAX_ITER,

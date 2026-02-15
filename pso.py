@@ -29,8 +29,9 @@ def symmetric_prog_path(problem: Problem, nb_points_path: int, i: int, S: int) -
     points = []
     for k in range(nb_points_path):
         t = (k + 1) / (nb_points_path + 1)
-        x = problem.xmax * t + random.gauss(0, 200)
-        y = problem.xmax * (t ** exponent) + random.gauss(0, 200)
+        
+        x = problem.start1.x + (problem.goal1.x - problem.start1.x) * t + random.gauss(0, 200)
+        y = problem.start1.y + (problem.goal1.y - problem.start1.y) * (t ** exponent) + random.gauss(0, 200)
 
         # mirror every odd index
         if i % 2 == 1:
@@ -196,41 +197,22 @@ if __name__ == "__main__":
     timer = time.time()
 
 
-    # Results for a PSO with random restart
-    # best_path, paths = particle_swarm_optimization(
-    #     prob,
-    #     fitness = fitness,
-    #     max_iter=1000,
-    #     nb_points_path = 10,
-    #     S=20,
-    #     c1=2.0,
-    #     c2=2.0,
-    #     w = 0.8,
-    #     random_restart=True,
-    #     random_period=15,
-    #     simulated_annealing=False,
-    #     dim_learning=False,
-    #     DEBUG=True,
-    #     show_paths_start=True,
-    #     patience = 100,
-    # )
-
-    # Results for a PSO
+    # PSO
     best_path, paths = particle_swarm_optimization(
         prob,
         fitness = fitness,
         max_iter=1000,
         nb_points_path = 10,
-        S=10,
+        S=50,
         c1=2.0,
         c2=2.0,
         w = 0.8,
-        random_restart=False,
+        random_restart=True,
         random_period=15,
-        simulated_annealing=False,
+        simulated_annealing=True,
         beta=0.95,
         T0=10000,
-        dim_learning=False,
+        dim_learning=True,
         nb_update_before_dim=15,
         patience = 100,
         DEBUG=True,
