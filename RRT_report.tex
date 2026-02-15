@@ -204,7 +204,8 @@ We set a certain \texttt{max\_iters}. We also stop the program as soon as \textt
 Here are the results I obtained. The parameters were chosen thanks to a grid search.
 
 We chose to keep $S=50$ particles, \texttt{max\_iter}$=1000$, \texttt{patience}$=100$, \texttt{nb\_points\_path}$= 10$. We 
-$c_1=c_2=2.0$, $w=0.8$. Note that having more particles doesn't improve the result here, but it will with the optimizations in the following questions.
+$c_1=c_2=2.0$, $w=0.8$. In all figures below, we show all the paths (particles) at the end of the algorithm in blue, and the best path in red.
+
 
 \begin{figure}[!h]
 \centering
@@ -255,7 +256,7 @@ In general, the biggest trade-off is in the choice of S, between speed and quali
 
 \section{Question 9: Random Restart}
 
-Random restart periodically reinitializes some (or all) particles.
+Random restart periodically reinitializes some particles.
 This helps exploration when the swarm collapses around a poor local optimum or a narrow infeasible region.
 
 Every $P$ iterations (parameter \texttt{random\_period}), we reset:
@@ -369,10 +370,7 @@ else:
 \end{verbatim}
 
 \textbf{Comparison:}
-SA tends to:
-(i) improve robustness on hard scenarios (avoiding early stagnation),
-(ii) add variance in intermediate iterations,
-(iii) slightly increase CPU time (extra bookkeeping is negligible; the main cost remains collision checks).
+Despite the promise, simulated annealing didn't make it through scenario 4. It didn't even pass scenario 3, although it did with some fine-tuning for this case, but we wanted the hyperparameters to stay generic. However, we observed simulated annealing to be useful when combined with random restart, and dimensional learning as we will see in the next question. 
 
 \begin{figure}[!h]
 \centering
@@ -432,8 +430,8 @@ if k - last_updated[i] >= tau: # k is the current iteration
 
 \textbf{Hyper-parameters:}
 We set $\tau$ (named \texttt{nb\_update\_before\_dim}) around 10--20 iterations.
-Too small: particles become copies of the global best.
-Too large: the method rarely activates and has little impact.
+If it's too small, particles become copies of the global best.
+If it's too large, the method rarely activates and has little impact.
 
 \paragraph{Comparison:}
 With dimensional learning and the previous optimizations, we finally find solutions in all 5 scenarios. 
