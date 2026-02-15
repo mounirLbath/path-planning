@@ -6,6 +6,7 @@
 \usepackage{subcaption}
 \usepackage{parskip}
 \usepackage{graphicx}
+\usepackage{amsfonts}
 
 \title{$CSC_42021$ Project, RRT}
 
@@ -107,6 +108,7 @@ Here is the pseudo-code
         \item $w$ = inertia weight
         \item $c_1, c_2$ = acceleration coefficients
         \item nb\_points\_path = number of intermediate points in a path
+        \item \texttt{patience} = time to wait before we early stop the program if no improvement is reported
     \end{itemize}
 
 \item Initialize particles:
@@ -121,8 +123,10 @@ Here is the pseudo-code
 
 \item Find global best:
  $$ g = \arg\min_i \text{fitness}(P_i) $$
-
-\item For each iteration $k = 1$ to max\_iters:
+\item
+Set $k = 0$ 
+\item
+While $k<$  max\_iters or global best hasn't changed for \texttt{patience} steps:
 
     \begin{enumerate}[nosep]
 
@@ -149,6 +153,7 @@ Here is the pseudo-code
 
     \item Update global best:
         $$g = \arg\min_i \text{fitness}(P_i)$$
+    \item $k=k+1$
     \end{enumerate}
 
 \item Return best path $P_g$
@@ -168,6 +173,317 @@ Therefore, the total time complexity is:
 \]
 
 \section{Question 7: Implementation of PSO}
+
+We implemented a \texttt{Path} class containing:
+\begin{itemize}
+    \item A set of $n$ intermediate points,
+    \item A fixed start point,
+    \item A fixed goal point.
+\end{itemize}
+
+All particles share the same start and end points. Only the intermediate 
+points are optimized during the PSO process.
+
+Initially, paths were generated using identically random uniform variables for the points. This was later improved by sampling points from a Gaussian distribution centered around the straight line between start and goal. To improve this even more, and give a fair repartition of the initial particles in the search space, we also tried a random initialization around curves that fill the screen as shown in the figure just below. All our experiments are made with this initialization as it was the most effective.
+
+Initial velocities were set to zero.
+
+To remain consistent with the standard PSO equations, we update the global 
+best position only after all particles have been evaluated in a given 
+iteration. In other words, the personal bests are updated first for all particles, 
+and the global best is computed afterward, rather than updating it 
+immediately when a better solution is found during the iteration.
+
+At each iteration, we decided to clamp the norm of the velocities to a certain \texttt{v\_max}. Positions are also clamped to remain within the environment boundaries.
+
+We set a certain \texttt{max\_iters}. We also stop the program as soon as \texttt{best\_fitness} doesn't change for \texttt{patience} steps. 
+
+\section{Question 8: Results of simple PSO}
+
+
+Here are the results I obtained. The parameters were chosen thanks to a grid search.
+
+We chose to keep $S=50$ particles, \texttt{max\_iter}$=1000$, \texttt{patience}$=100$, \texttt{nb\_points\_path}$= 10$. We 
+$c_1=c_2=2.0$, $w=0.8$. Note that having more particles doesn't improve the result here, but it will with the optimizations in the following questions.
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
+\hline
+0 & 1443.34 & 3.75s & 1000 \\
+1 & 1526.97 & 5.69s & 1000 \\
+2 & 1532.07 & 15.50s & 1000 \\
+3 & No path & No path & No path \\
+4 & No path & No path & No path \\
+\hline
+\end{tabular}
+\caption{Table of results for simple PSO}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario0_simple.png}
+  \caption{Scenario 0}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario1_simple.png}
+  \caption{Scenario 1}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario2_simple.png}
+  \caption{Scenario 2}
+\end{subfigure}\\[0.5em]
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario3_simple.png}
+  \caption{Scenario 3}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario4_simple.png}
+  \caption{Scenario 4}
+\end{subfigure}
+\caption{Simple PSO: best path found for each scenario.}
+\end{figure}
+
+While choosing the parameters independently for each scenario would have improved the results, we decided not to do so in order to prevent overfitting.
+
+Despite extensive experimentation with different hyperparameter configurations, we were unable to obtain a valid path for Scenario 4 and almost never got a valid path for Scenario 3. In tested cases for these scenarios, the PSO algorithm converged prematurely to a local minimum, producing trajectories that still intersected with an obstacle.
+
+In general, the biggest trade-off is in the choice of S, between speed and quality. This was even more visible for the optimizations in the next few questions.
+
+\section{Question 9: Random Restart}
+
+Random restart periodically reinitializes some (or all) particles.
+This helps exploration when the swarm collapses around a poor local optimum or a narrow infeasible region.
+
+Every $P$ iterations (parameter \texttt{random\_period}), we reset:
+\[
+X_i \leftarrow \text{RandomPath()},\quad V_i \leftarrow 0
+\]
+for selected particles (in our implementation: for all particles).
+
+\begin{verbatim}
+for k in 1..max_iters:
+  for each particle i:
+    if random_restart and k % random_period == 0:
+        X[i] = RandomPath()
+        V[i] = 0
+    else:
+        classic update
+    update P[i] if fitness improves
+  update G
+\end{verbatim}
+
+\textbf{Tradeoff and parameter choice:}
+If \texttt{random\_period} is too small, convergence is constantly disrupted.
+If it is too large, restart rarely happens and the benefit disappears.
+We used values in the range 10--25 iterations and (after a small grid search) kept it fixed at 15 in our final configuration.
+
+\textbf{Comparison:}
+Compared to the basic PSO, random restart enabled us to get a valid solution to scenario 3 by getting out of the local minimum. However, it was still unable to overcome scenario 4.
+
+For Scenarios 0, 1 and 2, the paths obtained with random restarts are slightly longer. This behavior is consistent with the relative simplicity of these environments: since the standard PSO already converges reliably in such cases, introducing random restarts reduces convergence consistency and slightly degrades the quality of the final solution.
+
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
+\hline
+0 & 1448.52 & 1.60s & 413 \\
+1 & 1534.15 & 2.18s & 310 \\
+2 & 1565.84 & 6.98s & 503 \\
+3 & 1552.65 & 8.18s & 574 \\
+4 & No path & No path & No path \\
+\hline
+\end{tabular}
+\caption{Table of results for PSO with random restart}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario0_random_restart.png}
+  \caption{Scenario 0}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario1_random_restart.png}
+  \caption{Scenario 1}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario2_random_restart.png}
+  \caption{Scenario 2}
+\end{subfigure}\\[0.5em]
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario3_random_restart.png}
+  \caption{Scenario 3}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario4_random_restart.png}
+  \caption{Scenario 4}
+\end{subfigure}
+\caption{PSO with random restart: best path for each scenario.}
+\end{figure}
+
+\section{Question 10: Simulated Annealing}
+
+Simulated annealing allows occasional acceptance of worse global-best candidates early on, so that the search can escape local minima. Acceptance probability depends on a temperature $T_k$:
+$$
+\mathbb{P}(\text{accept } s) = \min\left(1,\exp\left(-\frac{f(s)-f(g_k)}{T_k}\right)\right),
+\quad
+T_k = T_0 \beta^k.
+$$
+
+Let's see how this modifies the pseudo-code: when scanning particles to update the global best, we accept a candidate with the SA probability. If $T_k$ is really small, then $$\min\left(1,\exp\left(-\frac{f(s)-f(g_k)}{T_k}\right)\right)\simeq \mathbf{1}_{f(s) \le f(g_k)}$$
+so the behavior is the same as before and we don't get the benefits of simulated annealing. On the other side, if $T_k$ is too big, we will always accept $s$ so the particle are not likely to converge to an optimal solution. 
+The right value for $T_k$ hence depends on $f$. For our fitness function we observe that $\Delta f\sim 10$ for the first few iterations, and $\Delta f\sim 10^4$ when we overcome an obstacle. We hence chose $T = 10000$ and $\beta = 0.95$.
+
+Here is the new pseudo-code for \textfff{update G}
+\begin{verbatim}
+T = T0
+for k in 1..max_iters:
+  ...
+  T = beta * T
+  for i in 1..S:
+    
+    prob = min(1, exp(-(f(P[i])-f(G))/T)
+    Draw u with Uniform(0,1)
+
+    If u <= prob:
+        G = P[i]
+\end{verbatim}
+
+\textbf{Note: } in the final code, in order to avoid to get errors with huge floats, we update \textfff{prob} in such manner:
+
+\begin{verbatim}
+delta = f(P[i])-f(G)
+if f(P[i]) <= f(G):
+    prob = 1
+elif delta < T*10.:
+    prob = exp(-delta/T)
+else:
+    prob = 0
+\end{verbatim}
+
+\textbf{Comparison:}
+SA tends to:
+(i) improve robustness on hard scenarios (avoiding early stagnation),
+(ii) add variance in intermediate iterations,
+(iii) slightly increase CPU time (extra bookkeeping is negligible; the main cost remains collision checks).
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
+\hline
+0 & 1447.23 & 2.68s & 715 \\
+1 & 1463.97 & 2.56s & 339 \\
+2 & 1518.17 & 8.22s & 563 \\
+3 & No path & No path & No path \\
+4 & No path & No path & No path \\
+\hline
+\end{tabular}
+\caption{Table of results for PSO with random restart and simulated annealing}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario0_random_simulated.png}
+  \caption{Scenario 0}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario1_random_simulated.png}
+  \caption{Scenario 1}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario2_random_simulated.png}
+  \caption{Scenario 2}
+\end{subfigure}\\[0.5em]
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario3_random_simulated.png}
+  \caption{Scenario 3}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario4_random_simulated.png}
+  \caption{Scenario 4}
+\end{subfigure}
+\caption{PSO with random restart and simulated annealing: best path for each scenario.}
+\end{figure}
+
+\section{Question 11: Dimensional Learning}
+
+Dimensional learning reduces oscillation by injecting coordinates of the global best into a particle that has stagnated. If particle $i$ has not improved its personal best for $\tau$ steps, we try replacing each waypoint dimension with the global best's corresponding dimension, keeping the change only if fitness improves.
+
+Let \texttt{last\_updated[i]} store the last iteration when $P_i$ was improved. Our new pseudo-code includes
+
+\begin{verbatim}
+if k - last_updated[i] >= tau: # k is the current iteration
+  for j in 1..n:              # for each dimension
+    candidate = X[i]
+    candidate[j] = G[j] # update jth coordinate of the path
+    if fitness(candidate) < fitness(X[i]):
+        X[i] = candidate
+\end{verbatim}
+
+\textbf{Hyper-parameters:}
+We set $\tau$ (named \texttt{nb\_update\_before\_dim}) around 10--20 iterations.
+Too small: particles become copies of the global best.
+Too large: the method rarely activates and has little impact.
+
+\paragraph{Comparison:}
+With dimensional learning and the previous optimizations, we finally find solutions in all 5 scenarios. 
+
+Dimensional learning often accelerates convergence once a feasible corridor is discovered,
+because it helps transfer useful waypoint coordinates without fully collapsing diversity.
+It is complementary to random restart and simulated annealing. It enables us to have the consistency and accuracy of simple PSO, with the exploration capacity of random restart and simulated annealing.
+
+\begin{figure}[!h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Scenario & Path length (1000 steps max) & Time & Nb steps (clamped at 1000) \\
+\hline
+0 & 1443.33 & 4.95s & 1000 \\
+1 & 1449.15 & 8.97s & 717 \\
+2 & 1522.92 & 16.55s & 759 \\
+3 & 1522.71 & 28.47s & 1000 \\
+4 & 1941.52 & 20.59s & 1000 \\
+\hline
+\end{tabular}
+\caption{Table of results for PSO with random restart, simulated annealing and dimensional learning}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario0_all_three.png}
+  \caption{Scenario 0}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario1_all_three.png}
+  \caption{Scenario 1}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario2_all_three.png}
+  \caption{Scenario 2}
+\end{subfigure}\\[0.5em]
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario3_all_three.png}
+  \caption{Scenario 3}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\textwidth}
+  \includegraphics[width=\textwidth]{pso_figures/scenario4_all_three.png}
+  \caption{Scenario 4}
+\end{subfigure}
+\caption{PSO with random restart, simulated annealing and dimensional learning: best path for each scenario.}
+\end{figure}
+
+\section{Question 12: Other improvements}
 
 \section{Question 13: Tree Data Structure}
 
