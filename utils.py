@@ -53,26 +53,3 @@ def segment_collision(a: Point, b: Point, obstacles: list[Rectangle], strict: bo
         if segment_intersects_rect(a, b, obs, strict=strict):
             return True
     return False
-
-def distance_point_to_segment(a: Point, b: Point, c: Point) -> float:
-    """
-    Distance between point c and segment [a,b]
-    """
-    if b != a:
-        proj =min(1, max(dot(c-a,b-a) / distance(a,b)**2, 0))*(b-a) + a
-    else:
-        proj = a
-    return distance(proj, c)
-
-def distance_segment_to_segment(a: Point, b: Point, c: Point, d: Point) -> float:
-
-    if segments_intersect(a, b, c, d):
-        return 0
-    
-    d1 = distance_point_to_segment(a, b, c)
-    d2 = distance_point_to_segment(a, b, d)
-
-    d3 = distance_point_to_segment(c, d, a)
-    d4 = distance_point_to_segment(c, d, b)
-
-    return min(d1, d2, d3, d4)

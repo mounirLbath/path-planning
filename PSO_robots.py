@@ -4,7 +4,7 @@ from environment import Problem, Point, Path, load_problem, display_environment
 import random
 import copy
 from math import exp
-from utils import distance, distance_segment_to_segment, dot
+from utils import distance, dot
 
 def random_path(problem: Problem, nb_points_path:int, robot: int) -> Path:
     """random path"""
