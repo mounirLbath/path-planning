@@ -8,6 +8,15 @@ In this project we explore two methods for path planning in a fully known 2D env
 - Particle Swarm Optimization (PSO)
 - Rapidly-exploring Random Trees (RRT)
 
+
+
+## Example results (scenario 2)
+
+| PSO (example run) | RRT (example run) |
+|---|---|
+| <img src="pso_figures/scenario4_all_three.png" width="420" /> | <img src="figures/RRT_4_tree.png" width="420" /> |
+
+
 ## Repository structure
 
 Main scripts:
